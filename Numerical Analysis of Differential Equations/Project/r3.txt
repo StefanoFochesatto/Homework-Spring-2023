@@ -1,0 +1,147 @@
+% Generate Random Graphs. 
+% Generating some random weights
+n = 10; % number of vertices
+Weights = abs(normrnd(0,4, [n,n]));
+
+
+AHigh = zeros(n, n);
+ALow = zeros(n, n);
+
+% Force connected graphs
+AHigh(2,1)= Weights(2,1);
+ALow(2,1)= Weights(2,1);
+for i= 3:n
+    AHigh(i,i - 1)= Weights(i,i - 1);
+    ALow(i,i - 1)= Weights(i,i - 1);
+end
+
+
+% Iterate and add weights randomly
+for i = 2:n
+    for j = 1:i-1
+        if rand(1) <.75
+            AHigh(i, j) = Weights(i, j);
+        end
+        if rand(1) <.1
+            ALow(i, j) = Weights(i, j);
+        end
+
+    end
+end
+
+% Force symmetric for an actual adjacency matrix
+AHigh = (AHigh + AHigh.'-(diag(AHigh)));
+ALow = (ALow + ALow.'-(diag(ALow)));
+
+% Compute degree matrix
+DHigh = diag(sum(AHigh));
+DLow = diag(sum(ALow));
+
+% Compute graph Laplacian
+LHigh = DHigh-AHigh;
+LLow = DLow-ALow;
+
+% Graph objects for plotting
+GHigh = graph(AHigh);
+GLow = graph(ALow);
+
+
+% TimeStepping and Convergence Analysis
+eta = [0 0 0 0 0 1 0 0 0 0]';
+fH = @(t, x) LHigh*x;
+fL = @(t, x) LLow*x;
+alpha = .5;
+
+[VL,DL] = eig(LLow);
+[VH,DH] = eig(LHigh);
+
+zzExactLow = @(t)(VL*diag(exp(-.5*diag(DL)*t))*VL')*eta;
+zzExactHigh = @(t)(VH*diag(exp(-.5*diag(DH)*t))*VH')*eta;
+
+TimeStepRefinement = [10, 100, 1000, 10000, 100000];
+
+errorFLow = [];
+errorBLow = [];
+errorFHigh = [];
+errorBHigh = [];
+for i = 1:length(TimeStepRefinement)
+    [ttfLow,zzfLow] = GraphFEuler(alpha, ...
+        fL,eta,0,1,TimeStepRefinement(i));
+    [ttbLow,zzbLow] = GraphBEuler(alpha, ...
+        LLow,eta,0,1,TimeStepRefinement(i));
+
+    [ttfHigh,zzfHigh] = GraphFEuler(alpha, ...
+        fH,eta,0,1,TimeStepRefinement(i));
+    [ttbHigh,zzbHigh] = GraphBEuler(alpha, ...
+        LHigh,eta,0,1,TimeStepRefinement(i));
+    errorFLow = [errorFLow max(abs(zzfLow(:,end) ...
+        - zzExactLow(1)))];
+    errorBLow = [errorBLow max(abs(zzbLow(:,end) ...
+        - zzExactLow(1)))];
+
+
+    errorFHigh = [errorFHigh max(abs(zzfHigh(:,end) ...
+        - zzExactHigh(1)))];
+    errorBHigh = [errorBHigh max(abs(zzbHigh(:,end) ...
+        - zzExactHigh(1)))];
+end
+
+TimeStepSize = 1./TimeStepRefinement;
+
+pFLow = polyfit(log(TimeStepSize),log(errorFLow),1);
+pBLow = polyfit(log(TimeStepSize),log(errorBLow),1);
+
+
+pFHigh = polyfit(log(TimeStepSize),log(errorFHigh),1);
+pBHigh = polyfit(log(TimeStepSize),log(errorBHigh),1);
+
+
+loglog(TimeStepSize,errorFLow,'X',TimeStepSize, ...
+    exp(pFLow(2) + pFLow(1)*log(TimeStepSize)),'b--')
+hold on
+loglog(TimeStepSize,errorFHigh,'o',TimeStepSize, ...
+    exp(pFHigh(2) + pFHigh(1)*log(TimeStepSize)),'r--')
+xlabel k,  ylabel('Truncation Error at tf')
+
+text(0.01,0.02,sprintf('O(h^{%.3f})',pFLow(1)),'Color','b','FontSize',14)
+text(0.01,0.0002,sprintf('O(h^{%.3f})',pFHigh(1)),'Color','r','FontSize',14)
+title(sprintf(['Convergence in time of ' ...
+    'Forward Euler on Low Con. Graph ' ...
+    'O(k^{%.3f}) and High Con. ' ...
+    'Graph O(k^{%.3f})'],pFLow(1),pFHigh(1)))
+
+
+
+hold off
+
+
+
+loglog(TimeStepSize,errorBLow,'X',TimeStepSize,exp(pBLow(2) + pBLow(1)*log(TimeStepSize)),'b--')
+hold on
+loglog(TimeStepSize,errorBHigh,'o',TimeStepSize,exp(pBHigh(2) + pBHigh(1)*log(TimeStepSize)),'r--')
+xlabel k,  ylabel('Truncation Error at tf')
+
+text(0.01,0.02,sprintf('O(h^{%.3f})',pBLow(1)),'Color','b','FontSize',14)
+text(0.01,0.0002,sprintf('O(h^{%.3f})',pBHigh(1)),'Color','r','FontSize',14)
+title(sprintf(['Convergence in time ' ...
+    'of Backward Euler on Low Con. ' ...
+    'Graph O(k^{%.3f}) and High Con. ' ...
+    'Graph O(k^{%.3f})'],pBLow(1),pBHigh(1)))
+
+
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,8 @@
+x = linspace(0, pi, 100);
+hold on
+for i = 0:5
+    j = @(x) cos(x) + i*sin(x);
+    plot(x, j(x));
+end
+lgd = legend('0', '1', '2', '3', '4', '5');
+title(lgd, '$$C_2$$', 'interpreter','latex')

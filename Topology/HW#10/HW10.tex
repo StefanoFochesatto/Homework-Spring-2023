@@ -1,0 +1,264 @@
+\documentclass{homework651}
+\include{hwextras}
+\usepackage{graphicx}
+\usepackage[all,cmtip]{xy}
+\def\net<#1>{\left<#1\right>}
+
+\newcommand{\bbB}{\mathbb{B}}
+\doclabel{Math F651: Homework 11}
+\docdate{Due: April 14, 2023}
+\begin{document}
+\begin{problems}
+
+\problem The point of this exercise is to settle some details from the 
+proof of the Brower fixed point theorem.  We suppose $f:\bbB^2 \to \bbB^2 $ is
+continuous and that $f$ does not have a fixed point.
+\begin{subproblems}
+\item Prove that for all $x\in \bbB^2$ there exists a unique
+$t\in[1,\infty)$ such that $f(x)+t(x)(x-f(x))\in S^1$.
+\begin{proof} Let $x \in \bbB^2$ and suppose $f:\bbB^2 \to \bbB^2$ is
+    continuous and that $f$ does not have a fixed point. Note that for 
+    $f(x)+t(x-f(x))\in S^1$ it must be the case that $|f(x)+t(x-f(x))| = 1$. 
+Consider when $t = 1$, it follows that $|f(x)+t(x-f(x))| = |x| \leq 1$ since $x \in \bbB^2$. 
+Also note that $|f(x)+t(x-f(x))| = |(1 - t)f(x) + t(x)|$ and since $\lim_{t \to \infty}|(1 - t)f(x) + t(x)| = \infty$
+since $|f(x)+t(x-f(x))|$ is continuous by the intermediate value theorem we know that there exists a $t \in [1, \infty)$ such that $|f(x)+t(x-f(x))| = 1$.
+
+For notation's sake, let $u = f(x)$ and $v = (x - f(x))$, then written as an inner product we know that, 
+    \begin{align*}
+   1 =  \langle u + tv, u + tv\rangle &= \langle u + tv, u\rangle + \langle u + tv, tv\rangle\\
+    &= \langle u , u\rangle + \langle tv, u\rangle  + \langle u, tv\rangle + \langle tv, tv\rangle  \\
+    &= \langle u,u\rangle + 2\langle u, v\rangle t + \langle v, v\rangle t^2  
+\end{align*}
+In standard form we have, 
+\begin{equation*}
+  \langle v, v\rangle t^2+ 2\langle u, v\rangle t + \langle u,u\rangle - 1 = 0.
+\end{equation*}
+Thus we have expressed $|f(x)+t(x-f(x))| - 1$ as a positive quadratic in $t$, so it has two roots.
+Note that when $t = 0$ the quadratic takes on a value of  $\langle u,u\rangle - 1$, and since $u = f(x) \in \bbB^2$
+we know that $\langle u,u\rangle - 1\leq 0$. Therefore by properties of positive quadratic functions there exists a single solution in $(0, \infty)$. Thus the $t$ we proved existed via IVT, 
+is unique. 
+\end{proof}
+
+
+
+\item Define
+\[
+r(x) = f(x)+t(x)(x-f(x)),
+\]
+so $r:\bbB\to S^1$.  The graph of $r$ is a subset of $\bbB\times S^1$.  
+We wish to show that $r$ is continuous, and since $S^1$ is compact and Hausdorff
+it is enough to show that the graph of $r$ is closed.  Do so.  Hint:
+Suppose $(x_n,r(x_n))\to (x,z)\in \bbB\times S^1$.  Now show that $z=r(x)$.
+We'll discuss in the problem session what a boon the closed graph theorem is here.
+\begin{proof} Suppose $f:\bbB^2 \to \bbB^2$ is
+    continuous, $f$ does not have a fixed point and $(x_n,r(x_n))\to (x,z)\in \bbB\times S^1$. Note 
+    that $x - f(x) \neq 0$ so without loss of generality suppose that the first coordinate $(x - f(x))_1 \neq 0$. 
+    Now consider $(r(x_n))_1 = (f(x_n))_1 + t(x_n)(x - f(x))_1$. Solving for $t(x_n)$ we get that, 
+    \begin{equation*}
+        t(x_n) = \frac{(r(x_n) - f(x_n))_1}{(x_n - f(x_n))_1}
+    \end{equation*}
+
+    Since $f$ is continuous it follows that $(x_n - f(x_n))_1 \to (x - f(x))_1$, and since  $(x - f(x))_1 \neq 0$
+    there exists an $N$ such that for all $n \geq N$, $(x_n - f(x_n))_1 \neq 0$. Therefore since $x_n \to x$ we know that $t(x_n)$ converges to $t$
+    such that, 
+    \begin{equation*}
+        t(x_n) =  \frac{(r(x_n) - f(x_n))_1}{(x - f(x))_1} \to \frac{(z - f(x))_1}{(x - f(x))_1}  = t
+    \end{equation*}
+    Finally, since each of our terms converge since $x_n \to x$ it follows that,
+    \begin{equation*}
+        r(x_n) =  f(x_n) + t(x_n)(x_n - f(x_n)) \to  f(x) + t(x - f(x)) = r(x).
+    \end{equation*}
+    Since $S^1$ is Hausdorff limits are unique so $r(x) = z$ and therefore the graph of $r$ is closed in $\bbB \times S^1$. 
+    By the Closed Graph Theorem it follows that $r(x)$ is a continuous function. 
+
+\end{proof}
+\end{subproblems}
+
+
+
+
+
+
+\problem If $f, g: S^1 \to S^1$ are two continuous maps, express $\deg(f \circ g)$
+in terms of $\deg(f)$ and $\deg(g)$. Use this to show that $f\circ g$ is homotopic to $g \circ f$.
+\begin{proof}Suppose $f, g: S^1 \to S^1$ are two continuous maps. Let $w_i: S^1 \to S^1$ be defined by $w_i(z) = x^i$ and 
+    note that $\deg(w_i) = i$. Let $n = \deg(f)$ and $m = \deg(g)$ and note that $\deg(w_n) = n$
+    and $\deg(w_m) = m$. Recall that $f \sim g$ if and only if $\deg(f) = \deg(g)$ and therefore $w_n \sim f$ and $w_m \sim g$ and it follows that, 
+    \begin{align*}
+        \deg(f \circ g) &= \deg([f \circ g])\\ 
+        &= \deg([f] \circ [g]) \\
+        &= \deg([w_n] \circ [w_m])\\ 
+        &= \deg([w_n \circ w_m]) \\
+        &= \deg(w_n \circ w_m) \\
+        &= \deg(w_{nm}) \\
+        &= nm\\
+        &= \deg(f)\deg(g)
+    \end{align*}
+    Clearly it follows that, $\deg(f \circ g) = \deg(f)\deg(g)= \deg(g)\deg(f) = \deg(g \circ f)$ and therefore $f\circ g$ is homotopic to $g \circ f$.
+\end{proof}
+
+
+
+\problem Let $X$ be a locally compact Hausdorff space. The one-point compactification of $X$
+is the topological space $X^*$ defined as follows. Let $\infty$ be some object not in $X$, and 
+let $X^* = X \coprod \{\infty\}$ with the following topology:
+\begin{align*}
+    \mathcal{T} &= \{\text{ open subsets of $X$}\} \cup \{U \subseteq X^*: X^* \setminus U \text{ is a compact subset of } X\}\\
+    &= \mathcal{T}_1 \cup \mathcal{T}_2 
+\end{align*}
+\begin{enumerate}
+    \item[(a)] Show that $\mathcal{T}$ is a topology.
+    \begin{proof} Suppose $X$ is a locally compact Hausdorff space. Clearly $\mathcal{T}_1$ is 
+        closed with respect to arbitrary unions and finite intersections of open subsets $U \subseteq X$ since $X$ it a topological space. Let $U_i \in \mathcal{T}_2$ and note for an arbitrary union, 
+        \begin{align*}
+            \left(\bigcup_{i \in I}U_i\right)^c = \bigcap_{i \in I}(U_i)^c.
+        \end{align*}
+        Since $X$ is Hausdorff we know that the compact sets $(U_i)^c$ are closed. Let 
+        $x_\alpha$ be a net contained in $\bigcap_{i \in I}(U_i)^c$, clearly $x_\alpha \subseteq (U_i)^c$ for all $i$. Since $(U_i)^c$ are compact there exists a convergent subnet $x_{\alpha_\beta} \subseteq (U_i)^c$ and by definition $x_{\alpha_\beta} \subseteq \bigcap_{i \in I}(U_i)^c$. Therefore it follows that $\bigcap_{i \in I}(U_i)^c$ is compact in $X$ and
+        by definition $\bigcup_{i \in I}U_i \in \mathcal{T}_2$. 
+        Now consider, 
+        \begin{equation*}
+            \left(\bigcap_{i = 1}^n U_i\right)^c = \bigcup_{i = 1}^n (U_i)^c
+        \end{equation*}
+        Note we have finite union of compact sets in $X$, which is also compact in $X$
+        and therefore $\bigcap_{i = 1}^n U_i \in \mathcal{T}_2$.
+
+        Since we have shown that $\mathcal{T}_1$ and $\mathcal{T}_2$ are topologies all that is left to show is that for any pair $U \in \mathcal{T}_1$ and $V \in \mathcal{T}_2$, $U \cap V \in \mathcal{T}$ and $U\cup V \in \mathcal{T}$. Note that 
+        \begin{equation*}
+            (U\cap V)^c = U^c \cup V^c.
+        \end{equation*}
+        Since it $(U\cap V)^c$ is a finite union of closed sets in $X$, $(U\cap V)^c$ is closed in $X$. Therefore $U \cap V$ is open in $X$ and hence $U \cap V \in \mathcal{T}_1 \subseteq \mathcal{T}$.
+        Note that 
+        \begin{equation*}
+            (U\cup V)^c = U^c \cap V^c.
+        \end{equation*}
+        Since $V^c$ is compact in $X$ and $U^c$ is closed in $X$ we know that $(U\cup V)^c$ is a compact in $X$ since it is a closed subset of a compact set, therefore  
+        $U \cup V  \in \mathcal{T}_2 \subseteq \mathcal{T}$.
+
+        
+    \end{proof}
+    \item[(b)] Show that $X^*$ is a compact Hausdorff space.  
+    \begin{proof} Suppose $\{U_i\}$ is an open cover of $X^*$. There exists some $U_j$ such that 
+        $\infty \in U_j$ and therefore $U_j \in \mathcal{T}_2$. By definition $U_j^c$ is a compact subset of $X$. Note that since $\{U_i\}$ is an open cover of $X^*$ and therefore a cover of $X$ it follows that $\{U_i: U_i \subseteq X\}$ must be an open cover of $U_j^c$. Since $U_j^c$, there exists a finite subcover $\{U_{i_\alpha}: U_{i_\alpha} \subseteq X\}$. Therefore $\{U_i\}$ admits a finite subcover, $X^* = U_{i_\alpha} \cup U_j$. 
+
+        
+        Suppose $X$ is locally compact Hausdorff. By our hypothesis, since $X^* = X \cup \{\infty\}$, to show that $X^*$ is Hausdorff, it is sufficient to show that for any $x \in X$ there exists open sets $x \in U$ and $\infty \in V$ such that $U \cap V = \emptyset$. Let $x \in X$
+        and since $X$ is locally compact Hausdorff, there exists an open set $U$ and compact set $K$
+        such that $x \in U \subseteq K$. Since $K$ is compact in $X$, by definition $K^c$ is open in $X^*$ such that $\infty \in K^c$. Note that $U \cap K^c = \emptyset$ since $U \subseteq K$. Thus $X^*$ is Hausdorff. 
+        
+    \end{proof}
+\end{enumerate}
+
+
+
+\problem Prove that every nonconstant polynomial in one complex variable has a zero. 
+[Hint: if $p(z) = z^n + a_{n - 1}z^{n - 1}+\dots+a_0$, write $p_{\epsilon}(z) = \epsilon^np(z/\epsilon)$ and show that there exists 
+$\epsilon > 0$ such that $|p_\epsilon(z) - z^n|<1$ when $z \in S^1$. Suppose that if $p$ has no zeroes, then $p_\epsilon|_{S^1}$ is homotopic 
+to $p_n(z) = z^n$ and use degree theory to derive a contradiction.]
+
+
+
+
+\begin{proof} Let $p(z) = z^n + a_{n - 1}z^{n - 1}+\dots+a_0$ and suppose $p$ has no zeroes.
+    Let $\epsilon > 0$ and consider $p_{\epsilon}(z) = \epsilon^np(z/\epsilon)$. Consider $f(z,t):S^1 \times (0, 1) \to S^1$ defined by $f(z,t) = \frac{p_{-\ln(t)}(z)}{|p_{-\ln(t)}(z)|}$. Since $p$ has no zeroes and $-ln(t) > 0$ we know that $p_{-\ln(t)}(z)$ also has no zeros and therefore for all $t \in (0, 1)$, $|p_{-\ln(t)}(z)| > 0$. Thus $f$ is continuous. Note that,
+    \begin{equation*}
+        \lim_{t \to 1} f(z,t) = \lim_{t \to 1} \dfrac{z^n + (-\ln(t))a_{n - 1}z^{n - 1}+\dots+(-\ln(t))^n a_0}{| z^n + (-\ln(t))a_{n - 1}z^{n - 1}+\dots+ (-\ln(t))^n a_0|} = z^n.
+    \end{equation*}
+    \begin{equation*}
+        \lim_{t \to 0} f(z,t) = \lim_{t \to 0} \dfrac{z^n + (-\ln(t))a_{n - 1}z^{n - 1}+\dots+(-\ln(t))^n a_0}{| z^n + (-\ln(t))a_{n - 1}z^{n - 1}+\dots+ (-\ln(t))^n a_0|} = \frac{a_0}{|a_0|} = 1.
+    \end{equation*}
+    Now we define the homotopy, $H(z, t):S^1 \times I \to S^1$ by
+    \begin{equation*}
+        H(z, t) = \begin{cases}
+            1, & t = 0\\
+            f(z, t), & t \in (0, 1)\\
+            z^n, & t = 1
+        \end{cases}
+    \end{equation*}
+    Thus we have shown that $z^n$ is homotopic to a constant which is a contradiction since $\deg(z^n) = n$ and $\deg(1) = 0$. 
+
+
+\end{proof}
+
+
+
+
+\problem Suppose $X$ is a topological space, and $g$ is any path in $X$ from $p$ to 
+$q$. Let $\phi_g:\pi_1(X, p) \to \pi_1(X, q)$ denote the group isomorphism defined in Thoerem 7.13. 
+\begin{enumerate}
+    \item[\textbf{a}] Show that if $h$ is another path in $X$ starting at $q$, then $\phi_{g\cdot h}  = \phi_h \circ \phi_g$. 
+    \begin{proof} Suppose $h$ is another path in $X$ from $q$ to $r$. Let $\phi_{g \cdot h}:\pi_1(X, p) \to \pi_1(X, r) $ be the isomorphism defined by, 
+        \begin{equation*}
+            \phi_{g \cdot h}[f] = [\overline{g \cdot h}]\cdot[f]\cdot[g \cdot h].
+        \end{equation*}
+        Now note that the path $\overline{g \cdot h}$ goes from $r$ to $p$, first via $\overline{h}$ and then via $\overline{g}$, and therefore $\overline{g \cdot h} = \overline{h} \cdot \overline{g}$. Applying this substitution, and by properties of the product of path classes we get, 
+        \begin{align*}
+            \phi_{g \cdot h}[f]  &= [\overline{g \cdot h}]\cdot[f]\cdot[g \cdot h]\\
+            &=  [\overline{h}\cdot\overline{g}]\cdot[f]\cdot[g\cdot h]\\
+            &=  [\overline{h}]\cdot [\overline{g}]\cdot[f]\cdot[g]\cdot[h]\\
+            &=\phi_h \circ \phi_g
+        \end{align*}   
+    \end{proof}
+    \item[\textbf{b}] Suppose $\psi: X \to Y$ is continuous, and show that the following diagram commutes:
+    \begin{proof} To show that the diagram commutes, we must show that $\psi_* \circ \phi_{g} = \phi_{\psi \circ g} \circ \psi_*$. 
+        Let $[f] \in \pi_1(X, p)$ and note that by definition of the change of base point, 
+        $\psi_* \circ \phi_{g}([f]) =\psi_*([\overline{g}]\cdot[f]\cdot[g])$. By properties of path classes we know that, 
+        \begin{equation*}
+            \psi_* \circ \phi_{g}([f]) =\psi_*([\overline{g}]\cdot[f]\cdot[g]) = \psi_*([\overline{g} \cdot f\cdot g])
+        \end{equation*}
+        By definition of the induced homomorphism induced by $q$ we know that, 
+        \begin{equation*}
+            \psi_* \circ \phi_{g}([f]) = [\psi(\overline{g} \cdot f\cdot g)].
+        \end{equation*}
+        By path multiplication we know that, 
+        \begin{equation*}
+            \psi_* \circ \phi_{g}([f]) = [\psi(\overline{g}) \cdot \psi(f)\cdot \psi(g)] = [\psi(\overline{g})] \cdot [\psi(f)]\cdot [\psi(g)].
+        \end{equation*}
+        Note that by definition $[g]\cdot[\overline{g}] = id_X$ apply our group homomorphism on both sides we get, 
+         $\psi_*([g]\cdot[\overline{g}]) = id_Y$. Simplifying the left hand side we get, $\psi_*([g]\cdot[\overline{g}]) = [\psi(g)] \cdot [\psi(\overline{g})] = id_Y$, 
+         and therefore $\overline{[\psi(g)]} = [\psi(\overline{g})]$. By substitution we arrive at the desired identity, 
+         \begin{equation*}
+              \psi_* \circ \phi_{g}([f])  = \overline{[\psi(g)]} \cdot [\psi(f)]\cdot [\psi(g)] = \overline{[\psi(g)]} \cdot \psi_*([f])\cdot [\psi(g)] = \phi_{\psi \circ g} \circ \psi_* ([f])
+         \end{equation*}
+
+
+    
+    \end{proof}
+\end{enumerate}
+\problem Let $X$ be a path-connected topological space, and let $p, q \in X$. Show that all paths from $p$ to $q$ 
+give the same isomorphism of $\pi_1(X, p)$ with $\pi_1(X, q)$ is and only if $\pi_1(X, p)$ is abelian. 
+\begin{proof}$(\Rightarrow)$ Suppose all paths from $p$ to $q$  give the same isomorphism of $\pi_1(X, p)$ with $\pi_1(X, q)$.
+    Let $[f], [g] \in \pi_1(X, p)$ such that $[f] \neq [g]$ and $h$ is a path from $p$ to $q$. Note $f \cdot h$ is 
+    also a path from $p$ to $q$. By our hypothesis it follows that $\phi_{f \cdot h}([g]) = \phi_{h}([g])$.
+    By definition of the change of base point it follows that. 
+    \begin{align*}
+        \phi_{f \cdot h}([g]) &= \phi_{h}([g]),\\
+        [\overline{f\cdot h}] \cdot [g]\cdot [f\cdot h] &= [\overline{h}]\cdot[g]\cdot[h],\\
+        [\overline{h} \cdot \overline{f}] \cdot [g]\cdot [f \cdot h] &= [\overline{h}]\cdot[g]\cdot[h],\\
+        [\overline{h}] \cdot [\overline{f}] \cdot [g]\cdot [f] \cdot [h] &= [\overline{h}]\cdot[g]\cdot[h],\\
+         [\overline{f}] \cdot [g]\cdot [f]  &= [g],\\
+        [g]\cdot [f]  &= [f] \cdot[g].
+    \end{align*}
+    Hence $\pi_1(X, p)$ is abelian. 
+\end{proof}
+
+\begin{proof}$(\Leftarrow)$ Suppose $\pi_1(X, p)$ is abelian and let $g, f$ be distinct paths from $p$ to $q$ and 
+    let $[h] \in \pi_1(X, q)$. Note $f \cdot h \cdot \overline{g}$ is a loop of $p$. Since $g, f$ are distinct we know that $g \cdot \overline{f}$ is also a loop of $p$. 
+    Since $\pi_1(X, p)$ is abelian it follows that, 
+    \begin{align*}
+        [f \cdot h \cdot \overline{g}]\cdot [g \cdot \overline{f}] &= [g \cdot \overline{f}] \cdot [f \cdot h \cdot \overline{g}]\\
+        [f \cdot h \cdot \overline{g}\cdot g \cdot \overline{f}] &= [g \cdot \overline{f} \cdot f \cdot h \cdot \overline{g}]\\
+        [f \cdot h \cdot \overline{f}] &= [g \cdot h \cdot \overline{g}]\\
+        [f] \cdot [h] \cdot [\overline{f}] &= [g] \cdot [h] \cdot [\overline{g}]\\
+        \phi_{\overline{f}}([h]) &= \phi_{\overline{g}}([h])
+    \end{align*}
+    Since these are isomorphisms it follows that their inverses are also equivalent so we conclude that $\phi_{f}([j]) = \phi_{g}([j])$. 
+\end{proof}
+
+
+
+
+\end{problems}
+
+\end{document}
+

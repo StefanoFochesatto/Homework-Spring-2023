@@ -1,0 +1,26 @@
+feta = @(x) sin(6*pi*x);
+t0 = 0;
+tf = 10;
+a = .5;
+
+
+uexact = @(t,x) sin(6*pi*x);
+Nlist = [.1, .05, .02, .01, .005, .002];
+err = [];
+
+for k = 1:length(Nlist)
+    [tt,zz,xx] = AdvectLeapfrog(feta,t0,tf,.5, 1/(Nlist(k)), 10/(Nlist(k)));
+    err = [err max(abs(zz(3:end,end-1) - uexact(tf, xx(3:end))'))];
+end
+
+
+p = polyfit(log(Nlist(3:end)),log(err(3:end)),1);
+fprintf('convergence at rate O(h^k) with k = %f\n',p(1))
+hold on
+grid on
+loglog(Nlist(3:end),err(3:end),'o', ...
+    Nlist(3:end),exp(p(2)+ p(1)*log(Nlist(3:end))),'r--')
+xlabel h,  ylabel('Truncation Error at tf')
+text(0.016,0.4,sprintf('O(h^{%.3f})',p(1)),'Color','r','FontSize',14)
+title(sprintf('Convergence in space of Leapfrog O(h^{%.3f})',p(1)))
+

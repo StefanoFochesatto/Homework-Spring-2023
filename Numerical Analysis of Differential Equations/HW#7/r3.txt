@@ -1,0 +1,28 @@
+m = 99;
+N = 100;
+eta = ((linspace(0, 1, m+2)>.25).*(linspace(0, 1, m+2)<.5))';
+eta = eta(2:(length(eta) - 1));
+[tt,zz] = HEATfeulerED(m,eta,0,1,N);
+
+xx = linspace(0, 1, m+2);
+xx = xx(2:(length(xx) - 1));
+
+
+p = plot(xx,zz(:,1));
+axis([0 1 0 1])
+for i = 1:200:N
+    p.YData = zz(:,i);
+    exportgraphics(gca,"FEheat.gif","Append",true)
+end
+
+
+
+
+
+[btt,bzz] = HEATbeulerED(m,eta,0,1,N);
+pb = plot(xx,bzz(:,1));
+axis([0 1 0 1])
+for i = 1:200:N
+    pb.YData = bzz(:,i);
+    exportgraphics(gca,"BEheat.gif","Append",true)
+end

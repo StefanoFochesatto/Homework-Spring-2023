@@ -1,0 +1,35 @@
+function [table] = figure12(u,du,x,h0,n)
+% This function takes in a function u(x), it's derivative du(x)
+% a point x where we want to approximate the derivative
+% an initial h0 spacing and an n number of iterations
+% for adjusting the spacing h by the following recurrence relation. 
+% h_n = h_{n - 2}/10 h_0 = h0, h_1 = h0/2
+
+% Very hacky way of putting together recurrence for h values.
+h = [h0 h0/2];
+for i = 2:n-1
+ h = [h h(i - 1)/10];
+end
+x = ones(1,n)*x;
+
+
+DP = (u(x+h) - u(x))./h - du(x);
+DM = (u(x) - u(x-h))./h - du(x);
+D0 = (u(x+h) - u(x-h))./(2.*h) - du(x);
+D3 = (2.*u(x+h) + 3.*u(x) - 6.*u(x-h) + u(x-2.*h))./(6.*h) - du(x);
+
+
+table = [h' DP' DM' D0' D3'];
+
+
+hold off
+loglog(table(:, 1), abs(table(:, 2)), 'k-x', 'LineWidth',.75, 'MarkerSize', 15)
+hold on
+loglog(table(:, 1), abs(table(:, 3)), 'r-o','LineWidth',.75, 'MarkerSize', 15)
+loglog(table(:, 1), abs(table(:, 4)), 'g-x','LineWidth',.75, 'MarkerSize', 15)
+loglog(table(:, 1), abs(table(:, 5)), 'b-x','LineWidth',.75, 'MarkerSize', 15)
+legend('D+', 'D-', 'D0', 'D3', 'Location','southeast','FontSize', 12)
+ylabel('Error in FD Approx.')
+xlabel('h')
+
+end

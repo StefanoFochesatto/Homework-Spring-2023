@@ -1,0 +1,215 @@
+\documentclass[minion]{homework651}
+\include{hwextras}
+
+\def\calB{\mathcal{B}}
+\DeclareMathOperator{\Int}{\mathrm{Int}}
+
+\doclabel{Math F651: Homework 7}
+\docdate{Due: March 22, 2023}
+\docauthor{Stefano Fochesatto}
+
+\begin{document}
+
+\begin{problems}
+
+
+\problem Problem 4-11 b) (Just the connected part; the path connected is similar) 
+
+(Sorry this is the same as the midterm. Don't waste your time if you've already seen it.)
+\begin{proof}$(\rightarrow)$ Suppose $CX$ is locally (path-)connected. To show that $X$ is locally (path-)connected we will show that for any $p \in X$, $U \in \mathcal{V}(p)$ there exists an open (path-)connected subset $U'$ such that $p \in U' \subseteq U$. Let $p \in X$ and $U \in \mathcal{V}(p)$. Note that by the product topology, $U \times [0, 1]$ is open in $X \times [0, 1]$, and since $q$ is a quotient map it also must follow that $q(U \times [0, 1])$ is open in $CX$. Note that since $CX$ is locally (path-)connected there exists a (path-)connected set $CU' \subseteq q(U \times [0, 1])$ whose pre-image $q^{-1}(CU')$ is open in $X \times [0, 1]$ since $q$ is a quotient map and contains $p \times [0, 1]$. Let $U' = \pi_X(q^{-1}(CU'))$ and note that by construction $p \in U' \subseteq U$. Thus $X$ is locally (path-)connected. 
+        
+\end{proof}
+\begin{proof}$(\leftarrow)$ Suppose $X$ is locally path connected. By Lemma 2 we know that since $X$ is locally (path-)connected, $X \times (0, 1]$ is also locally (path-)connected. Since $q: X \times [0, 1] \to CX$ is a continuous map, it follows that the image $q(X \times (0, 1])$ is locally (path-)connected in $CX$. Let $v = q(X \times \{0\})$, what remains to be shown is that for any $U \in \mathcal{V}(v)$ there exists a (path-)connected subset $U'$ such that $v \in U' \subseteq U$. By the part (a) of this problem we know that $CX$ is path connected, so there must exists such a $U'$. Therefore $CX$ is locally (path-)connected.
+\end{proof}
+
+
+\problem Problem 4-9 [Modified]
+Let $M$ be an $n$-manifold.
+\begin{subproblems}
+\item Show that each component of $M$ is a (connected) manifold.
+\begin{proof} Let $M$ be an $n$ manifold. Suppose $S$ is a component of $M$. By definition 
+    $S$ is a maximal nonempty connected subset of $M$. Let $x \in S$ and note that since $M$
+    is a manifold there exists a $U \in \mathcal{V}(x)$ which is open in $M$ and homeomorphic 
+    to $\RR^n$. Note that $U$ is a connected subset of $M$ containing $x$, and by definition $S$
+    is the maximal connected subset containing $x$ is follows that $U \subseteq S$.
+
+    Clearly $S$ is Hausdorff under the subspace topology. Let $\{U_i\}$ be a countable basis for $M$, 
+    and note that by the subspace topology $\{U_i \cap S\}$ must also be a countable basis for $S$. 
+    Let $x \in S$ and $U \in \mathcal{V}(x)$ open in $S$. By the subspace topology 
+    there exists some $U'$ open in $M$ such that $U' \cap S = U$. Note there exists some $U_i$ such that $x \in U_i \subseteq U'$
+    and clearly it follows that $x \in U_i \cap S \subseteq U'\cap S = U$. Hence $S$ is second countable. 
+\end{proof}
+
+
+
+\item Show that there are at most countably many components.
+\begin{proof}
+    Suppose there are uncountably many components of $M$, $\{S_\alpha\}_{\alpha \in A}$. Note this collection
+    is an open cover of $M$ and partition $M$. Therefore $\{S_\alpha\}_{\alpha \in A}$ is a open cover with no 
+    finite subcover, as removing an $S_\alpha$ would not cover $M$. Hence $M$ is not Lindeloff and therefore not second countable, 
+    a contradiction. 
+\end{proof}
+\item Suppose $f:M\to Z$ is a map into a topological space $Z$. Show
+that $f$ is continuous if and only if its restriction to each component is.
+\begin{proof}$(\Leftarrow)$ Suppose $f:M\to Z$ is a continuous map into a topological space $Z$.
+    Let $S$ be a component of $M$ and let $U \subseteq Z$ be open. Consider $f|_A^{-1}(U)$ and note that 
+    since $f$ is continuous we know that $f^{-1}(U)$ is open in $M$. By the subspace topology $f^{-1}(U) \cap S = f|_A^{-1}(U)$ 
+    is open in $S$. 
+\end{proof}
+
+\begin{proof}$(\Rightarrow)$ Let $\{S_i\}$ is the set of components of $M$ and suppose 
+    each $f|_{S_i}$ is continuous into $Z$. Note that $\{S_i\}$ form an open cover
+    and partition $M$ so therefore each restriction vacuously agrees on their overlapping domains, since there are none. 
+    By the Glueing Lemma $f:M \to Z$ is continuous. 
+\end{proof}
+
+
+
+
+\item Read Theorem 3.41.  Then conclude that an $n$-manifold is homeomorphic
+to a disjoint union of countably many connected $n$-manifolds.
+\solution Let $M$ be an $n$-manifold with $\{S_i\}$ the collection of components.
+Note that clearly the identity map $f:M \to M$ is continuous. By the previous result we know that 
+each $f|_{S_i}$ is continuous into $M$, and by Theorem 3.41 we conclude that $f:\prod S_i \to M$
+is continuous. Similarly we know that the identity map $g:\prod S_i \to \prod S_i$ is continuous. By 
+Theorem 3.41 each $g|_{S_i}$ is continuous into $\prod S_i$ and by the previous result we get that 
+$g: M \to \prod S_i$ is continuous. Since $\{S_i\}$ is a partition, the bijectivity of the identity maps carry through. 
+\end{subproblems}
+
+
+
+
+
+\problem Let $f:X\rightarrow Y$ where $X$ is a space and $Y$ is compact and Hausdorff.  Show that
+$f$ is continuous if and only if the graph of $f$ is closed in $X\times Y$.  The graph
+of $f$ is $G_f=\{(x,f(x)):x\in X\}$.
+\begin{proof} $(\Rightarrow)$ Let $f:X\rightarrow Y$ where $X$ is a space and $Y$ is compact and Hausdorff. Suppose 
+    $f$ is continuous. We will proceed by showing that $G_f^c$ is open. Let $(x, y) \in G_f^c$. By definition of 
+    $G_f$ it follows that $y \neq f(x)$ and since $Y$ is Hausdorff, there exists open sets $y \in U$ and $f(x) \in V$ 
+    such that $U \cap V = \emptyset$. Note that since $f$ is continuous $x \in f^{-1}(V)$ is open in $X$.
+    Let $(a, b) \in f^{-1}(V) \times U$, since $b \in U$, $b \not\in V$ and since $a \in f^{-1}(V)$, $f(a) \in V$
+    therefore $b \neq f(a)$ and $(a, b) \not\in G_f$. Finally note that $f^{-1}(V) \times U$ is open in $X \times Y$ and is contained in $G_f^c$.
+\end{proof}
+
+\begin{proof} $(\Leftarrow)$ Let $f:X\rightarrow Y$ where $X$ is a space and $Y$ is compact and Hausdorff. Suppose that
+    $G_f$ is closed in $X\times Y$. Let $A \subseteq Y$ be closed closed and therefore it's preimage under 
+    projection into $Y$ which is $X \times A$ must also be closed in $X \times Y$ because projections are continuous.
+    Note that since $G_f$, is closed $G_f \cap X \times A$ is also closed. Recall, we have shown that if $Y$ is compact, then 
+    the projection $\pi: X \times Y \to X$ is a closed map, and therefore $A^* = \pi(G_f \cap X \times A)$ is closed in $X$.
+    We will proceed by showing that $A^* = f^{-1}(A)$. Let $x \in A^*$, and therefore we know that by definition $(x, f(x)) \in G_f \cap X \times A$
+    and therefore $f(x) \in A$ and thus $x \in f^{-1}(A)$. Let $x \in f^{-1}(A)$ and then it follows that $f(x) \in A$. By definition we know that $(x , f(x)) \in  G_f \cap X \times A$
+    so $x \in A^*$. Thus we have shown that the pre-image of a closed set under $f$ is closed and therefore $f$ is continuous. 
+\end{proof}
+
+
+
+
+\problem If $(X,d)$ is a metric space, a function $f:X\rightarrow X$ is an isometry if
+for all $x,y\in X$, $d(f(x),f(y))=d(x,y)$.  Show that every isometry is continuous and injective.
+Then show that if  $X$ is compact and $f$ is an isometry 
+then $f$ is surjective  as well and quickly conclude that $f$ is a homeomorphism. Hint:
+Show that $a$ is not in the image of $f$, then for some $\epsilon>0$, $B_\epsilon(a)$
+is also not in the image of $f$.  Then show that if $x_0=a$, $x_1=f(x_0)$, etc, then 
+$d(x_n,x_m)>\epsilon$ for $n\neq m$.
+
+\begin{proof} Let $(X,d)$ is a metric space, and suppose $f:X\rightarrow X$ is an isometry. 
+    Let $p \in X$ and $\epsilon > 0$. Note that for $\delta = \epsilon$, so then when $d(p, x)< \delta$ it follows that 
+    $d(f(p), f(x)) = d(p, x) < \delta = \epsilon$. Thus $f$ is a continuous function.  
+
+    Let $x, y \in X$ such that $f(x) = f(y)$. Note that since $f(x) = f(y)$ we know that $d(x, y) = d(f(x), f(y)) = 0$ and 
+    since $X$ is a metric space it follows that $x = y$.  
+\end{proof}
+
+\begin{proof} Let $(X,d)$ is a metric space and $f:X\rightarrow X$ is an isometry. Suppose $f$ is 
+    not surjective. Then it follows that there exists some $a \in X$ such that $a \not\in f(X)$. 
+
+    Not sure how this works \\
+    Since $f$ is continuous injection for some $\epsilon>0$ there exists $B_{\epsilon}(a) \not\subseteq f(X)$. 
+    Construct a sequence, $\{x_i\}$ where $x_0 = a$ and $x_n = f(x_{n - 1})$. Note since $a$ is not in the image of $f$, 
+    we know that $d(x_0, x_1) = d(a, f(a)) > \epsilon$. Let $f^n(x)$ denote $n$ compositions of $f$ consider $x_n, x_m$, such that 
+    $n \neq m$ and without loss of generality let $n > m$. By definition of isometry we know that
+    $d(x_m, x_n) = d(f^m(a), f^n(a)) = d(a, f^{n - m}(a)) > \epsilon$. Therefore any subsequence will also not be cauchy 
+    and thus there are no convergent subsequences in $\{x_i\}$. Having constructed a sequence with no convergent subsequence 
+    we know $X$ is not sequentially compact, and since $X$ is a metric space $X$ is also not compact. 
+\end{proof}
+
+
+
+
+
+
+
+\problem Show that if $p$ and $q$ are elements of the interior of the closed unit ball 
+$$
+\mathbb B^n=\{x\in \Reals^n:|x|\le 1\},
+$$
+then there is a homeomorphism $\phi:\mathbb B^n\ra \mathbb B^n$ such that $\phi(p)=q$ and such that $\phi(x)=x$ for all $x$
+with $|x|=1$.  Be as rigorous as you can, but avoid writing a tome.
+\begin{proof} Consider the function $\phi_q:\mathbb B^n\ra \mathbb B^n$ defined via the convex combination, 
+    \begin{equation*}
+        \phi_q(x) = x + (1 - |x|)q.
+    \end{equation*}
+    Note that this function has the property that $\phi_q(0) = q$ and any point $s$ along the boundary of $B^n$ has the property that $\phi_q(s) = s$. 
+    Note that showing $\phi_q$ is a homeomorphism, is sufficient in obtaining the property that $\phi(p)=q$, as $\phi_q(\phi^{-1}_{p}(p))$ would also be, such a homeomorphism.
+    Also note that $\mathbb B^n$ is a closed and bounded set in $\RR^n$ and thus by Heine-Borel it is also compact. We also note that as a subset of $\RR^n$, $\mathbb B^n$ is 
+    also Hausdorff. Therefore showing that $\phi_q$ is a continuous bijection will be sufficient for to show it is a homeomorphism.
+    Let $a, b \in \mathbb B^n$ and suppose $\phi_q(a) = \phi_q(b)$. By definition we know that 
+    \begin{align*}
+        a + (1 - |a|)q &= b + (1 - |b|)q\\
+        a - b &= (1 - |b|)q - (1 - |a|)q\\
+        a - b &= (|a| - |b|)q\\
+        |a - b| &= \left||a| - |b|\right| |q|\\
+        |a| - |b| \leq & |a - b| = \left||a| - |b|\right| |q|.
+    \end{align*}
+    Now suppose $|a| = |b|$ and we get that 
+    \begin{equation*}
+        |a - b| = \left||a| - |b|\right| |q| = |0| |q| = 0
+    \end{equation*}
+    Which implies $a = b$. Otherwise $|a| \neq |b|$ without loss of generality let $|a| \geq |b|$, which implies
+    \begin{align*}
+        |a| - |b| &\leq \left||a| - |b|\right| |q| \\
+        |a| - |b| &\leq (|a| - |b|)|q| \\
+        0 &\leq (|a| - |b|)|q| \\
+        0 &\leq (q - 1)|a - b|\\
+        0 &\leq (q - 1)\\
+        1 &\leq q.
+    \end{align*}
+    However $q < 1$ and therefore $|a| \neq |b|$ implies a contradiction. Thus $a = b$ and $\phi_q(x)$ is an injection. 
+    Let $b \in \mathbb B^n$. Note that $b$ can be written as a convex combination between some point on the 
+    boundary $\frac{x}{|x|}$ and $q$, 
+    \begin{equation*}
+        b = |x|\frac{x}{|x|} + (1 - |x|)q. 
+    \end{equation*}
+    The ratio of this convex combination is, $\frac{|x|}{1 - |x|}$. Applying this ratio between $\frac{x}{|x|}$ and $0$ we get,
+    \begin{equation*}
+        w = \dfrac{0 + \frac{|x|}{1 - |x|}\frac{x}{|x|}}{1 + \frac{|x|}{1 - |x|}} = x.
+    \end{equation*}
+    So therefore $x \in \in \mathbb B^n$ and clearly $f(x) = x + (1 - |x|)q =  |x|\frac{x}{|x|} + (1 - |x|)q = b$, so $\phi_q$ is surjective. 
+    Finally note that the component function of $\phi_{q_i}(x) = x_i + (1 - |x|)q_i$ is continuous from $\mathbb B^n$ to $\RR^n$, and since we've just 
+    shown the function itself is a bijection, it's the component functions are continuous into their image, $\mathbb B^n$. Hence $\phi_q$ is continuous. 
+
+
+\end{proof}
+
+
+\problem Let $G$ be a group acting by homeomorphism on a topological space $X$. Let $\mathcal{O} \subseteq X\times X$
+be the subset defined by 
+\begin{equation*}
+    \mathcal{O} = \{(x_1, x_2): x_1 = g \cdot x_2 \text{ for some } g \in G\}.
+\end{equation*}
+Show that the quotient map $X \to X/G$ is an open map. 
+\begin{proof} Let $\pi: X \to X/G$ be the the natural quotient map, and let $U \subseteq X$ be open.  By the quotient topology, we 
+    know that $\pi(U)$ is open in $X/G$ if and only if $\pi^{-1}(\pi(U))$ is open in $X$. Note that $\pi^{-1}(\pi(U))$ can be expressed as 
+    the union of the orbits of the elements of $U$ under $G$. So we know that
+    \begin{align*}
+        \pi^{-1}(\pi(U)) &=\bigcup_{u \in U} \{g \cdot u: g \in G\}\\
+        &=\bigcup_{u \in U} \bigcup_{g \in G} g \cdot u \\
+        &=\bigcup_{g \in G} \bigcup_{u \in U} g \cdot u \\
+        &=\bigcup_{g \in G} gU.
+    \end{align*}
+    Since $G$ acts by homeomorphism on $X$ we know that each $gU$ is open in $X$ and thus 
+    we've expressed $\pi^{-1}(\pi(U))$ as a union of open sets in $X$, so $\pi^{-1}(\pi(U))$ is open. Therefore $\pi$ is an open map. 
+\end{proof}
+
+\end{problems}
+\end{document}

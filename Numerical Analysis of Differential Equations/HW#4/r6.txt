@@ -1,0 +1,10 @@
+>> f0 = @(x) .7 + sin(x./2)
+>> [x,U, Hist] = NLhdbvp(100,f0,.7, .7, 2*pi,10);   
+>> hold on
+>> for i = 1:6
+    plot(x, Hist(:, i));
+   end
+
+>> lgd = legend('0', '1', '2', '3', '4', '5');
+title(lgd, '$$k$$', 'interpreter','latex')
+

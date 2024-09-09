@@ -1,0 +1,11 @@
+>> U = diag(diag(A2)) - triu(A2); % Computes U from A
+>> M = inv(tril(A2))*U % Computes (D - L)^{-1}U matrix
+
+     0    -2    -3     0
+     0     4     8     3
+     0    -6   -11    -3
+     0    -2    -3     0
+
+>> rho = max(abs(eig(M))) % Find spectral radius
+
+   6.854101966249689

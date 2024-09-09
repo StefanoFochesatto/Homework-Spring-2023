@@ -1,0 +1,255 @@
+\documentclass[minion]{homework651}
+\include{hwextras}
+
+\doclabel{Math F651: Homework 2}
+\docdate{Due: February 1, 2023}
+%\docauthor{Your Name Here}
+
+\begin{document}
+
+
+\begin{problems}
+
+\problem \exercise{2.22} Suppose $f: X \to Y$ is a homeomorphism and $U \subseteq X$ is an open subset.
+Show that $f(U)$ is open in $Y$ and the restriction $f|_U$ is a homeomorphism from $U$ to $f(U)$. 
+\begin{proof}
+    Suppose $f: X \to Y$ is a homeomorphism and $U \subseteq X$ is an open subset. Recall that since $f$ is 
+    a homeomorphism we know that $f^{-1}: Y \to X$ is a continuous so $f(U)$, the pre-image of an open set $U$, must be open in $Y$.
+
+    Proving that $f|_U$ is a homeomorphism from $U$ to $f(U)$ involves showing that  $f|_U$ is a bijection and  $f|_U$ and  $f^{-1}|_U$ are continuous.
+    Clearly since $U \subseteq X$, and $f: X \to Y$ is a bijection it must follow that any restriction $f|_U$ must also be a bijection (by contradiction this result is immediate). 
+
+    Let $O \subseteq f(U)$ be an open set and note that $f^{-1}|_U(O) = U \cap f^{-1}(O)$. Since $f: X \to Y$ is continuous and $O$ is also open in $Y$ we know that $f^{-1}(O)$ must be open in $X$. Finally note that
+    $U \cap f^{-1}(O)$ must be open in $X$ and since $U \cap f^{-1}(O) \subseteq U$, $f^{-1}|_U(O) = U \cap f^{-1}(O)$ is open in $U$. 
+
+    Let $O \subseteq U$ be an open set and note that $f|_U(O) = f(U) \cap f(O)$. Since $f^{-1}: Y \to X$ is continuous and $O$ is also open in $X$ we know that $f(O)$ must be open in $Y$. 
+    Therefore $U \cap f(O)$ must be open in $Y$ and since $U \cap f(O) \subseteq U$, $f|_U(O) = U \cap f(O)$ is open in $U$. 
+    
+\end{proof}
+
+
+
+\problem \exercise{2.23} Let $\mathbb{T}_1$ and $\mathbb{T}_2$ be topologies on the same set $X$. Show 
+that the identity map of $X$ is continuous as a map from $(X,\mathbb{T}_1)$ to $(X,\mathbb{T}_2)$ if and only if 
+$\mathbb{T}_1$ is finer than $\mathbb{T}_2$, and is a homeomorphism is and only if and only if $\mathbb{T}_1 = \mathbb{T}_2$.
+
+
+\begin{proof} (is finer than)
+    $(\Rightarrow)$ Suppose the identity map $f$ from $(X,\mathbb{T}_1)$ to $(X,\mathbb{T}_2)$ is continuous. Let $U \in \mathbb{T}_2$, and note that since 
+    $f$ is continuous and the identity, it follows that $f^{-1}(U) = U$ must be open in $\mathbb{T}_1$. Thus $\mathbb{T}_2 \subseteq \mathbb{T}_1$.
+
+
+    $(\Leftarrow)$ Consider the identity map $f$ from $(X,\mathbb{T}_1)$ to $(X,\mathbb{T}_2)$ and suppose that $\mathbb{T}_2 \subseteq \mathbb{T}_1$. Let $U \in \mathbb{T}_2$
+    and note that since $f$ is the identity map $f^{-1}(U) = U$. Since $\mathbb{T}_2 \subseteq \mathbb{T}_1$ we conclude that $f^{-1}(U) \in \mathbb{T}_1$ and that $f$ is continuous. 
+\end{proof}
+
+
+\begin{proof} (Homeomorphism)
+    $(\Rightarrow)$ Suppose $f$ is a homeomorphism from $(X,\mathbb{T}_1)$ to $(X,\mathbb{T}_2)$. By definition $f$ is a bijection, and clearly since $f$ is an identity map it must follow that $\mathbb{T}_1 = \mathbb{T}_2$. 
+
+
+    $(\Leftarrow)$ Consider the identity map $f$ from $(X,\mathbb{T}_1)$ to $(X,\mathbb{T}_2)$ and suppose that $\mathbb{T}_1 = \mathbb{T}_2$. By the previous result we can conclude that $f$ and $f^{-1}$ are continuous, and clearly 
+    since $f$ is an identity map with $\mathbb{T}_1 = \mathbb{T}_2$ it is also a bijection. Thus $f$ is a homeomorphism. 
+\end{proof}
+
+
+
+\problem \textbf{Problem 2-4} Let $X$ be a topological space and let $\mathcal{A}$ be a collection of subsets of $X$. Prove the following containments. 
+\begin{enumerate}
+    \item[(a)] \begin{equation*}
+        \overline{\bigcap_{A \in \mathcal{A}}A} \subseteq \bigcap_{A \in \mathcal{A}}\overline{A} 
+    \end{equation*}
+    \begin{proof}
+        Note that the set $\bigcap_{A \in \mathcal{A}}\overline{A}$ is a closed set which must contain $\bigcap_{A \in \mathcal{A}}A$, since $\overline{A} \subseteq A$. 
+        Also recall that by definition  $\overline{\bigcap_{A \in \mathcal{A}}A}$ is the intersection of all such closed subsets containing $\bigcap_{A \in \mathcal{A}}A$. 
+        Thus it follows that  $\overline{\bigcap_{A \in \mathcal{A}}A} \subseteq \bigcap_{A \in \mathcal{A}}\overline{A} $. 
+    \end{proof}
+
+
+    \item[(b)]\begin{equation*}
+        \overline{\bigcup_{A \in \mathcal{A}}A} \supseteq \bigcup_{A \in \mathcal{A}}\overline{A} 
+    \end{equation*}
+
+    \begin{proof} Let $x \in \bigcup_{A \in \mathcal{A}}\overline{A}$. Note that $x \in \overline{A}$ for some $A \in \mathcal{A}$.
+        Note that $\overline{A}$ is the smallest closed set, which contains $A$, and $\overline{\bigcup_{A \in \mathcal{A}}A}$ is the smallest closed 
+        subset which contains $\bigcup_{A \in \mathcal{A}}A$, and since $A \subset \bigcup_{A \in \mathcal{A}}A$ it must follow that that $x \in \overline{A} \subseteq \overline{\bigcup_{A \in \mathcal{A}}A}$.
+    \end{proof}
+
+    \item[(c)] \begin{equation*}
+        \inter\left(\bigcap_{A \in \mathcal{A}}A\right) \subseteq \bigcap_{A \in \mathcal{A}}\inter(A) 
+    \end{equation*}
+    \begin{proof}
+        Note that $\inter(A)$ is the largest open subset contained in $A$, and since $\bigcap_{A \in \mathcal{A}}A \subseteq A$, for each $A \in \mathcal{A}$ it follows that,
+        $\inter(\bigcap_{A \in \mathcal{A}}A) \subseteq \inter(A)$. Therefore we can conclude that $ \inter\left(\bigcap_{A \in \mathcal{A}}A\right) \subseteq \bigcap_{A \in \mathcal{A}}\inter(A)$.
+    \end{proof}
+
+    \item[(d)] \begin{equation*}
+        \inter\left(\bigcup_{A \in \mathcal{A}}A\right) \supseteq \bigcup_{A \in \mathcal{A}}\inter(A) 
+    \end{equation*}
+    \begin{proof}
+       Again since $\inter(A)$ is the largest open subset contained in $A$, and since $\bigcup_{A \in \mathcal{A}}A \supseteq A$, for each $A \in \mathcal{A}$ it follows that,
+       $\inter(\bigcup_{A \in \mathcal{A}}A) \supseteq \inter(A)$. Therefore we can conclude that $\inter\left(\bigcup_{A \in \mathcal{A}}A\right) \supseteq \bigcup_{A \in \mathcal{A}}\inter(A) $.
+    \end{proof}
+
+    \item[(e)] When $\mathcal{A}$ is a finite collection, show that equality holds in $(b)$ and $(c)$, but not 
+    necessarily in $(a)$ or $(d)$.
+    \begin{proof} Note that $\overline{\cup_{A \in \mathcal{A}}A}$ is the smallest closed set containing $\cup_{A \in \mathcal{A}}A$ and 
+        $\cup_{A \in \mathcal{A}}\overline{A}$ contains $\cup_{A \in \mathcal{A}}A$. By our result from $b$ and since $\cup_{A \in \mathcal{A}}\overline{A}$ is closed we get equality. \\
+
+
+        Similarly since $\inter\left(\cap_{A \in \mathcal{A}}A\right)$ is the largest open set contained in $\cap_{A \in \mathcal{A}}A$ and 
+        $\cap_{A \in \mathcal{A}}\inter(A)$ is contained in $\cap_{A \in \mathcal{A}}A$. By our result from $c$ and since $\cap_{A \in \mathcal{A}}\inter(A)$ is 
+        now open we get equality. \\
+    
+
+        For a counterexample for $a$ consider $X = \RR$ with the usual topology and $\mathcal{A} = \{(-1, 0),(0, 1)\}$. The closure of the intersection is empty, but the intersection of the closer is $\{0\}$.\\
+
+
+        For a counter example for $d$ consider again  $X = \RR$ with the usual topology and $\mathcal{A} = \{[-1, 0],[0, 1]\}$. The interior of the intersection of the union is $(-1,1)$, but the union of the interiors is $(-1, 1)\backslash \{0\}$.\\
+
+
+
+
+        
+    \end{proof}
+
+\end{enumerate}
+
+
+
+
+
+\problem \textbf{Problem 2-5} (brief justifications only) For each of the following properties, give an example 
+consisting of two subsets $X, Y \subseteq \RR^2$, both considered as topological spaces with their Euclidean 
+topologies, together with a map $f: X \to Y$ that has the indicated property. 
+
+For most examples I justified openness, or closedness of a function defined on $\RR$ or subsets of $\RR$ by looking at
+the basis of open intervals. 
+\begin{enumerate}
+    \item[(a)] $f$ is open but neither closed nor continuous.
+    \begin{proof} Let $f: (-\infty, 1] \to \RR$ be defined by 
+        \begin{equation*}
+            f(x) = \begin{cases} 
+                x & x < 1 \\
+                2 & x = 1
+             \end{cases}
+        \end{equation*}    
+        This function is clearly discontinuous at $x = 1$ (construct a sequence $x_n = 1 - \frac{1}{n}$ which converges to $1$ and note that $f(x_n) \not\to f(1)$). Let $(a, b) \subseteq (-\infty, 1]$ we find that $f((a, b)) = (a, b)$ an open interval. 
+        Consider the closed interval $[-1, 1]$ and note that $f([-1, 1]) = [-1,1) \cup \{2\}$ which is not open in $\RR$ since $f([-1,1])^c = (-\infty, -1) \cup [1, 2) \cup (2, \infty)$ a 
+        not open set.  
+    \end{proof}
+
+
+    \item[(b)] $f$ is closed but neither open nor continuous. 
+    \begin{proof} Let $f: \RR \to \RR$ be defined by 
+        \begin{equation*}
+            f(x) = \begin{cases} 
+                1 & x < 0\\
+                -1 & x \geq 0
+             \end{cases}
+        \end{equation*} 
+        Clearly this function is discontinuous. It is not open since the only possible images are either $\{1\}, \{-1\}$ or $\{-1,1\}$ which are closed 
+        sets in $\RR$. Note that $f$ must be closed for the same reason. 
+    \end{proof}
+
+    \item[(c)] $f$ is continuous but neither open nor closed. 
+    \begin{proof} Consider $f: \RR \to \RR$ defined by $f(x) = |\arctan(x)|$. This function is continuous. Note that $f(\RR) = [0, \frac{pi}{2})$ 
+        and since $[0, \frac{\pi}{2})$ is not closed and not open in $\RR$, $f$ is neither open nor closed.
+    \end{proof}
+
+
+    \item[(d)] $f$ is continuous and open but not closed. 
+    \begin{proof} Let $f: \RR \to \RR$ be defined by $f(x) = e^x$. This function is continuous. This function is open, 
+        if you take any open interval $(a, b)$ we find that $f(a, b) = (e^a, e^b)$ an open interval. Note that $f(\RR) = (0, \infty)$ 
+        an open set, thus $f$ is not closed. 
+    \end{proof}
+
+    \item[(e)] $f$ is continuous and closed but not open. 
+    \begin{proof} Let $f: \RR \to \RR$ defined by $f(x) = 1$. Clearly $f$ is continuous. Note that any closed set on $\RR$ will have a 
+        closed image of $\{1\}$ but so will any open set, hence $f$ closed but not open. 
+    \end{proof}
+
+    \item[(f)] $f$ is open and closed but not continuous.
+    \begin{proof} Let $f:[0, \infty) \to [0, \infty)$ defined by, 
+        \begin{equation*}
+            f(x) = \begin{cases} 
+                \frac{1}{x} & x > 0\\
+                0 & x = 0
+             \end{cases}.
+        \end{equation*} 
+        Note $f$ is not continuous at $x = 0$. Clearly the image of any open interval $f((a, b)) = (\frac{1}{b}, \frac{1}{a})$ is open. 
+        Note that closed intervals of the form $f([a, b]) = [\frac{1}{b}, \frac{1}{a}]$ where $a > 0$. Note that the image of closed intervals including $0$ are given by 
+        $f([0, b]) = [\frac{1}{b},\infty) \cup \{0\}$ which are also closed in $[0, \infty)$ since $f([0, b])^{c} = (0, \frac{1}{b})$.  
+    \end{proof}
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+\problem \textbf{Problem 2-10} Suppose $f, g: X \to Y$ are continuous maps and $Y$ is Hausdorff. Show that the 
+set $A = \{x \in X: f(x) = g(x)\}$ is closed in $X$. Give a counterexample if $Y$ is not Hausdorff. 
+\begin{proof}
+    Suppose $f, g: X \to Y$ are continuous maps and $Y$ is Hausdorff. Consider $A^c = \{x \in X: f(x) \neq g(x)\}$ 
+    and let $x \in A^c$. By definition we know that $f(x) \neq g(x)$, and therefore since $Y$ is Hausdorff there exists
+    two open sets $U_f$ and $U_g$ such that $f(x) \in U_f$ and $g(x) \in U_g$ with $U_f \cap U_g = \emptyset$. Since $f$ and $g$ are continuous we 
+    know that $f^{-1}(U_f)$ and $g^{-1}(U_g)$ are open in $X$ which both contain $x$. Now note that $f^{-1}(U_f) \cap g^{-1}(U_g) \subseteq A^c$,
+    since $f(f^{-1}(U_f) \cap g^{-1}(U_g)) \subseteq  U_f$ and $g(f^{-1}(U_f) \cap g^{-1}(U_g)) \subseteq  U_g$ and $U_f \cap U_g = \emptyset$.
+    Finally note that $x \in f^{-1}(U_f) \cap g^{-1}(U_g) \subseteq A^c$ so $A^c$ is open and $A$ is closed.\\
+
+
+
+    Consider $f, g: \RR \to \RR$ with both sets having the indiscrete topology where $f(x) = x$ and $g(x) =  - x$.
+    In this example $A = \{0\}$ and under $\RR$ with the indiscrete topology this set is not closed, since $A^c \neq \emptyset, \RR$. 
+\end{proof}
+
+(You'll need the definition of a Hausdorff space, which we will see on Friday.)
+
+\problem \textbf{Problem 2-15} Let $X$ and $Y$ be topological spaces. Suppose $f: X \to Y$ is continuous and $p_n \to p$ in $X$.
+Show that $f(p_n) \to f(p)$ in $Y$.
+
+\begin{proof}
+Let $U \in \mathcal{V}(f(p))$ and note that since $f$ is continuous we know that 
+$f^{-1}(U)$ is open in $X$. Since $p_n \to p$ in $X$ and $f^{-1}(U) \in \mathcal{V}(p)$ there exists some $N \in \NN$ such that $p_n \in f^{-1}(U)$ for all 
+$n \geq N$. It then follows that $f(p_n) \in U$ for all $n \geq N$ and thus by definition $f(p_n) \to f(p)$.
+
+\end{proof}
+
+
+
+% (Hold off on part (b), which may be on next week's homework.)
+\problem (This is a modification of \exercise{2.28})
+
+Consider the map $\exp:[0,1)\rightarrow S^1$ given by $\exp(x) = e^{2\pi i x} = \cos(2\pi x) + i\sin(2 \pi x)$.
+This map is continuous (for example, it is sequentially continuous as 
+a map between metric spaces).  From familiar properties of trigonometric
+functions it is a bijection (though it would not be if we expanded the range to $[0,1]$
+and it would not be if we shrunk the range!).  
+Your job is to show that its inverse function is
+not continuous.  Hint:  Find a sequence $\{x_n\}$ in $S^1$ that converges to some point $x$,
+and yet $f^{-1}(x_n)\not\rightarrow f^{-1}(x)$.
+
+\begin{proof} Let $\exp^{-1}: S^1\rightarrow [0,1)$ be the inverse function and consider the sequence 
+    $x_n = e^{2\pi i \frac{-1}{n}}$. Note that,
+    \begin{equation*}
+        \lim_{n\to \infty}  e^{2\pi i \frac{-1}{n}} = \lim_{n\to \infty} e^{2\pi i}e^{\frac{-1}{n}} = 1
+    \end{equation*}
+    So $x_n \to 1$. Note that, 
+    \begin{equation*}
+        e^{2\pi i(1 - \frac{1}{n})} =  e^{2\pi i}e^{2\pi i \frac{-1}{n}} =(1) e^{2\pi i \frac{-1}{n}}= e^{2\pi i \frac{-1}{n}} 
+    \end{equation*}
+    With $(1 - \frac{1}{n}) \in [0, 1)$ we know that $\exp^{-1}(x_n) = (1 - \frac{1}{n})$ for all $n$. However clearly $\exp^{-1}(x_n) \to 1$, yet $\exp^{-1}(1) = 0$ and therefore 
+    $\exp^{-1}$ is not continuous at $1 \in S^1$. 
+
+\end{proof}
+
+\end{problems}
+
+\end{document}

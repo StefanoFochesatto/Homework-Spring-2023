@@ -1,0 +1,48 @@
+function [tt,zz, xx] = HEATtrapezoidD(m,feta,t0,tf,N, D)
+% HEATBACKWARDEULER  Solve
+%   u_t = Du_xx , u(0, x) = eta, u(t,0) = u(t,1) = 0
+% for u(t, x) on the interval [t0,tf] with N steps in time
+% and m+2 steps in space. Backward Euler in time via method of lines.
+% 
+% Usage: [tt,zz] = HEATtrapezoidD(m,feta,t0,tf,N,D)
+
+% Compute step size in space
+h = 1/(m + 1);
+
+% Define step in time. 
+k = (tf - t0) / N;
+
+r = ((D*k)/(2*h^2));
+
+% Generate matrix for system of IVPs in time
+% Centered space trapezoid rule in time
+A =  -r*spdiags([ones(m,1), ...
+        -2*ones(m,1), ones(m,1)], ...
+        [-1, 0, 1], m, m);
+
+fU = speye(m,m) + A;
+
+tt = t0:k:tf;        % row vector of times
+xx = linspace(0, 1, m+2); % row vector of spatial location
+eta = feta(xx(2:end-1)');   % Solving for initial conditions
+
+
+% Setting up solution matrix
+zz = zeros(m, N+1);    % jth column is U at t_{j-1}
+zz(:,1) = eta;
+
+
+for j = 1:N     
+    %Constructing RHS
+    z = zeros(m, 1);
+    z(1) = (1 - 2*r)*zz(1,j) + r*zz(2, j);
+    for i = 2:m-1
+        z(i) = r*zz(i-1, j)+ (1 - 2*r)*zz(i,j) + r*zz(i+1, j);
+    end
+    z(m) = (1 - 2*r)*zz(m,j) + r*zz(m-1, j);
+    %Solving
+    zz(:,j+1) = (fU)\z;
+end
+
+% Putting together dirichlet conditions. 
+zz = [feta(0)*ones(N+1, 1)'; zz; feta(1)*ones(N+1, 1)'];

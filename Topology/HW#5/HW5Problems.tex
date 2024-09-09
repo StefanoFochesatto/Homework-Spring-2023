@@ -1,0 +1,73 @@
+\documentclass[minion]{homework651}
+\include{hwextras}
+
+\def\calB{\mathcal{B}}
+\DeclareMathOperator{\Int}{\mathrm{Int}}
+
+\doclabel{Math F651: Homework 5}
+\docdate{Due: February 22, 2023}
+%\docauthor{Your Name Here}
+
+\begin{document}
+
+Note: The book has Exercises, which are interspersed among the
+prose, and Problems, which appear at the ends of the chapters.
+It can be easy to confuse the two.  Exercises are denoted in blue.
+
+
+\begin{problems}
+
+\problem Suppose $\mathcal B_X$ and $\mathcal B_Y$ are bases for $X$ and $Y$ respectively.
+Show that $\mathcal B = \{U\times V: U\in B_X, V\in B_Y\}$ is a basis for $X\times Y$.
+
+\problem Suppose $A\subset X$ and $B\subset Y$.  Use the fact that
+the characteristic property of the product topology is characteristic to
+show that the subspace topology on $A\times B$ is the the same as its
+topology as a product of subspaces.
+
+
+
+
+
+\problem Show that $(X_1\times X_2)\times X_3$ is homeomorphic to $X_1\times X_2 \times X_3$.
+You may not use the words ``open'' or ``closed'' at any point in your proof.  (\textit{Hint:} Use the Characteristic Property, Luke!)
+
+
+\problem Prove the following.
+\begin{subproblems}
+
+\item A projection map from an arbitrary product space is an open map.
+
+\item An arbitrary product of Hausdorff spaces is Hausdorff
+
+\item A countable product of second countable spaces is second countable.
+
+\end{subproblems}
+
+\problem\textbf{Problem 3-8} Let $X$ denote the cartesian product of countably infinitely copies of $\RR$
+endowed with the box topology. Define a map $f: \RR \to X$ by $f(x) = (x, x, x, \dots)$. Show that $f$ is 
+not continuous even though each of its component functions is. 
+
+\problem\textbf{Problem 3-9} Let $X$ be as in the preceding problem. Let $X^+\subseteq X$ be the subset consisting of sequences of 
+strictly positive real numbers, and let $z$ denote the zero sequence, that is, the one whose terms are $x_i = 0$ for all $i$. 
+Show that $z$ is in the closure of $X^+$, but there is no sequence of elements of $X^+$ converging to $z$. Then use the sequence lemma to conclude that $X$
+is not first countable, and thus not metrizable.  
+
+\problem\textbf{Problem 3-13 a} Suppose $X$ and $Y$ are topological spaces and $f: X \to Y$ is a continuous map. Prove that if $f$ admits 
+a continuous left inverse, it is a topological embedding. 
+
+
+\problem \exercise{3.61} Prove that a continuous surjective map $q: X \to Y$ is a quotient map if and only if it takes saturated open subsets to open subsets, 
+or saturated closed subsets to closed subsets. 
+
+
+
+
+
+
+\problem This is a heads up: problem 3-14 will be on the next homework.  Start thinking about it now.  
+\end{problems}
+
+
+
+\end{document}

@@ -1,0 +1,17 @@
+>> sum = 0;
+>> for i = 1:10
+   sum = sum + sin(i)/(i^3 + i);
+   end
+
+>> sum
+   0.500404325899183
+
+
+>> sum = 0;
+
+>> for i = 1:100
+   sum = sum + sin(i)/(i^3 + i);
+   end
+
+>> sum
+   0.499839131456909

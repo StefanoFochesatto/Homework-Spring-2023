@@ -1,0 +1,15 @@
+eta = [0 0 3.844e8 0 0 0 0 1.0223e3]';
+t0 = 0;
+tf = 4.32e6;
+[tt,zz] = rk4(@fearthmoon,eta,t0,tf,960);
+moonposition = [zz(3,:)' zz(4,:)'];
+earthposition = [zz(1,:)' zz(2,:)'];
+lunarorbit = (moonposition - earthposition)...
+    ./vecnorm(moonposition - earthposition, 2, 2);
+x0 = lunarorbit(1,:);
+innerproducts = (x0*lunarorbit')';
+[M, I] = max(innerproducts(2:end));
+lunarmonthindays = (I + 1)/24;
+lunarmonthindays =
+
+  21.750000000000000

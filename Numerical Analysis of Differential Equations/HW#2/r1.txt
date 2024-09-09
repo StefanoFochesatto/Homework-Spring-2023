@@ -1,0 +1,31 @@
+% Importing 'data'
+>> Zh = [28.43  10.747  0.5540  0.5555  0.04849   0.005521]
+>> h = [1.0   0.5   0.1   0.05   0.01    0.005]
+
+% Log Transformed linear regression
+>> [P, S] = polyfit(log(h), log(Zh), 1)
+P =
+    1.5143    3.3978 
+    
+% Polyfit returns coefficients in descending order. 
+>> p = P(1)
+    1.5143
+
+>> C = exp(P(2))
+   29.8991
+
+% Pulling range for plot
+>> log(h)
+    0   -0.6931   -2.3026   -2.9957   -4.6052   -5.2983
+
+% Evaluating Regression
+>> x1 = linspace(-6,1,100);
+>> y1 = polyval(P,x1);
+
+% Generating loglog plot
+>> loglog(h, Zh)
+>> hold on
+% We have to untransform these values to 
+% plot them against the original data.  
+>> loglog(exp(x1), exp(y1))
+>> hold off

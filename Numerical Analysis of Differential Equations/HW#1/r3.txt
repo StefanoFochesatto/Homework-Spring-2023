@@ -1,0 +1,15 @@
+>> mysum(160000)
+   0.499840156251049
+
+% Verifying best double precision approximation. 
+>> mysum(160001)
+   0.499840156251049
+
+% Computing N = 100 partial sum. 
+>> sum0 = mysum(100)
+   0.499839131456909
+
+% Computing Error
+>> abs(sum0 - sum)
+     1.024794139437013e-06
+

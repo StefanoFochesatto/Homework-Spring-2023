@@ -1,0 +1,20 @@
+function [tt,zz] = GraphBEuler(a,L,eta,t0,tf,N)
+% GraphLaplacianBackwardEuler  Solve
+%   phi'(t) = -a*L*phi(t) ,  phi(0) = eta
+% for phi(t) on the interval [t0,tf] with N steps in time.
+% f(t,phi) @(t, x) = -alpha*L*x
+% 
+% Usage:[tt,zz] = GraphFEuler(a,f,eta,t0,tf,N)
+
+
+dt = (tf - t0) / N;
+tt = t0:dt:tf;        % row vector of times
+eta = eta(:);         % force to be column vector
+s = length(eta);
+zz = zeros(s,N+1);    % jth column is U at t_{j-1}
+zz(:,1) = eta;
+fU = speye(s,s) - dt*-a*L;
+for j = 1:N        % Backward Euler Solve
+    zz(:,j+1) = (fU)\zz(:,j);
+end
+

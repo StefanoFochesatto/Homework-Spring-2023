@@ -1,0 +1,129 @@
+\documentclass{homework651}
+\include{hwextras}
+\usepackage{graphicx}
+\usepackage[all,cmtip]{xy}
+\def\net<#1>{\left<#1\right>}
+
+\newcommand{\bbB}{\mathbb{B}}
+\doclabel{Math F651: Homework 11}
+\docdate{Due: April 21, 2023}
+\begin{document}
+\begin{problems}
+
+\problem Let $G$ be a topological group, 
+\begin{enumerate}
+    \item[\textbf{(a)}] Prove that up to isomorphism $\pi_1(G, g)$ is independent of the choice of basepoint $g \in G$.
+    \begin{proof} Suppose $G$ is a topological group and let $g, h \in G$ and consider $\pi_1(G, g)$ and $\pi_1(G, h)$. Recall since $g$ is a topological group, group multiplication $m$, group inverse $i$, and $f: G \times G \to G$ defined by $f(a, b) = ab^{-1}$ are continuous functions. 
+        
+        The component functions $f_i: G \to G$ defined by $f_i(x) = ix^{-1}$ and $m_i: G \to G$ defined by $m_i(x, i) = xi$ are continuous. 
+        
+        Note that $\phi: G \to G$ defined by $\phi(x) = m_g(f_h(x)) = hx^{-1}g$ is continuous. It also follows that $\varphi: G \to G$ defined by $\varphi(x) = m_h(f_g(x)) = gx^{-1}h$ is continuous. 
+        
+        Since $\phi(g) = h$ and $\varphi(h) = g$ are continuous functions they induce homomorphisms $\phi^*: \pi_1(G, g) \to \pi_1(G, h)$ and $\varphi^*: \pi_1(G, h) \to \pi_1(G, g)$. 
+        
+        Let $[x] \in \pi_1(G, h)$ and note that $\varphi^*([x]) \in \pi_1(G, g)$ such that $\phi^*(\varphi^*[x]) = [\phi(\varphi(x))] = [h(gx^{-1}h)^{-1}g] = [x]$. Hence $\phi^*$ is a surjection. 
+        
+        Note $\phi^*$ has a trivial kernel since the only loop in $\pi_1(G, g)$ which maps to a constant loop in $\pi_1(G, h)$ would have to be a constant loop in $\pi_1(G, g)$. Hence $\phi^*$ is an injection and therefore an isomorphism. 
+    \end{proof}
+    \item[\textbf{(b)}] Prove that $\pi_1(G, g)$ is abelian. 
+    \begin{proof} Suppose $G$ is a topological group. By the previous result it is sufficiency to show that $\pi_1(G, 1)$ is abelian, as it is isomorphic to $\pi_1(G, g)$. Let $[a],[b] \in \pi_1(G, 1)$ and consider the map $F: I \times I \to G$ given by $F(s, t) = a(s)b(t)$. Clearly this map is continuous and it has the property that,
+     \begin{align*}
+        F(s, 0) = a(s)b(0) &= a(s)1 = a(s),\\
+        F(1, t) = a(1)b(t) &= 1b(t) = b(t),\\
+        F(0, t) = a(0)b(t) &= 1b(t) = b(t),\\
+        F(s, 1) = a(s)b(1) &= a(s)1 = a(t).
+    \end{align*}
+    Thus by the Square Lemma we know that $a \cdot b \sim b \cdot a$. So it follows that $[a][b] = [a\cdot b] = [b\cdot a] = [b][a]$.         
+    \end{proof}
+\end{enumerate}
+
+
+
+\problem Prove that a retract of a Hausdorff space is a closed subset. 
+\begin{proof} Suppose $X$ is Hausdorff and $A$ is a retract of $X$. By definition there exists a continuous function $r: X \to A$ such that $r\circ \iota_A = Id_A$ where $\iota_A$ is the inclusion map. 
+
+    We will proceed to show that $A$ is closed by showing that for every convergent net $\langle x_\alpha \rangle \to x$ where $\langle x_\alpha \rangle \subseteq A$ then $x \in A$. Since $r$ is continuous we know that $\langle r(x_{\alpha}) \rangle \to r(x)$. Since $r\circ \iota_A = Id_A$ it follows that $\langle r(x_{\alpha}) \rangle = \langle x_\alpha \rangle$ and by definition we know that $r(x) \in A$. Recall that convergent nets in Hausdorff spaces converge to a single limit, and therefore $r(x) = x$, and therefore $x \in A$. Hence $A$ is closed.     
+\end{proof}
+
+
+\problem \begin{enumerate}
+    \item[\textbf{(a)}] Suppose $U \subseteq \RR^2$ is an open subset and $x \in U$. Show that $U^* = U \setminus\{x\}$ is not a simply connected space.
+    
+    Show that $U^*$ has nontrivial fundamental groups. 
+
+    \begin{lemma}1 The closed unit ball with the origin removed is a retract of $\RR^2$ with the origin removed. Consider the function $r: {\RR^2}^* \to \overline{\bbB}^*$ defined by, 
+        \begin{equation*}
+            r(x) = \begin{cases}
+                x, & |x| < \leq 1\\
+                \frac{x}{|x|}, & |x|>1
+            \end{cases}
+        \end{equation*}
+        This function is clearly continuous and has the property that $\iota_{\overline{\bbB}^*} \circ r(x) = Id_{\overline{\bbB}^*}$, as desired. 
+    \end{lemma}
+
+     
+    \begin{proof} Let $U \subseteq \RR^2$ be an open subset with $x \in U$ and suppose to the contrary that $U^*$ is simply connected, and therefore it has trivial fundamental groups. 
+
+        We will proceed to show that this implies the fundamental groups on $S^1$ are trivial. 
+        
+        Since $U \subseteq \RR^2$ we can define $V = \overline{\bbB_r(x)} \subseteq U$ and $V^* = V \setminus \{x\}$ and consider $p \in V^*$. Note that $\iota_{V^*}: V^* \to U^*$, the embedding of $V^*$ into $U^*$ is continuous, and therefore induces a homomorphism $\iota_V^*: \pi_1(V^*, p) \to \pi_1(U^*, p)$. 
+
+        Now note that via Lemma 1, up to a translation of the origin, $V$ is a retraction of $\RR^2 \setminus \{x\}$ and therefore we can construct a continuous function $r':\RR^2 \setminus \{x\} \to V^*$ such that $\iota_{V^*} \circ r' = Id_V$. Note that since $U^* \subseteq \RR^*$ and $V^* \subseteq U^*$ we can construct a retraction from $r : U^* \to V^*$ by $r = r'\circ \iota_{U^*}$.
+        This function is continuous, and therefore induces a homomorphism $r^*:  \pi_1(U^*, p)\to \pi_1(V^*, p)$.
+        
+        Let $[j] \in \pi_1(V^*, p)$ and note that composing these homomorphisms, we get the identity map on $\pi_1(V^*, p)$,
+        \begin{equation*}
+            r^* \circ \iota_V^* ([j]) = r^*([\iota_{V^*}(j)]) = r^*([j]) = [r(j)] = [r'(\iota_{U^*}(j))] = [j]
+        \end{equation*}
+        However since $U^*$ is simply connected we know that $\pi_1(U^*, p)$ is trivial. Since $ r^* \circ \iota_V^*$ is the identity map on $\pi_1(V^*, p)$ it follows that $\pi_1(V^*, p)$ must have been trivial as well, which is a contradiction since $\pi_1(U^*, p)$ is isomorphic to $\pi_1(S^1, x)$. 
+    \end{proof}
+
+
+
+
+    \item[\textbf{(b)}] Show that if $n > 2$, then $\RR^n$ is not homeomorphic to any open subset of $\RR^2$.
+    \begin{proof} Let $n > 2$ and suppose to the contrary that $\RR^n$ is homeomorphic to any open subset of $\RR^2$. Let $U \subseteq \RR^2$ be open with $x \in U$ and note that by our hypothesis there exists an $f: U \to \RR^n$ that is a homeomorphism. It follows that $f': U^* \to \RR^n \setminus \{f(x)\}$ is a homeomorphism, which is a contradiction since $U^*$ is not simply connected and $\RR^n \setminus \{f(x)\}$ for $n > 2$ is. 
+    \end{proof}
+\end{enumerate}
+
+
+
+\problem Prove that a non-empty topological space cannot be both a $2$-manifold and an $n$-manifold for some $n> 2$. 
+\begin{proof} Let $X$ be a topological space, and suppose to the contrary that it is both a $2$-manifold and an $n$-manifold for some $n> 2$. Let $x \in X$ and by definition of locally euclidean we know that there exists open sets $x \in U$ and $x \in V$ such that $U$ is homeomorphic to $\RR^2$ via $f$ and 
+    $V$ is homeomorphic to $\RR^n$ via $g$. Let $W = U \cap V$ and note that $f(W)$ is homeomorphic to 
+    $g(W)$ via $g \circ f^{-1}$.
+
+
+    Since $W$ is an open subset of $V$ we can can construct an open ball $\bbB \subseteq \RR^n$ such that $g(x) \in \bbB$ and $\bbB \subseteq g(W)$. It follows that $\bbB$ is homeomorphic to $f \circ g^{-1} (\bbB)$. It then follows that $\bbB \setminus g(x)$ is homeomorphic to $f \circ g^{-1} (\bbB \setminus \{g(x)\})$. Note that $\bbB  \setminus g(x)$ is a ball in $\RR^n$, $n > 2$ with one point removed so it is simply connected. However $f \circ g^{-1} (\bbB \setminus \{g(x)\})$ since is an open set of $\RR^2$ with one point removed by the previous exercises it is not simply connected, hence a contradiction.
+    
+\end{proof}
+
+
+
+
+
+
+\problem Show that the continuous map $\varphi: S^1 \to S^1$ has an extension to a continuous map $\phi:\bbB^2 \to S^1$ 
+if and only if it has degree zero. 
+
+\begin{proof}$(\Leftarrow)$ Suppose $\varphi: S^1 \to S^1$ is a map with degree zero. Since $\varphi$ has degree zero, we know that it is homotopic to a constant. Suppose $\varphi$ is homotopic to a constant $\varphi(0)$, then we define the homotopy by $H(x, t): S^1 \times I \to S^1$ where $H(x, 1) = \varphi(x)$ and $H(x, 0) = \varphi(0)$. Note that $\bbB^2$ is a reparameterization of $S^1 \times I$ in rectangular coordinates. Since $H(x, 1) = \varphi(x)$, applying this reparameterization to the homotopy gives an extension of $\varphi$ defined by $\phi:\bbB^2 \to S^1$. 
+\end{proof}
+
+
+\begin{proof}$(\Rightarrow)$ Suppose the continuous map $\varphi: S^1 \to S^1$ has an extension to a continuous map $\phi:\bbB^2 \to S^1$. Again $S^1 \times I$ is a reparameterization of $\bbB^2$ into polar coordinates. We apply this reparameterization and we get a function $H: S^1 \times I \to S^1$ where $H(x, 1) = \varphi(x)$ since $\phi$ was an extension and $H(x, 0) = 0$ by polar coordinates. Hence $\varphi$ is homotopic to a constant and therefore has degree zero. 
+\end{proof}
+
+
+
+
+\problem Suppose $\varphi, \psi: S^1 \to S^1$ are continuous maps of different degrees. Show that there is a point $z \in S^1$ 
+where $\varphi(z) = -\psi(z)$. 
+\begin{proof} We will proceed by the contrapositive. Let $\varphi, \psi: S^1 \to S^1$ be continuous maps, and suppose that for all $z \in  S^1$ we know that $\varphi(z) = -\psi(z)$.
+By problem 6 of Homework 9 it follows that $\varphi$ is not homotopic to $\psi$ and therefore 
+they cannot have the same degree. 
+\end{proof}
+
+\end{problems}
+
+\end{document}
+

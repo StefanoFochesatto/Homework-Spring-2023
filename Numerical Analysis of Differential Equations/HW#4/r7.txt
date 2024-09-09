@@ -1,0 +1,34 @@
+function [x,U] = secondorderbvp(m, xL, xR, p, q, f, alpha, beta)
+% This function uses a centered finite difference scheme to solve 
+% the following boundary value problem:
+% 
+%   u''(x) + p(x)u'(x) + q(x)u(x) = f(x), u(x_L) = \alpha, u(x_R) = \beta
+%
+% Using m + 2 point grid and the following finite difference approx.
+%
+%    D^2U_j = 1/h^2(U_{j - 1} -2U_j +U_{j + 1})
+%
+%    D_0U_j = 1/2h(U_{j + 1} -U_{j - 1})
+%
+
+x = linspace(xL, xR, m+2); % Generating grid 
+h = (xR - xL)/(m + 1); % Grid spacing
+
+% Generating A 
+A = (1/h^2).*( ...
+    diag(q(x(2:m+1)).*h^2 - 2) + ...
+    diag((1 - (p(x(3:m+1)).*h)./2), -1) + ...
+    diag((1 + (p(x(2:m)).*h)./2), 1) ...
+    );
+% Generating F
+F = f(x(2:m+1))';
+F(1) = F(1) - ((1/h^2).*(1 - (p(x(2))*h)/2)*alpha);
+F(m) = F(m) - ((1/h^2).*(1 + (p(x(m+1))*h)/2)*beta);
+
+% Solving U
+U = A\F;
+U = [alpha; U; beta];
+
+
+
+end

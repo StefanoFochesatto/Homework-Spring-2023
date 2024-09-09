@@ -1,0 +1,232 @@
+\documentclass[minion]{homework651}
+\input{hwextras}
+% A macro for a decorated right arrow (indicating the kind of convergence)
+\newcommand\converges[1]{\mathrel{\mathop{\longrightarrow}\limits_{#1}}}
+\newcommand\notconverges[1]{\mathrel{\mathop{\not\longrightarrow}\limits_{#1}}}
+
+
+
+
+
+% The following commands set up the material that appears
+% in the header.
+\doclabel{Math 651: Homework 1}
+\docauthor{Stefano Fochesatto}
+\docdate{\today}
+
+\begin{document}
+\begin{problems}
+
+\problem Prove that every ball $B_r(x)$ in a metric space $(X, d)$ is an open set. 
+\solution
+%First recall the definition of an open ball, we say $B_r(x)$ is the open set in $X$ such that $B_r(x) = \{a \in X: d(x, a) \leq r \}$.
+%Since $(X, d)$ is a metric space the norm $d$ must satisfy $d(x, y) > 0$ if $x \neq y$, $d(x, y) = d(y, x)$ and the triangle inequality.
+%A definition of open set is given by: If $O$ is open then for all $a \in O$ there exists an $r$ such that $B_r(a) \subseteq O$.  
+\begin{proof}
+    Let $a \in B_r(x)$, and choose $\delta = r - d(x, a)$. Now consider $B_{\delta}(a)$ and note that to show $B_r(x)$ is open we must prove that $B_{\delta}(a) \subseteq B_r(x)$.
+    Let $y \in B_{\delta}(x)$ and note that since $(X, d)$ is a metric space the following expression comes from the triangle inequality, 
+    \begin{equation*}
+        d(x, y) \leq d(x, a) + d(a, y).
+    \end{equation*}
+    By the definition of $B_{\delta}(a)$ we know that $d(a, y) < r - d(x, a)$ and by substitution we get that $d(x, y) < r$. Thus by definition 
+    $y \in B_r(x)$ and therefore we get that $B_{\delta}(a) \subseteq B_r(x)$. Therefore $B_r(x)$ is open.
+    
+\end{proof}
+
+
+\problem Let $V$ be a subset of a metric space $(X, d)$. The set of limit points of $V$ are those points 
+$x$ that can be written as the limit of a sequence of points in $V$. Show that a set $V \subseteq X$ is closed if and 
+only if it contains its limit points. 
+\solution 
+%First recall that for a set to be closed, it's compliment must be open. 
+\begin{proof} Suppose that $V \subseteq X$ is a closed set. By definition we know that $V^c$ is open. For the sake of contradiction suppose $V$ does not 
+    contain its limit points, therefore there exists a limit point of the set $V$, $x$ such that $x \in V^c$. By the previous result there exists an open ball 
+    $B_r(x)$ such that $B_r(x) \subseteq V^c$. Note that since ${x_n} \in V$ and $x_n \to x$, we can choose $n$ such that $d(x_n, x) < r$ and therefore $x_n \in B_r(x)$. 
+    Thus $x_n \in V^c$ a contradiction. 
+    
+    We will prove the reverse direction via contrapositive. Suppose $V$ is not closed and therefore $V^c$ is not open.
+    Thus there exists some point $x \in V^c$ such that for all $r > 0$, $B_r(x) \not \subseteq V^c$. Choose the set $\{B_i(x): i = \frac{1}{n}\}$ and by the previous 
+    result we know that inside each $B_i(x)$ there exists some $x_i \in V$. We will proceed by showing that $x_i \to x$. Let $\epsilon > 0$, and choose $N$ such that $\frac{1}{N} < \epsilon$. Then for all $n \geq N$ we get $d(x_i, x) \leq \frac{1}{n} \leq \frac{1}{N} < \epsilon$. Therefore the sequence $\{x_i\} \in V$ converges to a limit point $x \in V^c$,
+    so $V$ does not contain all it's limit points.
+\end{proof}
+
+
+\problem Let $d_1$ and $d_2$ be two metrics on a set $X$. Show that the following conditions are equivalent. 
+\begin{subproblems}
+    \item For every sequence $\{ p_i\}_{i=1}^\infty$, if $p_i\converges{d_2} p$ 
+    then $p_i\converges{d_1} p$.
+    \item For every function $f:X\rightarrow \Reals$, if $f$ is continuous with 
+    respect to $d_1$ then $f$ is continuous with respect to $d_2$.
+    \item For every set $V$, if $V$ is closed with respect to $d_1$ then
+    $V$ is closed with respect to $d_2$.
+    \item For every set $U$, if $U$ is open with respect to $d_1$ then
+    $U$ is open with respect to $d_2$.
+    \end{subproblems}
+\solution 
+
+\begin{enumerate}
+    \item $(a \Longleftrightarrow b)$ Suppose that for every sequence $\{ p_i\}_{i=1}^\infty$, if $p_i\converges{d_2} p$ 
+    then $p_i\converges{d_1} p$. Let $f:X\rightarrow \Reals$ be a continuous function with 
+    respect to $d_1$. Consider a sequence $\{p_i\}_{i=1}^\infty$ such that $p_i\converges{d_2} p$. 
+    By our supposition since $p_i\converges{d_2} p$ we know that $p_i\converges{d_1} p$. Since $f$ is continuous with respect to $d_1$, $p_i\converges{d_1} p$ implies that $f(p_i) \to f(p)$ in $\RR$.
+    Thus $f$ is continuous with respect to $d_2$. \\\\
+
+
+
+    For the converse we will make use of the following lemmas. 
+    \begin{lemma}{1 (Reverse Triangle Inequality)}        
+        Let $X$ be a metric space, then for all $a, b, c \in X$
+        \begin{equation*}
+            |d(a, c) - d(c, b)| \leq d(a, b).
+        \end{equation*}
+        \begin{proof}
+            Since $X$ is a metric space, by the triangle inequality we know that
+            \begin{align*}
+                d(a, c) &\leq d(a, b) + d(c, b),\\
+                d(a, c) - d(c, b) &\leq d(a, b).
+            \end{align*}
+            Case 1: Suppose $d(a, c) - d(c, b) \geq 0$. Then it follows that $|d(a, c) - d(c, b)| \leq d(a, b)$.
+
+
+            Case 2: Suppose $d(a, c) - d(c, b) < 0$. By triangle inequality we also get that, 
+            \begin{align*}
+                d(c, b) &\leq d(a, b) + d(a, c),\\
+                d(c, b) - d(a, c) &\leq d(a, b).
+            \end{align*}
+            Since $d(a, c) - d(c, b) < 0$ we know that $d(c, b) - d(a, c) \geq 0$ and therefore it follows that $|d(c, b) - d(a, c)| \leq d(a, b)$ or equivalently, $|d(a, c) - d(c, b)| \leq d(a, b)$.
+        \end{proof}
+    \end{lemma}
+
+    
+    \begin{lemma}{2}
+        Let $X$ be a metric space with a fixed point $x^*$. Then the function $f:X\rightarrow \Reals$ defined by 
+        $f(x) = d(x, x^*)$ is continuous. 
+        \begin{proof}
+            Suppose $a \in X$ and let $\epsilon > 0$. Choose $\delta = \epsilon$ such that $d(x, a)< \delta$ implies that, 
+            \begin{align*}
+                |f(x) - f(a)| &= |d(x, x^*) - d(a, x^*)|,\\
+                &\leq d(x,a),\\ 
+                &< \delta = \epsilon.
+            \end{align*}
+        \end{proof}
+
+    \end{lemma}
+
+    Suppose that for every function $f:X\rightarrow \Reals$, if $f$ is continuous with 
+    respect to $d_1$ then $f$ is continuous with respect to $d_2$. Let $\{ p_i\}_{i=1}^\infty$ be 
+    a sequence such that $p_i\converges{d_2} p$. Consider the function $f:X\rightarrow \Reals$ defined by $f(x) = d_1(x,p)$. By Lemma 2 we know that $f$ is a continuous function with respect to $d_1$ and therefore by assumption $f$ is continuous with respect to $d_2$. Therefore it follows that since $p_i\converges{d_2} p$ we know that $d_1(x, p_i) \to 0$ which implies $p_i\converges{d_1} p$.
+
+
+
+
+
+    \item $(a \Longrightarrow c)$ Suppose that for every sequence $\{p_i\}_{i=1}^\infty$, if $p_i\converges{d_2} p$ 
+    then $p_i\converges{d_1} p$ and let $V$ be a set that is not closed with respect to $d_2$.
+    Since $V$ is not closed with respect to $d_2$ there exists a contact point $p \not\in V$ where the sequence $\{p_i\}_{i=1}^\infty \in V$
+    $p_i\converges{d_2} p$. By assumption if $p_i\converges{d_2} p$ 
+    then $p_i\converges{d_1} p$ and since $\{p_i\}_{i=1}^\infty \in V$ and $p \not\in V$, $V$ is not closed with respect to $d_1$. 
+
+
+    \item $(c \Longrightarrow d)$ Suppose that for every set $V$, if $V$ is closed with respect to $d_1$ then
+    $V$ is closed with respect to $d_2$, and $U$ is an open set with respect to $d_1$. Note that if $U$
+    is open with respect to $d_1$ then $U^c$ is closed with respect to $d_1$. It then follows that $U^c$ is 
+    closed with respect to $d_2$ and thus $U$ is open with respect to $d_2$.  
+    
+
+    \item $(d \Longrightarrow a)$ Suppose that for every set $U$, if $U$ is open with respect to $d_1$ then $U$ is open with respect to $d_2$ and let $\{p_i\}_{i=1}^\infty \in X$ such that $p_i\converges{d_2} p$. Let $r>0$ and consider an open ball $B_r^1(p)$. Since $B_r^1(p)$ is open with respect to $d_1$, then by assumption $B_r^1(p)$ is open with respect to $d_2$. It then follows that there exists some $\hat{r}$ such that $B_{\hat{r}}^2(p) \subseteq B_r^1(p)$. Note that since $p_i\converges{d_2} p$ we can choose an $N$ such that for all $n \geq N$, $p_n \in B_{\hat{r}}^2(x) \subseteq B_r^1(p)$. Thus $p_i\converges{d_1} p$.
+\end{enumerate}
+\begin{proof} 
+
+\end{proof}
+
+\problem Let $X$ be an infinite set. 
+\begin{subproblems}
+    \item Show that
+    \begin{equation*}
+        \mathcal{T}_{1} = \{ U \subseteq X: U = \emptyset \text{ or } U^c \text{ is finite}\}
+    \end{equation*}
+    is a topology on $X$, called the finite complement topology.
+    \solution\begin{proof}
+        Note that by definition $\emptyset \in \mathcal{T}_{1}$ and since $X^c = \emptyset$ a finite set 
+        we get that $X \in \mathcal{T}_{1}$. Let $\{U_i\}_I$ be a set of open subsets of $X$. By definition we know that 
+        $\{{U_i}^c\}_I$ are all finite and therefore their intersection $\cap_{i \in I}{U_i}^c$ is also finite.
+        By De Morgan's Law we conclude that, 
+        \begin{equation*}
+            \bigcap_{i \in I}{U_i}^c = \left(\bigcup_{i \in I} U_i\right)^c.
+        \end{equation*}
+        Thus $\cup_{i \in I} U_i$ is open. Let $\{U_i\}_I$ be a finite set of open subsets of $X$. Note that $\cup_{i \in I}{U_i}^c$
+        is a finite union of finite sets and is therefore also a finite set. By De Morgan's law we conclude that, 
+        \begin{equation*}
+            \bigcup_{i \in I}{U_i}^c = \left(\bigcap_{i \in I} U_i\right)^c.
+        \end{equation*}
+        Thus $\cup_{i \in I}{U_i}^c$ is open. 
+    \end{proof}
+
+    \item Show that 
+     \begin{equation*}
+        \mathcal{T}_{2} = \{ U \subseteq X: U = \emptyset \text{ or } U^c \text{ is countable}\}
+    \end{equation*}
+    is a topology on $X$, called the countable complement topology.
+    \solution\begin{proof}
+        Note that by definition $\emptyset \in \mathcal{T}_{2}$. Since $X^c = \emptyset$ is a countable set 
+        we get that $X \in \mathcal{T}_{2}$. Let $\{U_i\}_I$ be a set of open subsets of $X$. By definition we know that 
+        $\{{U_i}^c\}_I$ are all countable and therefore their intersection $\cap_{i \in I}{U_i}^c$ is also countable.
+        By De Morgan's Law we conclude that, 
+        \begin{equation*}
+            \bigcap_{i \in I}{U_i}^c = \left(\bigcup_{i \in I} U_i\right)^c.
+        \end{equation*}
+        Thus $\cup_{i \in I} U_i$ is open. Let $\{U_i\}_I$ be a finite set of open subsets of $X$. Note that $\cup_{i \in I}{U_i}^c$
+        is a finite union of countable sets which is also countable. Thus $\cup_{i \in I}{U_i}^c$ and by De Morgans law 
+        \begin{equation*}
+            \bigcup_{i \in I}{U_i}^c = \left(\bigcap_{i \in I} U_i\right)^c.
+        \end{equation*}
+        Thus $\cup_{i \in I}{U_i}^c$ is open. 
+    \end{proof}
+
+    \item Let $p$ be a fixed point in $X$, show that 
+     \begin{equation*}
+        \mathcal{T}_{3} = \{ U \subseteq X: U = \emptyset \text{ or } p \in U\}
+    \end{equation*}
+    is a topology on $X$, called the particular point topology.
+    \solution\begin{proof}
+        Note that by definition $\emptyset \in \mathcal{T}_{3}$. Since $p \in X$ we get that $X \in \mathcal{T}_{3}$. Let $\{U_i\}_I$ be a set of open subsets of $X$. By definition we know that each set in 
+        $\{{U_i}^c\}_I$ must be nonempty and exclude $p$ and therefore either $\cap_{i \in I} {U_i}^c$ is empty or nonempty and excluding $p$. By De Morgans law we know that $(\cup_{i \in I} {U_i})^c$ also excludes $p$ and thus $p \in \cup_{i \in I} {U_i}$, an open set. 
+        
+        Let $\{U_i\}_I$ be a finite set of open subsets of $X$. Note that $\cup_{i \in I}{U_i}^c$ again is either empty or nonempty and excluding $p$. By De Morgans law we know that $\cup_{i \in I}{U_i}^c = (\cap_{i \in I}{U_i})^c$ and therefore $p \in \cap_{i \in I}{U_i}$ an open set. 
+    \end{proof}
+
+    \item Let $p$ be a fixed point in $X$, show that 
+    \begin{equation*}
+        \mathcal{T}_{4} = \{ U \subseteq X: U = X \text{ or } p \not\in U\}
+    \end{equation*}
+    is a topology on $X$, called the excluded point topology.
+    \solution \begin{proof}
+        Note that by definition $X \in \mathcal{T}_{4}$. Since $p \not\in \emptyset$ we get that $\emptyset \in \mathcal{T}_{4}$. Let $\{U_i\}_I$ be a set of open subsets of $X$. By definition each set in  $\{{U_i}^c\}_I$ must be nonempty and must include $p$, therefore either $\cap_{i \in I} {U_i}^c$ is empty, or nonempty and including $p$. By De Morgans law we know that $(\cup_{i \in I} {U_i})^c$ also includes $p$ and thus $p \not\in \cup_{i \in I} {U_i}$, an open set.
+
+        Let $\{U_i\}_I$ be a finite set of open subsets of $X$. Again each $\{{U_i}^c\}_I$ must be nonempty and must include $p$, therefore either $\cup_{i \in I} {U_i}^c$ is empty, or nonempty and including $p$. By De Morgans law we know that $(\cap_{i \in I} {U_i})^c$ also includes $p$ and thus $p \not\in \cap_{i \in I} {U_i}$, an open set.
+    \end{proof}
+
+
+    \item Determine whether, 
+    \begin{equation*}
+        \mathcal{T}_{5} = \{ U \subseteq X: U = X \text{ or } U^c \text{ is infinite}\}
+    \end{equation*}
+    is a topology on $X$.
+    \solution For a counter example suppose $\mathcal{T}_{5}$ is a topology on $\RR$. By definition the intervals $(-\infty, 0)$ and $(0, \infty)$ are open and therefore $A =(-\infty, 0) \cap (0, \infty)$ is open, yet $A \neq X$ and $A^c = {0}$ is a finite set. 
+\end{subproblems}
+
+
+\problem Let $X$ be a set, and suppose $\{\mathcal{T}_\alpha\}_{\alpha \in A}$ is a collection of topologies on $X$. Show that the intersection $\mathcal{T} = \cap_{\alpha \in A} \mathcal{T}_\alpha$ is a topology on $X$.
+\solution \begin{proof}
+    Let $X$ be a set, and suppose $\{\mathcal{T}_\alpha\}_{\alpha \in A}$ is a collection of topologies on $X$. Note that for all $\alpha \in A$, $X, \emptyset \in \mathcal{T}_\alpha$ since each $\mathcal{T}_\alpha$ is a topology on $X$. So it follows $X, \emptyset \in \mathcal{T}$. 
+
+    Now let $\{U_i\}_I$ be a set of subsets from $\mathcal{T}$. Note that by definition, for all $\alpha \in A$, $\{U_i\}_I \subseteq \mathcal{T}_\alpha$. Since $\mathcal{T}_\alpha$ are topologies on $X$ it follows that $\cup_{i \in I} U_i \in \mathcal{T}_\alpha$. Thus $\cup_{i \in I} U_i \in \mathcal{T}$.
+
+
+    Now let $\{U_i\}_I$ be a finite set of subsets from $\mathcal{T}$. Note that by definition, for all $\alpha \in A$, $\{U_i\}_I \subseteq \mathcal{T}_\alpha$. Since $\mathcal{T}_\alpha$ are topologies on $X$ it follows that $\cap_{i \in I} U_i \in \mathcal{T}_\alpha$. Thus $\cap_{i \in I} U_i \in \mathcal{T}$.
+\end{proof}
+
+
+
+\end{problems}
+\end{document}

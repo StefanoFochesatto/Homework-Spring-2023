@@ -1,0 +1,38 @@
+function [x,U, Hist] = NLhdbvp(m,f0,alpha, beta, T,N)
+% This function uses a centered finite difference scheme to solve 
+% the following Non-linear boundary value problem:
+% 
+%   u''(x) + sin(u(x)) = 0, u(0) = \alpha, u(T) = \beta
+%
+% Using m + 2 point grid and the following finite difference approx.
+%
+%    D^2U_j = 1/h^2(U_{j - 1} -2U_j +U_{j + 1})
+%
+
+x = linspace(0, T, m+2); % Generating grid 
+h = T/(m + 1); % Grid spacing
+j = @(x) -2 + h^2.*cos(x); % Jacobian Function
+theta = zeros(m+2, 1); %Generating Initial Iterate
+theta(1) = alpha;
+theta(2:m+1) = f0(x(2:m+1));
+theta(m+2) = beta;
+Hist = zeros(m+2, N+1);% Generate Hist 
+Hist(:, 1) = theta;
+for i = 1:N
+    % Computing g
+    g = 1/h^2.* ...
+        (theta(1:m) - 2.*theta(2:m+1) + theta(3:m+2)) + ...
+        sin(theta(2:m+1));
+    % Generating Jacobian
+    J = 1/h^2.*( ...
+        diag(j(theta(2:m+1))) + ...
+        diag(ones(m - 1, 1), 1) + ...
+        diag(ones(m - 1, 1), -1));
+    % Newton Step
+    dtheta = J\(-1.*g);
+    % Newton Update
+    theta(2:m+1) = theta(2:m+1) + dtheta;
+    % Update Hist
+    Hist(:, i+1) = theta; 
+end
+U = theta;

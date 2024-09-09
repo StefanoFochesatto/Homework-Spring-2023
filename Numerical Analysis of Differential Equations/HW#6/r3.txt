@@ -1,0 +1,23 @@
+eta = [0 0 3.844e8 0 0 0 0 1.0223e3]';
+t0 = 0;
+tf = 4.32e6;
+
+Nlist = [40 960];
+for k = 1:length(Nlist)
+    [tt,zz] = feuler(@fearthmoon,eta,t0,tf,Nlist(k));
+    plot(zz(1,:),zz(2,:), 'b', zz(3,:),zz(4,:), 'r' )
+    title(sprintf('FEuler Solution to 40 Day ...
+    two body problem, with N = %f\n',Nlist(k)))
+    legend('Earth orbit', 'Moon orbit')
+    xlabel ('X Position'),  ylabel ('Y Position')
+end
+
+[t, u] = ode45(@fearthmoon, [0 4.32e6], eta);
+u = u';
+plot(u(1,:),u(2,:), 'b', u(3,:),u(4,:), 'r' )
+    title(sprintf('ode45 Solution to 40 Day ...
+     two body problem, with default N = %f\n',length(t)))
+    legend('Earth orbit', 'Moon orbit')
+    xlabel ('X Position'),  ylabel ('Y Position')
+
+

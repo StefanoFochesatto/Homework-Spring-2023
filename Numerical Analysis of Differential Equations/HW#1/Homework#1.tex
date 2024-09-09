@@ -1,0 +1,357 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% This top part of the document is called the 'preamble'.  Modify it with caution!
+%
+% The real document starts below where it says 'The main document starts here'.
+
+\documentclass[12pt]{article}
+
+\usepackage{amssymb,amsmath,amsthm}
+\usepackage[top=1in, bottom=1in, left=1.25in, right=1.25in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{enumerate}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{multicol}
+% Comment the following line to use TeX's default font of Computer Modern.
+\usepackage{times,txfonts}
+\usepackage{mwe}
+\usepackage{caption}
+\usepackage{subcaption}
+
+\usepackage{tikz}
+\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;} 
+
+
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\newtheoremstyle{homework}% name of the style to be used
+  {18pt}% measure of space to leave above the theorem. E.g.: 3pt
+  {12pt}% measure of space to leave below the theorem. E.g.: 3pt
+  {}% name of font to use in the body of the theorem
+  {}% measure of space to indent
+  {\bfseries}% name of head font
+  {:}% punctuation between head and body
+  {2ex}% space after theorem head; " " = normal interword space
+  {}% Manually specify head
+\theoremstyle{homework} 
+
+% Set up an Exercise environment and a Solution label.
+\newtheorem*{exercisecore}{\@currentlabel}
+\newenvironment{exercise}[1]
+{\def\@currentlabel{#1}\exercisecore}
+{\endexercisecore}
+
+\newcommand{\localhead}[1]{\par\smallskip\noindent\textbf{#1}\nobreak\\}%
+\newcommand\solution{\localhead{Solution:}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Stuff for getting the name/document date/title across the header
+\makeatletter
+\RequirePackage{fancyhdr}
+\pagestyle{fancy}
+\fancyfoot[C]{\ifnum \value{page} > 1\relax\thepage\fi}
+\fancyhead[L]{\ifx\@doclabel\@empty\else\@doclabel\fi}
+\fancyhead[C]{\ifx\@docdate\@empty\else\@docdate\fi}
+\fancyhead[R]{\ifx\@docauthor\@empty\else\@docauthor\fi}
+\headheight 15pt
+
+\def\doclabel#1{\gdef\@doclabel{#1}}
+\doclabel{Use {\tt\textbackslash doclabel\{MY LABEL\}}.}
+\def\docdate#1{\gdef\@docdate{#1}}
+\docdate{Use {\tt\textbackslash docdate\{MY DATE\}}.}
+\def\docauthor#1{\gdef\@docauthor{#1}}
+\docauthor{Use {\tt\textbackslash docauthor\{MY NAME\}}.}
+\makeatother
+
+% Shortcuts for blackboard bold number sets (reals, integers, etc.)
+\newcommand{\Reals}{\ensuremath{\mathbb R}}
+\newcommand{\Nats}{\ensuremath{\mathbb N}}
+\newcommand{\Ints}{\ensuremath{\mathbb Z}}
+\newcommand{\Rats}{\ensuremath{\mathbb Q}}
+\newcommand{\Cplx}{\ensuremath{\mathbb C}}
+%% Some equivalents that some people may prefer.
+\let\RR\Reals
+\let\NN\Nats
+\let\II\Ints
+\let\CC\Cplx
+
+%\textbf{Code:}
+%\begin{center}
+%  \lstinputlisting{NewtonsMethodP5.m}
+%\end{center}
+%
+%\textbf{Console:}
+%\begin{center}
+%  \lstinputlisting{P5C.txt}
+%\end{center}
+%\vspace{.15in}
+
+
+%\begin{figure}[H]
+%  \begin{center}
+%    \caption{The one-norm unit ball}
+%    \includegraphics[width=.76\textwidth]{1norm.png}
+%  \end{center}
+%\end{figure}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% The main document start here.
+
+% The following commands set up the material that appears in the header.
+\doclabel{Math 615: Homework 1}
+\docauthor{Stefano Fochesatto}
+\docdate{\today}
+
+
+\begin{document}
+
+
+\begin{exercise}{Problem P1} Calculate $257^{1/8}$ to within $10^{-5}$ of the exact value without any 
+  computing machinery except a pencil or pen. Prove that your answer has this accuracy. 
+  \solution
+  Recall Taylor's Theorem with remainder. If $f(x)$ has $n + 1$ continuous derivatives on the interval $[x, x+h]$
+  then the following holds, 
+  \begin{equation*}
+    f(x + h) = f(x) + f'(x)h + \frac{1}{2}f''(x)h^2 +...+\frac{1}{n!}f^n(x)h^n + \frac{1}{(n+1)!}f^{n + 1}(\xi)h^{n+1},
+  \end{equation*}
+  for some $\xi \in [x, x+h]$. To compute $257^{1/8}$ consider the function $f(x) = x^{1/8}$, let $x = 256$ with $h = 1$. Computing the first few terms in the sum we get, 
+  \begin{align*}
+    256^{1/8} &= 2,\\
+    \frac{1}{2}\left(\frac{1}{2}256^{-1/2}\right) &= \frac{1}{64},\\
+    \frac{1}{3!}\left(-\frac{1}{4}256^{-3/2}\right) = \frac{-1}{(24)(16^3)} &= -\frac{1}{98304}.\\
+  \end{align*}
+  Note that expanding to the next term clearly gives us a value which is smaller that $10^{-5}$, 
+  \begin{equation*}
+    \frac{1}{4!}\left(\frac{3}{8}256^{-5/2}\right) = \frac{1}{(64)(16^5)} < 10^{-5}. 
+  \end{equation*}
+  Therefore $257^{1/8}$ to within $10^{-5}$ is given by, 
+  \begin{equation*}
+    257^{1/8} \approx 2 + \frac{1}{64} - \frac{1}{98304}.
+  \end{equation*}
+\end{exercise}
+\vspace{1in}
+
+
+\begin{exercise}{Problem P2} Assume $f'$ is continuous. Derive the remainder formula, 
+  \begin{equation}
+    \int_0^a f(x)dx = af(0) + \frac{1}{2}a^2f'(v)
+  \end{equation}
+  for some unknown $v$ between zero and $a$. Use two sentences to explain the meaning of $(1)$ as an approximation to the integral. That is, answer the question 'What properties of $f(x)$ or $a$ make the left-endpoint rule $\int_0^a f(x)dx \approx af(0)$ more inaccurate?' 
+  \solution Since $f'$ is continuous we know by Taylor's Theorem with remainder that for some $\xi \in [0, x]$, 
+  \begin{equation*}
+    f(x) = f(0) + f'(\xi)x.
+  \end{equation*}
+  Integrating both sides, with respect to $x$ we get, 
+  \begin{equation*}
+    \int_0^a f(x) dx =  \int_0^a f(0) + f'(\xi)x dx = xf(0) + \frac{1}{2}x^2f'(\xi)|_{x = 0}^a =  af(0) + \frac{1}{2}a^2f'(\xi).
+  \end{equation*}
+  Geometrically, we see that the first term $af(0)$ represents the rectangular region which approximates the integral with the initial value of the function and the second term uses the shape of $f'(x)$ and the length $a$ to adjust the approximation. Naturally as we would expect small values of $a$ a constant looking $f(x)$ contribute to smaller remainder.
+\end{exercise}
+\vspace{1in}
+
+
+
+
+\begin{exercise}{Problem P3} Work at the command line to compute a finite sum approximation to, 
+  \begin{equation*}
+    \sum_{n = 1}^{\infty} \frac{\sin n}{n^3 + 1}.
+  \end{equation*}
+  Compute the partial finite sums for $N = 10$ and $N = 100$ terms. Turn your command-line work 
+  into a function mysum(N), and check that it works. Turn in both the command line session and the code. Speaking informally, how close do you think the $N = 100$ partial sum is to the infinite sum?
+  \solution The following is the command line session and mysum(N) function,\\
+    \textbf{Console:}
+    \begin{center}
+      \lstinputlisting[basicstyle=\small]{r1.txt}
+    \end{center}
+
+    \textbf{Code:}
+    \begin{center}
+      \lstinputlisting[basicstyle=\small]{r2.txt}
+    \end{center}
+
+  Very informally speaking, we can crank up the number of iterations until we reach the limit of double precision arithmetic then compute an approximate error. Note that,
+  \begin{equation*}
+    \frac{sin(n)}{n^3 + 1} \leq \frac{1}{n^3 + 1}.
+  \end{equation*}
+  Solving $\frac{1}{n^3 + 1} < \epsilon_{mach}$ for $n$ will give is a usable lower bound on the number of iterations needed for the next term in the series to be smaller than $\epsilon_{mach}$.
+  Doing so we get around $160000$ iterations. The error between $N = 100$ and the best double precision approximation is on the order of $10^{-6}$.\\    
+  \textbf{Console:}
+  \begin{center}
+    \lstinputlisting[basicstyle=\small]{r3.txt}
+  \end{center}
+\end{exercise}
+\vspace{1in}
+
+
+
+\begin{exercise}{Problem P4} Solve, by hand, 
+  \begin{equation*}
+    y'' + y' - 6y = 0, y(2) = 0, y'(2) = -1,
+  \end{equation*}
+  for the solution $y(t)$. Then find $f(4)$. Give a reasonable by-hand sketch on $t, y$ axes
+  which shows the initial values, the solution, and the value $y(4)$.
+
+  \solution Note that this is a constant-coefficient, linear, homogeneous ODE so we begin by substituting $y(t) = e^{rt}$ to form the characteristic polynomial, 
+  \begin{align*}
+    y'' + y' - 6y &= 0,\\
+    r^2e^{rt} + re^{rt} - 6e^{rt} &= 0,\\
+    e^{rt}(r^2 + r - 6) &= 0,\\
+    e^{rt}(r + 3)(r - 2) &= 0.
+  \end{align*} 
+  Since our characteristic polynomial has roots $r = -3, 2$ we form the general solution with, 
+  \begin{equation*}
+    y(t) = c_1e^{-3t} + c_2e^{2t}.
+  \end{equation*}
+  Note that $y'(t)$ would then be of the form, 
+  \begin{equation*}
+    y'(t) = -3c_1e^{-3t} + 2c_2e^{2t}.
+  \end{equation*}
+  Using our initial conditions we get the following system, 
+  \begin{align*}
+    0 &= c_1e^{-6} + c_2e^{4},\\
+    -1 &= -3c_1e^{-6} + 2c_2e^{4}.
+  \end{align*}
+  Multiplying the first equation by three and adding it to the second equation we get the following, 
+  \begin{equation*}
+    -1 = 5c_2e^{4}.
+  \end{equation*}
+  So we get that $c_2 = \frac{-1}{5e^{4}}$. Solving for $c_1$ we get, $c_1 = \frac{e^6}{5}$. 
+  Finally we get $y(t) =  \frac{e^6}{5}e^{-3t} + \frac{-1}{5e^{4}}e^{2t}$.
+
+  Solving for $y(4) = \frac{1}{5e^6}-\frac{e^4}{5}$.
+\end{exercise}
+\vspace{3in}
+
+
+
+\begin{exercise}{Problem P5} Using Euler's method for approximately solving ODEs, write your 
+  own program to solve the initial value problem in Problem 4 to find $y(4)$. A first step is to convert the second-order ODE into a system of two first-order ODEs. Use a few different step sizes, decreasing as needed so that you get apparent three-digit accuracy.
+  \solution As stated to proceed in converting the second-order ODE into a system of two first-order ODEs we will perform the following substitution, 
+  \begin{align*}
+    y_1(t) &= y(t)\\
+    y_2(t) &= y'(t)
+  \end{align*}
+  Note that differentiating both sides gives, 
+  \begin{align*}
+    y_1' &= y'\\
+    y_2' &= y''
+  \end{align*}
+  Finally by substitution we get the following system of first-order ODEs, 
+  \begin{align*}
+    y_1' &=  y_2\\
+    y_2' &= 6y_1 - y_2
+  \end{align*}
+  with initial value of $y_1(2) = 0$ and $y_2(2) = -1$.
+
+  The following function uses Euler's method to approximate $y(t)$ and $y'(t)$. Experimenting with step sizes and comparing with the ode45() function in Matlab we get that to achieve an accuracy of three digits we need a step size on the order of $10^{-6}$.\\
+
+  \textbf{Code:}
+  \begin{center}
+    \lstinputlisting[basicstyle=\small]{r4.txt}
+  \end{center}
+
+  \textbf{Console:}
+  \begin{center}
+    \lstinputlisting[basicstyle=\small]{r5.txt}
+  \end{center}
+
+
+\end{exercise}
+\vspace{1in}
+
+
+
+\begin{exercise}{Problem P6} Solve, by hand, the ODE boundary value problem 
+  \begin{equation*}
+    y'' + 2y' - 3y = 0, y(0) = \alpha, y(\tau) = \beta
+  \end{equation*}
+  for the solution $y(t)$. Note that $\alpha$, $\beta$ and $\tau$ are the data fo the problem, so the solution will have these parameters in it. 
+  \solution We proceed as before by substituting $y(t) = e^{rt}$ to form the characteristic polynomial, 
+  \begin{align*}
+    y'' + 2y' - 3y &= 0\\
+    r^2e^{rt} + 2re^{rt} - 3e^{rt} &= 0,\\
+    e^{rt}(r^2 + 2 - 3) &= 0,\\
+    e^{rt}(r + 3)(r - 1) &= 0.
+  \end{align*}
+  Since our characteristic polynomial has roots $r = -3, 1$ we form the general solution with, 
+  \begin{equation*}
+    y(t) = c_1e^{-3t} + c_2e^{t}.
+  \end{equation*}
+  With two equations and two unknowns we solve the system for $c_1$ and $c_2$, 
+  \begin{align*}
+    \alpha &= c_1e^{-3(0)} + c_2e^{(0)}.\\
+    \tau &= c_1e^{-3(\beta)} + c_2e^{(\beta)}.
+  \end{align*}
+  The first equation simplifies to $\alpha = c_1 + c_2$, which gives $c_2 = \alpha - c_1$. By substitution we get 
+  \begin{align*}
+    \tau &= c_1e^{-3(\beta)} + (\alpha - c_1)e^{(\beta)},\\
+    \tau &= c_1e^{-3(\beta)} - c_1e^{(\beta)} + \alpha e^{(\beta)},\\
+    \tau &= c_1(e^{-3(\beta)} - e^{(\beta)}) + \alpha e^{(\beta)},\\ 
+    c_1 &= \frac{\tau-\alpha e^{(\beta)}}{e^{-3(\beta)} - e^{(\beta)}},
+  \end{align*}
+and,  
+  \begin{equation*}
+    c_2 = \alpha - \frac{\tau-\alpha e^{(\beta)}}{e^{-3(\beta)} - e^{(\beta)}}.
+  \end{equation*}
+  So our solution $y(t)$ is, 
+  \begin{equation*}
+    y(t) = \left(\frac{\tau-\alpha e^{(\beta)}}{e^{-3(\beta)} - e^{(\beta)}}\right)e^{-3t} + \left(\alpha - \frac{\tau-\alpha e^{(\beta)}}{e^{-3(\beta)} - e^{(\beta)}}\right)e^{t}.
+  \end{equation*}
+
+  
+
+\end{exercise}
+\vspace{1in}
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

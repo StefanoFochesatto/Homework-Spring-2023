@@ -1,0 +1,30 @@
+function [x,U] = lchdbvp(m, a, b, alpha, beta)
+% This function uses a centered finite difference scheme to solve 
+% the following linear, constant coefficient, homogeneous, 
+% dirichlet boundary value problem:
+% 
+%   u''(x) + u(x) = 0, u(a) = \alpha, u(b) = \beta
+%
+% Using m + 2 point grid and the following finite difference approx.
+%
+%    D^2U_j = 1/h^2(U_{j - 1} -2U_j +U_{j + 1})
+%
+
+
+x = linspace(a, b, m+2); % Generating grid 
+h = (b - a)/(m + 1); % Grid spacing
+% Generating A 
+A = (1/h^2).*(
+    diag(((h^2 - 2)*ones(m, 1))) + 
+    diag(ones(m - 1, 1), 1) + 
+    diag(ones(m - 1, 1), -1)
+    );
+
+% Generating F
+F = zeros(m, 1);
+F(1) = F(1) - alpha/h^2;
+F(m) = F(m) - beta/h^2;
+
+% Solving U
+U = A\F;
+U = [alpha; U; beta];

@@ -1,0 +1,49 @@
+function [tt,zz,xx] = AdvectLeapfrog(feta,t0,tf,a,m,N)
+% AdvectLeapfrog  Solve
+%
+%   u_t = -au_x , u(0, x) = eta
+%
+% for u(t, x) on the interval [t0,tf] with N steps in time
+% and m+1 steps in space (extra point is the repeated boundary
+% condition). Midpoint in time via method of lines.
+% 
+% Usage: [tt,zz,xx] = AdvectLeapfrog(feta,t0,tf,a,m,N)
+
+
+% Compute step size in space
+% Dividing our spatical interval 
+% with m+1 points means m subintervals
+h = 1/(m);
+
+% Define step in time. This one stays the same
+k = (tf - t0) / N;
+
+% System factor
+r = ((a*k)/(2*h));
+
+% Generate matrix for system of IVPs in time
+% Midpoint in space matrix multiplied by time spacing. 
+A = spdiags([-1*(ones(m,1)),zeros(m,1), ones(m,1)],[-1, 0, 1], m, m);
+A(1, end) = -1;
+A(end, 1) = 1;
+A = -r*A;
+
+tt = t0:k:tf;        % row vector of times
+% I AM CHOOSING TO KEEP THE FIRST SPATIAL TERM
+xx = linspace(0, 1, m+1); % row vector of spatial location
+eta = feta(xx(1:end-1)');   % Solving for initial conditions
+
+
+% Setting up solution matrix
+zz = zeros(m, N+1);   % jth column is U at t_{j-1}
+zz(:,1) = eta; % Initial condition
+
+% Forward Euler with same midpoint spacial discretiation
+% for the initial step. 
+zz(:,2) = zz(:,1) + A*zz(:,1); 
+
+for j = 2:N     
+    zz(:,j+1) = zz(:,j-1) + A*zz(:,j);
+end
+% I AM ADDING THE LAST SPATIAL TERM TO THE ARRAY
+zz = [zz ; zz(1,:)];                      

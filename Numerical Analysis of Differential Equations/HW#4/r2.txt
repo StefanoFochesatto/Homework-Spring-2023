@@ -1,0 +1,20 @@
+f = @(x) 2*cos(x) + ((3 - 2*cos(1))/sin(1))*sin(x);
+M = [10 20 40 80 160 320 640 1280, 2560, 5120];
+Error = zeros(1, 10);
+Spacing = zeros(1, 10);
+g = @(x) 0*x;
+
+for i = 1:10 
+    Spacing(i) = 1/(M(i) + 1);
+    [x,U] = lchdbvp(M(i), 0, 1, 2, 3);
+    Error(i) = sqrt(Spacing(i)) * norm(U - f(x)',2);
+end
+
+p = polyfit(log(Spacing),log(Error),1);
+fprintf('convergence at rate O(h^p) with p = %f\n',p(1))
+loglog(Spacing,Error,'o', ...
+    Spacing,exp(p(2) + p(1)*log(Spacing)),'r--', ...
+    Spacing, exp(p(2) + 2*log(Spacing)),'b--') %Optimal
+xlabel h,  ylabel('numerical error')
+
+axis tight

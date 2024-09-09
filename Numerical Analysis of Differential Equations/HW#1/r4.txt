@@ -1,0 +1,26 @@
+function [x,y,yp] = eulers2by2(dx,i,x0, xf)
+% This function takes in a step size dx, an initial value vector i
+% and a range of x0, xf values and uses Euler's Method to approximate
+% y(t) and y'(t) defined by the second order IVP in Problem 4. 
+    
+    %Allocating space for solution
+    x = [x0:dx:xf]';
+    [n, m] = size(x);
+    y = zeros(n, 1);
+    yp = zeros(n, 1);
+
+    %Loading in initial values. 
+    y(1) = i(1);
+    yp(1) = i(2);
+
+    
+    for i = 2:n
+        %Compute x1' and x2'
+        x1p = yp(i - 1);
+        x2p = 6*y(i - 1) - yp(i - 1);
+        %Euler's method: Use linear approximation to get next function value
+        y(i) = y(i - 1) + dx*x1p;
+        yp(i) = yp(i - 1) + dx*x2p;
+    end
+
+end

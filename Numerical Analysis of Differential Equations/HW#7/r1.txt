@@ -1,0 +1,17 @@
+f = @(t, u) -2100.*(u - cos(t)) - sin(t);
+% Step sizes from table
+k = [.001, .000976, .000952, .0008, .0004]';
+% Convert to number of steps
+N = floor(2./k);
+% Exact Solution
+exact = cos(2);
+tFinalError = zeros(5, 1);
+
+for i = 1:5
+    [tt,zz] = feulerED(f,1,0,2, N(i));
+    tFinalError(i) = abs(zz(end) - exact);
+end
+% Final Table
+FinalTable = [k tFinalError];
+table(FinalTable)
+

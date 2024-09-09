@@ -1,0 +1,285 @@
+\documentclass[minion]{homework651}
+\include{hwextras}
+\def\calB{\mathcal{B}}
+\DeclareMathOperator{\Int}{\mathrm{Int}}
+\usepackage{tikz-cd}
+\usepackage{graphicx}
+\usepackage{float}
+\tikzcdset{every label/.append style = {font = \small}}
+
+\doclabel{Math F651: Homework 5}
+\docdate{Due: February 22, 2023}
+\docauthor{Stefano Fochesatto}
+\begin{document}
+
+\begin{problems}
+
+\problem Suppose $\mathcal B_X$ and $\mathcal B_Y$ are bases for $X$ and $Y$ respectively.
+Show that $\mathcal B = \{U\times V: U\in B_X, V\in B_Y\}$ is a basis for $X\times Y$.
+\begin{proof} Suppose $X \times Y$ has the product topology and let $\mathcal B = \{U\times V: U\in B_X, V\in B_Y\}$.
+    Let $O \subseteq X \times Y$ be an open subset with $(p, q) \in O$. Since $X\times Y$ has the product topology, there exists a basic open set 
+    $\pi_x^{-1}(\hat{U}) \cap \pi_y^{-1}(\hat{V})$ with $\hat{U}$ is open in $X$ and $\hat{V}$ is open in $Y$ such that 
+    $(p,q) \in \pi_x^{-1}(\hat{U}) \cap \pi_y^{-1}(\hat{V}) \subseteq O$. Note that since $\mathcal B_X$ and $\mathcal B_Y$ are bases for $X$ and $Y$ 
+    respectively we know that there exists $U \in \mathcal B_X$ and $V \in \mathcal B_Y$ such that $p \in U \subseteq \hat{U}$ and $q \in V \subseteq \hat{V}$.
+    Finally note that $(p,q) \in U \times V \subseteq \pi_x^{-1}(\hat{U}) \cap \pi_y^{-1}(\hat{V}) \subseteq O$.
+
+    
+\end{proof}
+
+
+\problem Suppose $A\subset X$ and $B\subset Y$.  Use the fact that
+the Characteristic Property of the Product Topology is characteristic to
+show that the subspace topology on $A\times B$ is the the same as its
+topology as a product of subspaces.
+
+\begin{proof} Suppose $A\subset X$ and $B\subset Y$ and let $\tau_s$ be the topology induced on $A\times B$
+    by $X \times Y$. By the characteristic property of the subspace topology we know that for any $Z$, 
+    a function $f$ is continuous if and only if it's composite maps are continuous, which leads to the following commutative diagrams. 
+\begin{figure}[!h]
+    \begin{minipage}[c]{.32\linewidth}
+        \centering
+    \begin{tikzcd}
+        && X \\
+        \\
+        Z && A
+        \arrow["{\iota_A}"', hook', from=3-3, to=1-3]
+        \arrow["{\iota_A\circ f}", from=3-1, to=1-3]
+        \arrow["f"', from=3-1, to=3-3]
+    \end{tikzcd}
+    \caption{(1)}
+    \end{minipage} \hfill
+    \begin{minipage}[c]{.32\linewidth}
+        \centering
+        \begin{tikzcd}
+            && Y \\
+            \\
+            Z && B
+            \arrow["f"', from=3-1, to=3-3]
+            \arrow["{\iota_B}"', hook', from=3-3, to=1-3]
+            \arrow["{\iota_B\circ f}", from=3-1, to=1-3]
+        \end{tikzcd}
+        \caption{(2)}
+    \end{minipage} \hfill
+    \begin{minipage}[c]{.32\linewidth}
+        \centering
+        \begin{tikzcd}
+            && {X \times Y} \\
+            \\
+            Z && {(A \times B)_s}
+            \arrow["f"', from=3-1, to=3-3]
+            \arrow["{\iota_{A \times B}}"', hook', from=3-3, to=1-3]
+            \arrow["{\iota_{A\times B}\circ f}", from=3-1, to=1-3]
+        \end{tikzcd}
+        \caption{(3)}
+    \end{minipage}             
+\end{figure}
+
+Note that $(A \times B)_s$ in (3) indicates open under $\tau_s$ and $\iota_I$ denotes the inclusion map of $I$ into the ambient space. Since $X \times Y$ has the product topology, by the Characteristic Property of the Product Topology
+we know that for any $Z$, a function $f$ is continuous into $X \times Y$ if and only if it is continuous into it's components, which yields the following commutative diagram, 
+\begin{figure}[!h]
+    \centering
+    \begin{tikzcd}
+        && {X \times Y} \\
+        &&& {I \in \{X, Y\}} \\
+        Z && I
+        \arrow["{f_I}"', from=3-1, to=3-3]
+        \arrow["{\pi_I}", from=1-3, to=3-3]
+        \arrow["f", from=3-1, to=1-3]
+    \end{tikzcd}
+    \caption{(4)}     
+\end{figure}
+
+Note that $\pi_I$ is the canonical projection. We will proceed to show that $\tau_s$ is equivalent to the product topology by demonstrating that $\tau_s$ satisfies the CPPT. 
+Consider a space $Z$ and suppose a function $f: Z \to (A\times B)_s$ is continuous. By (3) it follows that $\iota_{A\times B} \circ f$ is continuous into $X \times Y$. By (4)
+it follows that each of $\pi_{X} \circ \iota_{A\times B} \circ f$  and $\pi_{Y} \circ \iota_{A\times B} \circ f$ are continuous into $X$ and $Y$ respectively. Finally by (1) and (2)
+we know that the restrictions  $(\pi_{X} \circ \iota_{A\times B} \circ f)|_A$  and $(\pi_{Y} \circ \iota_{A\times B} \circ f)|_B$ are continuous into $A$ and $B$ respectively. 
+
+
+
+Now suppose the component maps $f_A: Z \to A$ and $f_B: Z \to B$ are continuous. By (1) and (2) we know that $\iota_A\circ f_A$ and $\iota_B\circ f_B$ are continuous into $X$ and $Y$
+respectively. Since these are simply component maps into $X$ and $Y$, by (4) we know that $f$ is continuous from $Z$ into $X \times Y$, and finally by (3) we know that $f|_{(A\times B)}$ is continuous into 
+$(A\times B)_s$. 
+
+Therefore $\tau_s$ satisfies the Characteristic Property of the Product Topology.
+    
+\end{proof}
+
+
+
+
+
+
+
+
+\problem Show that $(X_1\times X_2)\times X_3$ is homeomorphic to $X_1\times X_2 \times X_3$.
+You may not use the words ``open'' or ``closed'' at any point in your proof.  (\textit{Hint:} Use the Characteristic Property, Luke!)
+\begin{proof}
+    Let $f: (X_1\times X_2)\times X_3 \to X_1\times X_2 \times X_3$ be defined by $f(((x, y), z)) = (x, y, z)$. This function is a bijection.
+    To show that $(X_1\times X_2)\times X_3$ is homeomorphic to $X_1\times X_2 \times X_3$ we must prove that $f$ and $f^{-1}$ are continuous. Let $\pi_{i}$, $\pi'_i$ and $\pi''_i$ denote the canonical projections from 
+    $X_1\times X_2 \times X_3$, $(X_1\times X_2)\times X_3$ and $X_1\times X_2$ respectively. First, we will show that $f$ is continuous via the Characteristic Property of the Product Topology. 
+    Note that $\pi''_{X_1}\circ\pi'_{X_1 \times X_2} = \pi_1 \circ f$, $\pi''_{X_2}\circ\pi'_{X_1 \times X_2} = \pi_2 \circ f$, and $\pi'_{X_3} = \pi_{x_3}\circ f$ are all continuous, and thus by CPPT
+    it follows that $f$ is continuous.  
+
+    
+    Now we will show that $f^{-1}$ is continuous. Note that $\pi'_{X_1 \times X_2}\circ f^{-1}$ is a map from $X_1 \times X_2 \times X_3$ to $X_1 \times X_2$ whose component maps are $\pi_1$ and $\pi_2$
+    so by CPPT $\pi'_{X_1 \times X_2}\circ f^{-1}$ is continuous. Also note that since $\pi_3 = \pi'_{X_3} \circ f^{-1}$ is continuous it follows by CPPT that $f^{-1}$ is continuous. 
+
+\end{proof}
+
+\problem Prove the following.
+\begin{subproblems}
+
+\item A projection map from an arbitrary product space is an open map.
+\begin{proof}
+    Let $X^* = \prod_{\alpha \in A} X_\alpha$ and consider a projection map $\pi_i: X^* \to X_i$. Note that $X^*$ has the 
+    product topology, and therefore a basic open set $U$ is of the form $U  = \bigcap_{j \in J} \pi^{-1}_j(U_j)$ where $J \subset A$ is 
+    a countable index set and $U_j$ is open in $X_j$. Note that if $i \in J$ then $\pi_i(U) = U_i$ an open set, otherwise $\pi_i(U) = X_i$.
+    In any case the basic open sets of $X^*$ map to open sets in $X_i$, hence $\pi_i$ is an open map. 
+\end{proof}
+
+\item An arbitrary product of Hausdorff spaces is Hausdorff
+\begin{proof}
+    Let $X^* = \prod_{\alpha \in A} X_\alpha$ such that each $X_\alpha$ is Hausdorff. Suppose $p, q \in X^*$ such that $p \neq q$. 
+    Since $p \neq q$ there exists some $i$ such that $\pi_i(p) \neq \pi_i(q)$ where $\pi_i(p), \pi_i(q) \in X_i$. Since $X_i$ is Hausdorff 
+    and $\pi_i(p) \neq \pi_i(q)$ there exist $U_p, U_q$ open in $X_i$ such that $\pi_i(p) \in U_p$, $\pi_i(q) \in U_q$ and $U_p \cap U_q = \emptyset$.
+    Consider the $\pi_i^{-1}(U_p), \pi_i^{-1}(U_q) \in X^*$ which are open by definition of the product topology.
+    Note that $p \in \pi_i^{-1}(U_p)$ and $q \in \pi_i^{-1}(U_q)$ and clearly $\pi_i^{-1}(U_p)\cap \pi_i^{-1}(U_q) = \emptyset$ since $U_p \cap U_q = \emptyset$.
+\end{proof}
+
+
+\begin{lemma}{1}
+    The set of all finite subsets of $\NN$ is countable.
+    \begin{proof}
+        Let $X = \{A \subseteq \NN: \text{A is finite}\}$ and consider $X_n = \{A \subseteq N: max(X) = n\}$. Note that $X_n = \mathcal{P}(\{1, 2, \dots, n\})$ so $|X_n| = 2^n$. 
+        Finally we see that $X = \cup_{i \in \NN} X_n$ and therefore $X$ must be countable because it is a countable union of finite sets.  
+    \end{proof}
+\end{lemma}
+
+\item A countable product of second countable spaces is second countable.
+\begin{proof} Let $X^* = \prod_{\alpha \in A} X_\alpha$ such that each $X_\alpha$ is second countable. 
+    By definition of the product topology the following set is a basis for $X^*$, 
+    \begin{equation*}
+        \mathcal{B}^* = \biggl\{{\bigcap_{j \in J} \pi^{-1}_j(U_j) : \begin{array}{cc}
+            J\subseteq A \text{ is finite,}&\\
+            U_j \subseteq X_j \text{ is open}&
+          \end{array}}\biggr\}.
+    \end{equation*}
+    Since each $X_j$ is second countable, for each $X_j$ there exists a countable basis $\mathcal{B}_j$. 
+    Now consider the set of open sets in $X^*$, 
+    \begin{equation*}
+        \mathcal{B}^{**} = \biggl\{{\bigcap_{j \in J} \pi^{-1}_j(B_j) : \begin{array}{cc}
+            J\subseteq A \text{ is finite,}&\\
+            B_j \in \mathcal{B}_j &
+          \end{array}}\biggr\}.
+    \end{equation*}
+    Note that for each $p \in B^*$ where $B^* \in \mathcal{B}^*$ there exists a 
+    $B^{**} \in \mathcal{B}^{**}$ with $p \in B^{**} \subseteq B^*$ since for all $j \in J$ we know that $\pi^{-1}_j(p) \in \pi^{-1}_j(B_j) \subseteq \pi^{-1}_j(U_j)$. 
+    Thus $\mathcal{B}^{**}$ is a basis for $X^*$. 
+    
+    Counting $\mathcal{B}^{**}$ we find that by using Lemma 1, our choice of indexing set $J$ has countably many options and recall that there are countably many options for each 
+    choice of $B_j \in \mathcal{B}_j$. So it follows that $|\mathcal{B}^{**}| = |\NN \times \NN|$ which is countable. Hence $X^*$ is second countable. 
+
+    
+    
+\end{proof}
+
+\end{subproblems}
+
+
+\problem\textbf{Problem 3-8} Let $X$ denote the cartesian product of countably infinitely copies of $\RR$
+endowed with the box topology. Define a map $f: \RR \to X$ by $f(x) = (x, x, x, \dots)$. Show that $f$ is 
+not continuous even though each of its component functions is. 
+\begin{proof} Let $X = \prod_{i = 1}^{\infty} \RR_i$ with the box topology. Suppose a map $f: \RR \to X$ by $f(x) = (x, x, x, \dots)$. 
+    Note that under the box topology the following set is open, 
+    \begin{equation*}
+        A = \bigcap_{i = 1}^{\infty} \pi^{-1}_i\left(\left(-\frac{1}{i}, \frac{1}{i}\right)\right)
+    \end{equation*}
+    Note that $0 \in \left(-\frac{1}{i}, \frac{1}{i}\right)$ for all $i \in \NN$, and therefore $(0,0,0,\dots) \in A$. 
+    Suppose for the sake of contradiction that $f$ is continuous, then $f^{-1}(A)$ is open. Since $(0,0,0,\dots) \in A$, we know that $0 \in f^{-1}(A)$
+    and there exists $\epsilon > 0$ such that $B_{\epsilon}(0) \subseteq f^{-1}(A)$, so $f(\epsilon/2) \in A$. However there exists an $N$ such that all $n \geq N$, 
+    \begin{equation*}
+       \pi_i^{-1}\left(\frac{\epsilon}{2}\right) \not\in \bigcap_{i = n}^{\infty} \pi^{-1}_i\left(\left(-\frac{1}{i}, \frac{1}{i}\right)\right).
+    \end{equation*}
+
+
+    
+\end{proof}
+
+
+% A function is continuous if the preimage of basic open sets are open. 
+% It is sufficient to prove discontinuously by showing that a some preimage  of an open set is not open. 
+
+\problem\textbf{Problem 3-9} Let $X$ be as in the preceding problem. Let $X^+\subseteq X$ be the subset consisting of sequences of 
+strictly positive real numbers, and let $z$ denote the zero sequence, that is, the one whose terms are $x_i = 0$ for all $i$. 
+Show that $z$ is in the closure of $X^+$, but there is no sequence of elements of $X^+$ converging to $z$. Then use the sequence lemma to conclude that $X$
+is not first countable, and thus not metrizable.  
+\begin{proof}  Let $X = \prod_{i = 1}^\infty \RR_i$ and $X^+ = \prod_{i = 1}^\infty \RR^+_i$ with $X^+\subseteq X$. Note that since $X$ has the box topology,
+    there exists a basic open set $B$ with $z \in B \subseteq U \in \mathcal{V}(z)$ of the form, 
+    \begin{equation*}
+        B = \bigcap_{i = 1}^\infty \pi^{-1}_i(U_i),
+    \end{equation*}
+    where $U_i$ are open in $\RR$. To show that $z$ is a contact point of $X^+$ it is sufficient to show that $B \cap X^+ \neq \emptyset$. 
+    Note that since $z \in B$ we know that $0 \in U_i$ and since $U_i$ are open in $\RR$, for every $U_i$ there exists an $n_{i} > 0$ such that the open set $B_{n_{i}}(0)\cap \RR^+ \subseteq U_i$.
+    Thus it must follow that, 
+    \begin{equation*}
+        \bigcap_{i = 1}^{\infty}\pi^{-1}_i(B_{n_i}(0) \cap \RR^+) \subseteq B \cap X^+.
+    \end{equation*}
+    Hence $z$ is a contact point of $X^+$. 
+
+    
+    Consider a sequence $\{x_i\}_{i = 1}^\infty \in X^+$. Note that each $x_i$ is itself a sequence $(x_{(i,1)},x_{(i,2)}, \dots)$.
+    Now consider the open set $U \in X$ containing $z$, 
+    \begin{equation*}
+        U = \bigcap_{i = 1}^{\infty}\pi_i^{-1}((-x_{(i,i)}, x_{(i,i)})).
+    \end{equation*}
+    Finally note that $z \in U \cap X^+$ is open in $X^+$ and there exists no $N \in \NN$ such that for all $n \geq N$, $x_n \subseteq U\cap X^+$. 
+    If there were such an $N$, it would follow that $x_N \in U \cap X^+$. However we know $x_{(N, N)} \not\in (-x_{(N, N)}, x_{(N, N)})$ which by our construction of $U$ implies that 
+    $x_n \not \in U$, a contradiction.  
+
+    Recall Lemma 2.48 which was proved in class (This is the sequence lemma, and we proved it in both direction but we only need one side for now). 
+    \begin{lemma}{2.48} Let $X$ be a topological space with $A \subseteq X$. If $X$ is first countable then for all $p \in \overline{A}$ there exists a sequence in $A$ converging to $p$. 
+    \end{lemma}
+    From the contrapositive of Lemma 2.48, since $X^+ \subseteq X$ and $z \in \overline{X^+}$ with the property that there exists no sequences in $X^+$ which converge to $z$ we can conclude that $X$ is not first countable.
+    Since every metric space is first countable, $X$ is not metrizable. 
+
+
+\end{proof}
+
+% Proving the last part requires looking at an arbitrary sequence in $X^+$ (looks like a sequence of sequences) and showing it doesnt converge to 0. 
+
+\problem\textbf{Problem 3-13 a} Suppose $X$ and $Y$ are topological spaces and $f: X \to Y$ is a continuous map. Prove that if $f$ admits 
+a continuous left inverse, it is a topological embedding. 
+
+\begin{proof}Let $X$ and $Y$ are topological spaces and $f: X \to Y$ is a continuous map. Suppose that $f$ admits 
+    a continuous left inverse, $g: Y \to X$. To show that $f$ is a topological embedding we must show that it is an injective continuous map 
+    that is a homeomorphism into it's image.
+
+
+    Let $p, q \in X$ such that $f(p) = f(q)$. Since $g$ is a well defined function and $f(p), f(q) \in Y$, applying $g$ to both sides we get $p = q$, hence $f$ is injective. 
+    Now we will show that the map $f'$ defined as $f$ restricted to it's image, is a homeomorphism. Clearly $f'$ is a continuous bijection, since $f$ is a continuous injection. Note that $f'^{-1}$ is the same map as $g|_{f(x)}$ and since $g$
+    is a continuous function so is it restriction, so $f'^{-1}$ is continuous. Thus $f$ is a topological embedding. 
+\end{proof}
+
+% Left inverse means if f: X \to Y then g: Y \to X and g(f(x)) = x 
+% F is injective and G is surjective. 
+
+\problem \exercise{3.61} Prove that a continuous surjective map $q: X \to Y$ is a quotient map if and only if it takes saturated open subsets to open subsets, 
+or saturated closed subsets to closed subsets.\\
+
+In class we showed that $q$ is a quotient map if and only if $q$ is surjective, continuous, and takes saturated open sets to open sets. \\
+
+
+\begin{proof}$(\Rightarrow)$ Suppose the continuous surjective map, $q: X \to Y$ is a quotient map. By our proof in class, $q$ takes saturated opens sets to open sets. 
+    Let $U \subseteq X$ be a saturated and closed. Since $U$ is saturated there exists a $W \in Y$ such that $U = q^{-1}(W)$ and since $q$ is surjective $q(U) = q(q^{-1}(W)) = W$.
+    Note that $U^c = (q^{-1}(W))^c = q^{-1}(W^c)$ and since $U^c$ is open we know that $q(U^c) = q(q^{-1}(W^c)) = W^c$ is also open, hence $W$ is closed. Therefore $q$ takes saturated closed sets to closed sets. 
+\end{proof}
+
+
+\begin{proof}$(\Leftarrow)$ Suppose the function $q: X \to Y$ is a continuous surjective map which takes saturated closed sets to closed sets.
+    Let $U \subseteq X$ be saturated and open. Since $U$ is saturated there exists a $W \in Y$ such that $U = q^{-1}(W)$ and since $q$ is surjective $q(U^c) = q(q^{-1}(W)) = W$. Note that 
+    $U^c = (q^{-1}(W))^c = q^{-1}(W^c)$ and by our supposition we know that since $U^c$ is closed $q(U^c) = q(q^{-1}(W^c)) = W^c$ is also closed, hence $W$ is open. Therefore $q$ takes saturated open sets to open sets and by our proof in class $q$ is a quotient map. 
+\end{proof}
+  
+\end{problems}
+
+\end{document}

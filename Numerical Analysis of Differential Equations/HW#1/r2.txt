@@ -1,0 +1,7 @@
+function sum = mysum(N)
+    sum = 0;
+    for i = 1:N
+       sum = sum + sin(i)/(i^3 + i);
+    end
+
+end

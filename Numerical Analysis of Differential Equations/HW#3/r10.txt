@@ -1,0 +1,7 @@
+>> u = @(x) 1 - sin((pi/4)*x);
+>> f = @(x) ((pi/4)^2 + 1)*sin((pi/4)*x) - 1;
+>> [x,U] = bvpq(50, 0, 2, -1, f, 1, 0);
+
+>> plot(x, U, 'x')
+>> plot(x, u(x))
+>> legend('FD Approx', 'U(x)', 'Location','northeast','FontSize', 12)

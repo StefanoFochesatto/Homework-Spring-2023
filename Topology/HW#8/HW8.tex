@@ -1,0 +1,184 @@
+\documentclass[minion]{homework651}
+\include{hwextras}
+\newcommand{\calB}{\mathcal{B}}
+\newcommand{\calF}{\mathcal{F}}
+\newcommand{\calS}{\mathcal{S}}
+\DeclareMathOperator{\Int}{\mathrm{Int}}
+
+
+\doclabel{Math F651: Homework 8}
+\docdate{Due: March 29, 2023}
+\docauthor{Stefano Fochesatto}
+
+\begin{document}
+Several of the problems on this assignment are repeats.  Use nets!
+\begin{problems}
+
+\problem Show that a topological space in $X$ is Hausdorff if and only if every 
+convergent net in $X$ has exactly one limit.
+\begin{proof}$(\Rightarrow)$ Suppose $X$ is Hausdorff. Let $\langle x_\alpha\rangle_{\alpha \in A}$ is a net in $X$
+    and suppose for the sake of contradiction that $\langle x_\alpha \rangle$ converges to both $a$ and $b$.
+    Since $X$ is Hausdorff there exists $U_a \in \mathcal{V}(a)$ and $U_b \in \mathcal{V}(b)$ such that $U_a \cap U_b = \emptyset$.
+    By definition there exists some $\alpha_b, \alpha_a \in A$ such that $\langle x_\alpha\rangle_{\alpha \in {T(\alpha_a)}} \subseteq U_a$
+    and $\langle x_\alpha\rangle_{\alpha \in {T(\alpha_b)}} \subseteq U_b$. Let $x_1 \in \langle x_\alpha\rangle_{\alpha \in {T(\alpha_a)}}$
+    and $x_2 \in \langle x_\alpha\rangle_{\alpha \in {T(\alpha_b)}}$ and note that $x_1, x_2 \in \langle x_\alpha\rangle_{\alpha \in A}$. Since
+    $\langle x_\alpha\rangle_{\alpha \in A}$ is a net there exists some $x_3 \geq x_1, x_2$, and therefore $x_3 \in \langle x_\alpha\rangle_{\alpha \in {T(\alpha_b)}}$
+    and $x_3 \in \langle x_\alpha\rangle_{\alpha \in {T(\alpha_a)}}$ so therefore $x_3 \in U_a \cap U_a$, a contradiction. 
+\end{proof}
+
+\begin{proof}$(\Leftarrow)$ Suppose $X$ is a space which is not Hausdorff. Then there exists $a, b \in X$ such that 
+    for every $U_a \in \mathcal{V}(a)$ we know that $b \in U_a$. Let $A =\mathcal{V}(a)$ ordered by reverse inclusion and choose 
+    $x_U \in U_a \cap U_b$. Consider the net $\langle x_U \rangle_{U \in \mathcal{V}(a)}$, we will proceed by showing that this net 
+    converges to both $a$ and $b$. Let $U_b \in \mathcal{V}(b)$, and note that $b \in U_b \cap W$ for some $W \in \mathcal{V}(a)$, therefore 
+    $\langle x_U \rangle_{U \in T(U_b \cap W)} \subseteq U_b$. Let $U_a \in \mathcal{V}(a)$, by definition $\langle x_U \rangle_{U \in T(U_a)} \subseteq U_a$.
+    Hence $\langle x_U \rangle_{U \in \mathcal{V}(a)}$ has two limits. 
+\end{proof}
+
+\problem Consider the product space $X\times Y$.  Find (and prove) a condition
+in terms of coordinate functions that characterizes convergence of nets in the product.
+Does your condition also work for an arbitrary product?\\
+
+Let $X \times Y$ be a product space, a net $\langle (x, y)_\alpha \rangle_{\alpha \in A}$
+converges to $(x, y)$ if and only if $\pi_i(\langle (x, y)_\alpha \rangle_{\alpha \in A})$ converges to $\pi_i((x, y))$ for all
+canonical projections $\pi_i$. 
+
+Let $f$ be the function associated to $\langle (x, y)_\alpha \rangle_{\alpha \in A}$. Define $\pi_i(\langle (x, y)_\alpha \rangle_{\alpha \in A})$ 
+as the net $\langle \pi_i((x, y)_\alpha) \rangle_{\alpha \in A}$ defined by the function $\pi_i(f(\alpha))$. 
+
+\begin{proof} $(\Rightarrow)$ Let $X \times Y$ be a product space and suppose that  $\langle (x, y)_\alpha \rangle_{\alpha \in A}$
+    converges to $(x, y)$. Without loss of generality let $\pi = \pi_x$ the canonical projection into $X$. 
+    Let $U \in \mathcal{V}(\pi_i((x, y)))$. Note that $\pi^{-1}(U)$ is an open set in $X \times Y$ containing $(x, y)$. By 
+    definition there exists some $\alpha' \in A$ such that $\langle (x, y)_\alpha \rangle_{\alpha \in T(\alpha')} \subseteq  \pi^{-1}(U)$. 
+    Since $\pi$ is a surjection it follows that $\pi(\langle (x, y)_\alpha \rangle_{\alpha \in T(\alpha')}) \subseteq  U$.
+\end{proof}
+
+
+\begin{proof} $(\Leftarrow)$ Let $X \times Y$ be a product space with a net $\langle (x, y)_\alpha \rangle_{\alpha \in A}$ and suppose that $\pi_i(\langle (x, y)_\alpha \rangle_{\alpha \in A})$ converges to $\pi_i((x, y))$ for all
+    canonical projections $\pi_i$. Let $U \in \mathcal{V}((x, y))$ and consider a basic open set $B$, such that $(x, y) \in B \subseteq U$.
+    Note that $B = \pi_X^{-1}(V) \cap \pi_Y^{-1}(W)$ where $V$ and $W$ are open in $X$ and $Y$ respectively. Note that 
+    $x \in V$ and $y \in W$, by definition there exists $\alpha_x, \alpha_y \in A$ such that $\pi_X(\langle (x, y)_\alpha \rangle_{\alpha \in T(\alpha_x)}) \subseteq V$
+    and $\pi_Y(\langle (x, y)_\alpha \rangle_{\alpha \in T(\alpha_y)}) \subseteq W$. By properties of nets there exists an $\alpha' \geq \alpha_x, \alpha_y$ so therefore, 
+    $\pi_X(\langle (x, y)_\alpha \rangle_{\alpha \in T(\alpha')}) \subseteq V$ and $\pi_Y(\langle (x, y)_\alpha \rangle_{\alpha \in T(\alpha')}) \subseteq W$. Finally note
+    that $\langle (x, y)_\alpha \rangle_{\alpha \in T(\alpha')} \subseteq \pi_X^{-1}(V), \pi_Y^{-1}(W)$ and therefore 
+    $\langle (x, y)_\alpha \rangle_{\alpha \in T(\alpha')} \subseteq B \subseteq U$.
+\end{proof}
+
+
+
+% In the other direction apply contrapositive. 
+% 
+\problem Show that a space $X$ is Hausdorff if and only if the diagonal in $X\times X$ is closed.
+\begin{proof}$(\Rightarrow)$ Suppose a space $X$ is Hausdorff. Consider the subset 
+    $\Delta = \{(x, x): x \in X\}\subseteq X \times X$. We will proceed to show that 
+    $\Delta$ is closed by showing that for every convergent net $\langle (x, x)_\alpha\rangle_{\alpha \in A} \subseteq \Delta$ 
+    with limit point $(a, b)$, then $(a, b) \in \Delta$.
+   
+    Let $\langle (x, x)_\alpha\rangle_{\alpha \in A} \subseteq \Delta$ which converges to $(a, b)$. By the previous problem it follows that 
+    $\langle x_\alpha \rangle_{\alpha \in A}$ converges to both $a$ and $b$. By Problem 1, since $X$ is Hausdorff it follows that $a = b$ and therefore by definition $(a, b) \in \Delta$.
+\end{proof}
+
+\begin{proof}$(\Leftarrow)$ Suppose $X$ is not Hausdorff. To show that $\Delta$ is not closed we will exhibit 
+    a net contained in $\Delta$ which has a limit point outside of $\Delta$. Since $X$ is not Hausdorff there exists distinct $a, b \in X$ such that 
+    for every $U_a \in \mathcal{V}(a)$ we know that $b \in U_a$. Let $A =\mathcal{V}(a)$ ordered by reverse inclusion and choose 
+    $x_U \in U_a \cap U_b$. Consider the net $\langle x_U \rangle_{U \in \mathcal{V}(a)}$ and recall that we showed this net converges to both $a$ and $b$. 
+    By Problem 2 it follows that $\langle (x, x)_U \rangle_{U \in \mathcal{V}(a)}$ which is clearly contained in $\Delta$ converges to $(a, b)$ which is not in $\Delta$.     
+\end{proof}
+
+
+
+
+
+\problem Let $G$ be a topological group and let $H$ be a subgroup. Show that 
+$\overline{H}$ is a subgroup.
+\begin{proof} Let $a, b \in \overline{H}$. We will proceed to show that $ab^{-1} \in \overline{H}$ by exhibiting a net 
+    contained in $H$ which converges to $ab^{-1}$.
+    
+    
+    Recall that if $a, b \in \overline{H}$ then there exists nets $\langle a_\alpha \rangle_{\alpha \in A}$
+    and $\langle b_\beta \rangle_{\beta \in B}$ which converge to $a$ and $b$ respectively. 
+    
+    
+    Note that $\langle a_\alpha\rangle$ and $\langle b_\beta\rangle$ are convergent 
+    nets in $G$ and by Problem 2 we know that 
+    \begin{equation*}
+        \langle (a_\alpha, b_\beta) \rangle_{(\alpha, \beta) \in A \times B} = \langle (a, b)_\gamma \rangle_{\gamma \in C}
+    \end{equation*}
+    in $G \times G$ converges to $(a, b)$.
+    Recall that for a topological group $G$, the map $f: G \times G \to G$ defined by $f(a, b) = ab^{-1}$ is continuous. Since $f$ is continuous and we know that 
+    $\langle (a, b)_\gamma \rangle \to (a,b)$ it follows that $\langle f((a, b)_\gamma) \rangle \to f((a,b)) = ab^{-1}$. What is left to show is that the net $f(\langle (a, b) \rangle_\gamma)$ is 
+    contained in $H$. Note that by definition $(a, b)_\gamma \in H \times H$ and since $H$ is a subgroup $f(H \times H) \subseteq H$. 
+
+    
+\end{proof}
+
+
+
+
+
+
+
+
+
+\problem Suppose $X$ is a space and $Y$ is compact and Hausdorff.
+Show that a function $f:X\rightarrow Y$ is continuous if and only if
+the graph of $f$, $G_f$ is closed.
+
+\begin{proof} $(\Rightarrow)$ Let $X$ be a space and $Y$ be compact and Hausdorff. Suppose that function $f:X\rightarrow Y$ is continuous.
+    We will proceed to show that $G_f$ is closed by demonstrating that for every convergent net $\langle (x, f(x))_\alpha \rangle_{\alpha \in A}$
+    contained in $G_f$ with limit $(a,b)$, then $(a, b) \in G_f$. 
+
+    By Problem 2 it follows that $\langle x_\alpha \rangle \to a$ and $\langle f(x_\alpha) \rangle \to b$. Since $f$ is continuous 
+    we know that $\langle f(x_\alpha) \rangle = \langle f(x_\alpha) \rangle \to f(a)$. Since $Y$ is Hausdorff, by Problem 1 $f(a) = b$ and therefore 
+    by definition $(a, b) \in G_f$.     
+\end{proof}
+
+
+\begin{proof}$(\Leftarrow)$  Let $X$ be a space and $Y$ be compact and Hausdorff. Suppose that the function $f:X \rightarrow Y$
+    is not continuous. We will proceed to show that $G_f$ is not closed. Since $f$ is not continuous there must exists a convergent net $\langle x_\alpha\rangle_{\alpha \in A} \to x$
+    in $X$ whose image does not converge to $f(x)$ in $Y$, i.e. $\langle f(x_\alpha)\rangle_{\alpha \in A}\not\to f(x)$. Therefore there exists a $U \in \mathcal{V}(f(x))$ and 
+    subnet $\langle f(x_{\alpha_\beta})\rangle_{\beta \in B}$ such that $f(x_{\alpha_\beta}) \not\in U$ for all $\beta$. Since $Y$ is compact however 
+    $\langle f(x_{\alpha_\beta})\rangle_{\beta \in B}$ itself must have a convergent subnet, $\langle f(x_{\alpha_{\beta_\gamma}})\rangle_{\gamma \in C} \to f(x)'$. Note that the 
+    corresponding net in the domain $\langle x_{\alpha_{\beta_\gamma}} \rangle_{\gamma \in C}$ is a subnet of a convergent net $\langle x_\alpha \rangle$ so therefore $\langle x_{\alpha_{\beta_\gamma}} \rangle_{\gamma \in C} \to x$. 
+    By Problem 2 it follows that $\langle ( x_{\alpha_{\beta_\gamma}},f(x_{\alpha_{\beta_\gamma}})) \rangle_{\gamma \in C}$ is a convergent net in $X \times Y$ contained in $G_f$ which converges to $(x, f(x)')$. However 
+    since $f(x_{\alpha_\beta}) \not\in U$ for all $\beta$, we know that $f(x)' \neq f(x)$. Therefore we have produced a convergent sequence contained in $G_f$ whose limit point is not contained in $G_f$ and hence $G_f$ is not closed. 
+\end{proof}
+
+
+
+%Don't use nets, apply the closed unit ball idea with the glue lemma. Connected manifold is important
+
+\problem Show that the homeomorphism group of a connected
+manifold acts transitively.  In other words, show that if $M$ is a 
+connected manifold, then for any two points $p$ and $q$ in $M$
+there is a homeomorphism $\psi:M\ra M$ such that $\psi(p)=q$.
+\begin{proof} Suppose $M$ is a connected manifold and let $p, q \in M$. Since $M$ is locally euclidean, for every point $x \in M$
+    there exists a $U \in \mathcal{V}(x)$ that is homeomorphic to $\RR^n$, a connected set. These neighborhoods form a basis of path-connected open subsets 
+    and therefore $M$ is locally path-connected. Since $M$ is connected and locally path connected, it is also path connected. Since $M$ is path connected 
+    there exists a path in $M$ between $p$ and $q$, i.e. a continuous $f:I \to M$ such that $f(0) = p$ and $f(1) = q$. Note that $f(I)$ is a compact set in $M$, and consider 
+    the collection $\{U_x \in \mathcal{V}(x): x \in f(I), U \sim \mathcal{B}^n\}$ which covers $f(I)$ since $f(I)$ is compact, this collection admits a cardinality $n$ finite refinement $\{U_i\}$.
+
+
+    Consider an ordering of $\{U_i\}$ such that $U_k \leq U_j$ if there exists a $b\in U_j$ such that $f^{-1}(b) \geq f^{-1}(a)$ for all $a \in U_k$ and $p \in U_1$ and $q \in U_n$.
+    Note that $U_{i} \cap U_{i+1} \neq \emptyset$ since that would imply the collection does not cover $f(I)$. 
+    
+
+    Note that $U_i$, by construction is homeomorphic to the open $\mathcal{B}^n$, by some homeomorphism $f$. Recall that we can construct a homeomorphism
+    $\phi_i:\mathcal{B}^n \to \mathcal{B}^n$ which maps $\phi_i(f(a)) = f(b)$ such that $a \in U_{i - 1} \cap U_{i}$ and $b \in U_{i} \cap U_{i + 1}$. We can define 
+    $\phi_i$ on the open $\mathcal{B}^n$ restriction and maintain our homeomorphism since $\phi_i(\partial \mathcal{B}^n) = \partial \mathcal{B}^n$ since the boundary was kept constant. 
+    Define $\phi_1$ such that $\phi_1(f(p)) = f(k)$ where $k \in  U_{1} \cap U_{2}$ and $\phi_n$ such that $\phi_n(f(j)) = f(q)$ where $j \in U_{n - 1}\cap U_n$.
+
+    
+    Note that the map $f{-1}\circ \phi_i\circ f$ is a homeomorphism from $U_i$ to itself. To continue I need this map to be a homeomorphism from $\overline{U_i}$ to itself, it should 
+    follow pretty directly from $\phi_i$ being constant on the boundary but I'm not certain exactly how.
+    To continue, let $f{-1}\circ \phi_i\circ f$ be a homeomorphism from $\overline{U_i}$ to itself, such that all $x \in \partial\overline{U_i}$ get the identity map. 
+    Applying the glueing lemma with the identity function applied to $\overline{U_i}^c$ we get a homeomorphism from $g_i: M \to M$ which maps $g(a) = b$ for some $a \in U_{i - 1} \cap U_n$
+    and $U_n \cap U_{n+1}$. Note that $\psi: M \to M$ defined by $\psi(x) = g_n \circ ... \circ g_1$ has the property that $\psi(p)=q$ and is a homeomorphism since it is defined as a composition of homeomorphisms. 
+   
+   
+
+\end{proof}
+
+\end{problems}
+
+\end{document}
+

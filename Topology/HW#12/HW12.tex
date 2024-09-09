@@ -1,0 +1,127 @@
+\documentclass{homework651}
+\include{hwextras}
+\usepackage{graphicx,tikz-cd}
+\usepackage[all,cmtip]{xy}
+\def\net<#1>{\left<#1\right>}
+\newcommand{\bigslant}[2]{{\raisebox{.2em}{$#1$}\left/\raisebox{-.2em}{$#2$}\right.}}
+
+\newcommand{\bbB}{\mathbb{B}}
+\doclabel{Math F651: Homework 12}
+\docdate{Due: April 28, 2023}
+\begin{document}
+\begin{problems}
+
+    \problem Lee 9-2 
+    The center of a group $G$ is the set $Z$ of elements of $G$ that commute with every element of $G$: thus $Z = \{g \in G: gh = hg \text{ for all } h \in G\}$. Show that a free group on two or more generators has center consisting of the identity alone.
+    \begin{proof} Suppose $|S| = n$ such that $n \geq 2$, we want to show that the center of $F(S)$ consists of only the identity. 
+        Suppose to the contrary that there exists some non identity $w \in F(S)$ such that $w \in Z$. Let $$w = \sigma^{\alpha_1}_1\sigma^{\alpha_2}_2\dots\sigma^{\alpha_k}_k$$
+        where $\sigma_i \in S$, $\alpha_i \neq 0$ and $\sigma_i \neq \sigma_{i + 1}$. Now suppose the case where $k \geq 3$, and consider the element $h = \sigma_{k - 1}^{\alpha_{k - 1}} \sigma_1^{-\alpha_1}$ and note that since $w \in Z$ we get the following, 
+        \begin{align*}
+            hw &= wh,\\
+            (\sigma_{k - 1}^{\alpha_{k - 1}}\sigma_1^{-\alpha_1})(\sigma^{\alpha_1}_1\sigma^{\alpha_2}_2\dots\sigma^{\alpha_k}_k)&= (\sigma^{\alpha_1}_1\sigma^{\alpha_2}_2\dots\sigma^{\alpha_k}_k)(\sigma_2^{\alpha_2}\sigma_1^{-\alpha_1}),\\
+            \sigma_{k - 1}^{\alpha_{k - 1}}\sigma^{\alpha_2}_2\dots\sigma^{\alpha_k}_k&= (\sigma^{\alpha_1}_1\sigma^{\alpha_2}_2\dots\sigma^{\alpha_k}_k) (\sigma_{k - 1}^{\alpha_{k - 1}}\sigma_1^{-\alpha_1}).
+        \end{align*}
+        Note that the left-hand side cannot reduce since $\sigma_i \neq \sigma_{i + 1}$ and therefore since these words are clearly not equivalent this is a contradiction.
+        Clearly a word with one element cannot be in the center, so now we consider the case when $k = 2$. Note that with element $h = \sigma^{\alpha_2}_2\sigma_1^{-\alpha_1}$ we get the following, 
+        \begin{align*}
+            hw &= wh,\\
+            (\sigma^{\alpha_2}_2\sigma_1^{-\alpha_1})(\sigma^{\alpha_1}_1\sigma^{\alpha_2}_2) &= (\sigma^{\alpha_1}_1\sigma^{\alpha_2}_2)(\sigma^{\alpha_2}_2\sigma_1^{-\alpha_1}),\\
+            \sigma^{\alpha_2+\alpha_2}_2 &= \sigma^{\alpha_1}_1\sigma^{\alpha_2 + \alpha_2}_2\sigma_1^{-\alpha_1}.
+        \end{align*}
+    \end{proof}
+
+
+
+
+
+
+
+
+
+
+    \problem Lee 9-4 (Read ``Presentations of Groups'', pages 241--243 first)
+    Let $G_1, G_2, H_1, H_2$ be groups and let $f_i: G_i \to H_i$ be a group homomorphism from $i = 1, 2$. 
+    \begin{enumerate}
+        \item[\textbf{(a)}] Show that there exists a unique homomorphism $f_1 \ast  f_2: G_1 \ast  G_2 \to H_1 \ast H_2$
+        such that the following diagram commutes for $i = 1, 2$:
+        \[\begin{tikzcd}
+            {G_1 \ast G_2} && {H_1 \ast H_2} \\
+            \\
+            {G_i} && {H_i}
+            \arrow["{f_i}"', from=3-1, to=3-3]
+            \arrow["{\iota_i}", from=3-1, to=1-1]
+            \arrow["{\iota'_i}"', from=3-3, to=1-3]
+            \arrow["{f_1\ast f_2}", from=1-1, to=1-3]
+        \end{tikzcd}\]
+        where $\iota_i: G_i \to G_1 \ast G_2$ and $\iota'_i: H_i \to H_1 \ast H_2$ are the canonical injections. 
+        \begin{proof} Recall that in order to apply the characteristic property of the free product to our collection $\{G_1, G_2\}$,
+            the free product $G_1 \ast G_2$, and the group $H_1 \ast H_2$ we must show is that for each $G_i \in \{G_1, G_2\}$
+            there exists a homomorphism into $H_1 \ast H_2$. By the characteristic property of the free product these homomorphisms
+            extend into the desired unique homomorphism from $G_1 \ast G_2$ to $H_1 \ast H_2$.
+
+            From our hypothesis we know that there exists a homomorphism $f_i: G_i \to H_i$ and and a canonical projection $\iota'_i: H_i \to H_1 \ast H_2$.
+            Let $\phi_i = \iota'_i \circ f_i$ and note that $\phi_i :G_i \to  H_1 \ast H_2$. We will conclude by showing that this map is a homomorphism. First note 
+            that since $\iota'_i$ is the canonical injection, $\iota'_i(h) = h$ for all $h \in H_i$.  
+            Let $a, b \in G_i$ it then follows that, 
+            \begin{align*}
+                \phi_i(ab) &= \iota'_i(f_i(ab)),\\
+                &= \iota'_i(f_i(a)f_i(b)),\\
+                &= f_i(a)f_i(b),\\
+                &= \iota'_i(f_i(a))\iota'_i(f_i(b)),\\
+                &= \phi_i(a)\phi_i(b).
+            \end{align*}
+        \end{proof}
+            \vspace*{.15in}
+   
+        
+        \item[\textbf{(b)}] Let $S_1$ and $S_2$ be disjoint sets, and let $R_i$ be a subset of the free group $F(S_i)$ for $i = 1, 2$. Prove that $\langle S_1 \cup S_2 | R_1 \cup R_2 \rangle$ is a presentation of the free product group $\langle S_1|R_1  \rangle \ast \langle S_2|R_2  \rangle$
+        \begin{proof}
+
+
+
+        \end{proof}
+
+
+
+
+
+
+
+
+    \end{enumerate}
+
+
+
+
+
+
+
+
+    \problem Lee 10-1 (Wait until Monday to start) Use the Seifert-Van Kampen Theorem to give another proof that $S^n$ is simply connected when $n \geq 2$. 
+    \begin{proof} Consider $S^n$ with $n \geq 2$ and recall that in order to show that if $S^n$ is simply connected 
+        we must show that $\pi_1(S^n)$ is trivial. Let $U = S^n \setminus \{p\}$ and $V = S^n \setminus \{q\}$ with $p \neq q$. Clearly these two sets are open, path-connected, and cover $S^n$. Note that $U \cap V = S^n \setminus \{p, q\}$ is clearly path-connected. 
+
+        Consider the fundamental groups $\pi_1(U)$ and $\pi_1(V)$ and note that since the spaces are $S^n$ with one point removed we know that they are homeomorphic to $\RR^{n}$ and since $n \geq 2$, $\RR^{n}$ is always homotopic to a constant. Hence $\pi_1(U)$ and $\pi_1(V)$
+        are trivial groups.
+
+        Apply Seifert-Van Campen, we know that $\pi_1(S^n) \cong \bigslant{\pi_1(U) \ast \pi_1(V)}{\overline{C}}$. Since $\pi_1(U)$ and $\pi_1(V)$ are both trivial the free product is also trivial, and so is a quotient of the free product. Hence $\pi_1(S^n)$ is trivial and $S^n$ is simply connected.  
+
+
+
+
+        
+    \end{proof}
+
+
+
+
+
+    \problem Lee 10-5 (You may be a little informal in your proof)
+
+
+
+
+\end{problems}
+
+\end{document}
+

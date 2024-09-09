@@ -1,0 +1,19 @@
+function [tt,zz] = GraphFEuler(a, f,eta,t0,tf,N)
+% GraphLaplacianForwardEuler  Solve
+%   phi'(t) = -a*L*phi(t) ,  phi(0) = eta
+% for phi(t) on the interval [t0,tf] with N steps in time.
+% f(t,phi) @(t, x) = -alpha*L*x
+% 
+% Usage:[tt,zz] = GraphFEuler(f,eta,t0,tf,N)
+
+
+dt = (tf - t0) / N;
+tt = t0:dt:tf;        % row vector of times
+eta = eta(:);         % force to be column vector
+s = length(eta);
+zz = zeros(s,N+1);    % jth column is U at t_{j-1}
+zz(:,1) = eta;
+
+for j = 1:N           % forward Euler is (5.19) in LeVeque
+    zz(:,j+1) = zz(:,j) + dt .* -a.*f(tt(j),zz(:,j));
+end

@@ -1,0 +1,23 @@
+function [Hist, z] = jacobi(A, b, x0, N)
+% This function takes in a system Az = b
+% an initial iterate x0 and a number of
+% iterations N and performs jacobi iteration, 
+% using 
+
+z = x0';
+Hist = z;
+[m, n] = size(A);
+
+for i = 1:N
+    % Building next iterate with jacobi iteration
+    zk = [];
+    for j = 1:m
+        % There's probably a better way to implement this. 
+        zk = [zk ((b(j) - ((A(j, :)*z') - (A(j, j)*z(j))))/A(j, j))];
+    end
+    % Setting and storing next iterate
+    z = zk;
+    Hist = [Hist; z];
+end
+end
+______________________________________________________________________

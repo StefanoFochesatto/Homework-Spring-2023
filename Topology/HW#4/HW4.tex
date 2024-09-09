@@ -1,0 +1,158 @@
+\documentclass[minion]{homework651}
+\include{hwextras}
+\def\calB{\mathcal{B}}
+\DeclareMathOperator{\Int}{\mathrm{Int}}
+
+
+\doclabel{Math F651: Homework 4}
+\docdate{Due: February 22, 2023}
+\docauthor{Stefano Fochesatto}
+
+\begin{document}
+
+
+\begin{problems}
+    % Manifold definition 
+    % - locally euclidean of dimension n
+    % - Hausdorff
+    % - 2nd countable. 
+    % Coordinate balls
+
+\problem  \textbf{Problem 2-23} Show that every manifold has a basis of coordinate balls.
+\begin{proof} Let $M$ be a manifold. Since $M$ is locally euclidean of dimension $n$ we know that for every $x \in M$
+    every $U \in \mathcal{V}(x)$ is homeomorphic to a ball in $\RR^n$. Choose a collection of open sets $\{U_x\}$ such that 
+    $U_x \in \mathcal{V}(x)$ for all $x \in M$. Clearly $\cup U_x = M$  and since each $U_x$ is homeomorphic to an open ball in $\RR^n$
+    they are by definition coordinate balls. 
+\end{proof}
+
+
+\problem \textbf{Problem 3-2} Suppose $X$ is a topological space and $A \subseteq B \subseteq X$. 
+Show that $A$ is dense in $X$ if and only if $A$ is dense in $B$ and $B$ is dense in $X$. 
+\begin{proof} $(\Rightarrow)$ Suppose $X$ is a topological space with $A \subseteq B \subseteq X$ where $A$ is dense in $X$. 
+    By definition, every $x \in X$ is a contact point of the set $A$. Since $B \subseteq X$ it follows $A$ must also be dense in $B$. 
+    Since $A \subseteq B$ it follows directly that every point in $X$ is also a contact point of $B$, hence $B$ is dense in $X$.  
+
+    $(\Leftarrow)$ Suppose $X$ is a topological space with $A \subseteq B \subseteq X$ where $A$ is dense in $B$ and $B$ is dense in $X$.
+    Let $x \in X$ and consider some $U_x \in \mathcal{V}(x)$. Since $B$ is dense in $X$ there must exists some $b \in B$ such that $b \in U_x$.
+    Now consider $U_b \in \mathcal{V}(b)$ and consider the open set $U_x \cap U_b$. Note that since $A$ is dense in $B$ there exists some $a \in A$ such that 
+    $a \in U_x \cap U_b$. Therefore there exists some $a \in U_x$ and thus $A$ is dense in $X$.  
+\end{proof}
+
+
+\problem \textbf{Problem 3-3} Show by giving a counterexample that the conclusion of glueing lemma need not hold if $\{A_i\}$
+is an infinite closed cover. 
+\begin{proof} Let $X = [-1,1]$ be a topological space inheriting the subspace topology on $\RR$. Consider the infinite closed cover, 
+    $\{A_n\} \cup \{-1, 1\}$ where $A_n = [-1 + \frac{1}{n}, 1 - \frac{1}{n}]$ for $n \in \NN$. Define the following maps $f_0: \{-1,1\} \to \RR$ with $f_0(x) = -x$
+    and $f_n : A_n \to \RR$ with $f_n(x) = x$. The glueing lemma would have us believe that the function $f:[-1, 1] \to \RR$ defined by, 
+     \begin{equation*}
+        f(x) = \biggl\{\begin{array}{cc}
+        x, & x \in (-1, 1)\\
+        -x, & x \in \{-1, 1\} 
+      \end{array}\biggr\}
+    \end{equation*}
+    is continuous, which clearly it is not. 
+\end{proof}
+
+
+\problem \textbf{Exercise 3.7} Suppose $X$ is a topological space and $U \subseteq S \subseteq X$. 
+\begin{enumerate}
+    \item[(a)]  Show that the closure of $U$ in $S$ is equal to $\overline{U}\cap S$. 
+    \begin{proof} By definition the closure of $U$ in $S$ denoted $\overline{U_S}$ is the intersection of all 
+    subsets closed with respect to $S$ which contain $U$.  Note that $\overline{U} = \cap U_i$ where $U \subseteq U_i$ and $U_i$
+    is closed in $X$. It follows that $\overline{U}\cap S = (\cap U_i) = \cap (U_i \cap S)$. Note that  $(U_i \cap S)$ are closed with respect to $S$ via 
+    the subspace topology and contain $U$, therefore $\overline{U}\cap S = \cap (U_i \cap S) = \overline{U_s}$.
+    \end{proof}
+    \item[(b)] Show that the interior of $U$ in $S$ contains $\Int U \cap S$; Give an example to show that they might not be equal. 
+    \begin{proof} Note that the interior of $U$ in $S$ denoted $\Int_S U$ is simply the largest subset which is open with respect to $S$
+        contained in $U$. Let $X = \RR$, $S = \ZZ$, and $U = \ZZ$. Note that $\Int U \cap S = \emptyset$ since $\Int \ZZ$ in $\RR$ is empty. 
+        But $\Int_S U = \ZZ$ since $S$ as a subspace must be open.  
+    \end{proof}
+    
+\end{enumerate}
+
+\problem Give a rock solid proof that the cylinder $M \{(x, y, z) \in \RR: x^2 + y^2 = 1\}$ is a 2-manifold. 
+\begin{proof} Let $S^* = S^2/\{(0,0,1), (0,0,-1)\}$ and consider the function $f: M \to S^*$ defined by $f(x, y, z) = \frac{(x, y, z)}{\sqrt{1 + z^2}}$.
+    Recall that $S^2$ is a 2-manifold, and clearly $S^*$, an open subset of $S^2$ is also a 2-manifold. Therefore 
+    to prove that $M$ is a 2-manifold we will proceed by showing that $f$ is a homeomorphism. 
+
+    First we will show that $f$ is a bijection. Let $P, Q \in M$ such that $f(P) \neq f(Q)$. Applying $f$ we find that 
+    \begin{align*}
+        \frac{z_p}{\sqrt{1 + z_p^2}}&\neq \frac{z_q}{\sqrt{1 + z_q^2}}\\
+        z_p\sqrt{1 + z_q^2}&\neq z_q \sqrt{1 + z_p^2}\\
+        z_p^2(1 + z_q^2)&\neq z_q^2 (1 + z_p^2)\\
+        z_p^2 &\neq  z_q^2\\
+        z_p &\neq  z_q
+    \end{align*}
+    So clearly $P \neq Q$, and thus $f$ is an injection. 
+
+    Let $P \in S^*$, and note that by definition $x_p^2 + y_p^2 + z_p^2 = 1$. Since $S^*$ removes the poles we can choose $Q$ such that $Q = \frac{1}{\sqrt{x_p^2 + y_p^2}}(x_p, y_p, z_p)$. Note that $Q \in M$, since 
+   \begin{equation*}
+    \left(\frac{x_p}{\sqrt{x_p^2 + y_p^2}}\right)^2 + \left(\frac{y_p}{\sqrt{x_p^2 + y_p^2}}\right)^2 =  1.
+   \end{equation*}  
+   Finally we can see that applying $f$ to $Q$ gives $P$, 
+   \begin{align*}
+    f\left(\frac{1}{\sqrt{x_p^2 + y_p^2}}(x_p, y_p, z_p)\right) &= \frac{1}{\sqrt{1 + \left(\frac{z_p}{\sqrt{x_p^2 + y_p^2}}\right)^2}}\frac{1}{\sqrt{x_p^2 + y_p^2}}(x_p, y_p, z_p)\\
+     &= \frac{1}{\sqrt{\frac{x_p^2 + y_p^2 + z_p^2}{x_p^2 + y_p^2}}}\frac{1}{\sqrt{x_p^2 + y_p^2}}(x_p, y_p, z_p)\\
+     &= \frac{1}{\frac{1}{\sqrt{x_p^2 + y_p^2}}}\frac{1}{\sqrt{x_p^2 + y_p^2}}(x_p, y_p, z_p)\\
+     &= (x_p, y_p, z_p).
+   \end{align*} 
+   Hence $f$ is a surjection, and we can conclude that $f$ is a bijection. 
+   
+
+
+    Finally we will show that $f$ and $f^{-1}$ are continuous functions. Note that the component maps from $\RR^3 \to \RR^3$ of $f$ are continuous. Consider the first component map $f_x(x, y, z) = \frac{x}{\sqrt{1 + z^2}}$ is clearly a continuous function
+    for any value of $z$ and $x$. Similarly we know that $f_y$ is continuous. We also know that $f_z(x, y, z) = \frac{z}{\sqrt{1 + z^2}}$ is continuous, and since each component map of $f$
+    is continuous $f$ is also continuous.  
+
+    We can show that $f^{-1}: S^* \to M$ defined by $f^{-1}(x, y ,z) = \frac{1}{\sqrt{x^2 + y^2}}$ is continuous. Here note that the component maps from $\RR^3 /\{x, y, z: x, y = 0\} \to \RR^3 /\{x, y, z: x, y = 0\}$
+    of $f^{-1}$ are continuous. Consider $f_x^{-1}(x, y ,z) = \frac{x}{\sqrt{x^2 + y^2}}$ is continuous on $\RR^3 /\{x, y, z: x, y = 0\}$. Similarly with $f_y^{-1}$ and $f_z^{-1}$.
+
+    Thus we have shown that $M$ and $S^*$ are homeomorphic. 
+    
+\end{proof}
+
+\problem Using metric space arguments only, show that a sequence $\{x_n\}$ in $\RR^k$ converges to a limit
+$x$ if and only if each projection sequence $\{\pi_j(x_n)\}$ converges to $\pi_j(x), 1 \leq j \leq k$. 
+\begin{proof}$(\Rightarrow)$ Suppose that a sequence $\{x_n\}$ in $\RR^k$ converges to a limit $x$. By definition for all $\epsilon > 0$
+    there exists an $N$, such that for all $n \geq N$ it follows that, 
+    \begin{equation*}
+       d(x_n, x) = \sqrt{\sum_{i = 1}^k(x_{i_n} - x_i)^2} < \epsilon.
+    \end{equation*}
+    Clearly it follows that for all $\pi_j(x), 1 \leq j \leq k$, 
+    \begin{equation*}
+        d(\pi_j(x_n), \pi_j(x)) = \sqrt{(x_{j_n} - x_j)^2} \leq \sqrt{\sum_{i = 1}^k(x_{i_n} - x_i)^2} < \epsilon.
+    \end{equation*}
+\end{proof}
+
+
+\begin{proof}$(\Leftarrow)$ Let $\{x_n\}$ in $\RR^k$ and suppose each projection sequence $\{\pi_j(x_n)\}$ converges to $\pi_j(x), 1 \leq j \leq k$. 
+    By definition we know that for each $k$ there exists a $N_k$ such that $n \geq N_k$ $\sqrt{(x_{k_n} - x_k)^2} < \frac{\epsilon}{k}$.
+    Let $\epsilon > 0$ and note that for $N = max\{N_k\}$ it follows that for all $n \geq N$,
+    \begin{equation*}
+        d(x_n, x) = \sqrt{\sum_{i = 1}^k(x_{i_n} - x_i)^2} \leq \sum_{i = 1}^k \sqrt{(x_{i_n} - x_i)^2} < \sum_{i = 1}^k \frac{\epsilon}{k}  = \epsilon. 
+    \end{equation*}
+
+\end{proof}
+
+\problem Let $X$ be a topological space. The \textbf{\emph{diagonal}} of $X \times X$ is the subset $\Delta = \{(x, x): x \in X\}\subseteq X \times X$
+Show that $X$ is Hausdorff if and only if $\Delta$ is closed in $X \times X$. 
+\begin{proof} $(\Rightarrow)$ Let $X$ be a topological space and suppose $X$ is Hausdorff. Consider the subset $\Delta = \{(x, x): x \in X\}\subseteq X \times X$. We will proceed to show that $\Delta$ is closed by showing that $\Delta^c$ is open. Let $(p,q) \in X \times X$. Since $X$ is Hausdorff there exists open sets $U_p, U_q \subseteq X$ such that $p \in U_p$, $q \in U_q$, and $U_p \cap U_q = \emptyset$. Note that $(p, q) \in U_p\times U_q \subseteq \Delta^c$ since $U_p \cap U_q = \emptyset$. Therefore $\Delta^c$ is open and thus $\Delta$ is closed.  
+\end{proof}
+
+
+\begin{proof} $(\Leftarrow)$ Let $X$ be a topological space and suppose $\Delta$ is closed in $X \times X$. Consider $p, q \in X$ such that $p \neq q$. Note that by definition $(p, q) \in \Delta^c$, and since $\Delta^c$ is open there exists a basic open set $p \in \pi^{-1}(U_p)\cap \pi^{-1}(U_q)\subseteq \Delta^c$ where $U_p$ and $U_q$ are open in $X$. Therefore it follows that $p \in U_p$ and $q \in U_q$, with $U_p \cap U_q = \emptyset$, and thus $X$ is Hausdorff. 
+\end{proof}
+
+
+
+\problem Let $X$ and $Y$ be topological spaces such that every $f:X \to Y$ is continuous. Show that either $X$ is discrete 
+or $Y$ is indiscrete. 
+
+\begin{proof} Let $X$ and $Y$ be topological spaces such that every $f:X \to Y$ is continuous. Suppose $Y$ is not the indiscrete topology, which 
+    means that there exists some open set $U \subset Y$ such that $U \neq \empty, Y$. Let $V \subseteq X$, we can construct $f$ such that $V = f^{-1}(U)$ and since all $f$ are 
+    continuous $V$ must be open in $X$. Since $V$ was chosen arbitrarily, every subset of $X$ is open and thus $X$ has the discrete topology.     
+\end{proof}
+
+\end{problems}
+
+\end{document}

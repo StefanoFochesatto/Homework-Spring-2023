@@ -1,0 +1,17 @@
+function [tt, zz] = feuler(f, eta, t0, tf, N)
+% This function applies forward euler to obtain the solution
+% of an ODE IVP. f(t, u), is an inline function which describes 
+% the left hand side. eta is the vector of initial values. 
+% t0 and tf are initial and final times and N is the number of 
+% steps. 
+
+k = (tf - t0)/N;
+tt = t0:k:tf;
+[m, n] = size(eta);
+zz = zeros(m, N+1);
+zz(:, 1) = eta;
+for i = 1:N
+        zz(:, i+1) = zz(:, i) + k.*(f((t0+(k*i)), zz(:, i))); 
+end
+
+end

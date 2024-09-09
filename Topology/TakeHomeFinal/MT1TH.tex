@@ -1,0 +1,286 @@
+\documentclass{homework651}
+% \usepackage{cmacros}
+\include{hwextras}
+\def\ra{\rightarrow}
+\def\Reals{\mathbb{R}}
+\def\SS{\mathbb{S}}
+\usepackage{graphicx}
+% \usepackage{wrapfig}
+\DeclareMathOperator{\interior}{int}
+\usepackage[all,cmtip]{xy}
+\geometry{top=1in, bottom=0.75in, left=1in, right=1in}
+
+
+\doclabel{Math F651: Take Home Final}
+\docauthor{Stefano Fochesatto}
+\docdate{ \today}
+
+\begin{document}
+
+
+\begin{problems}
+
+\problem A map $f$ between spaces is \emph{proper} if the pre-image of any compact set is compact. 
+Let $X$ and $Y$ be locally compact Hausdorff spaces. Show that a continuous map $f: X \to Y$
+extends to a continuous map $f^*:X^* \to Y^*$ between the 1-point compactifications if and only if 
+it is proper. 
+
+%%% Needs review bones are good I think .
+\begin{proof} $(\Rightarrow)$ Let $f: X \to Y$ be a continuous map between locally compact Hausdorff spaces, and suppose that it extends to a continuous 
+    map $f^*:X^* \to Y^*$ between the 1-point compactifications. Let $U \subseteq Y$ be a compact set. By the definition of the 1-point compactification
+    we know that $U^c$ is open in $Y^*$. Since $f^*$ is continuous we find that $f^{*-1}(U^c) = f^{*-1}(U)^c$ is open in $X^*$ and therefore $f^{*-1}(U)^c$
+    is either open in $X$ or $f^{*-1}(U)$ is compact in $X$. Since $U \subseteq Y$ and since $f^*$ is an extension of $f$ 
+    it must be the case that $f^{*-1}(U^c) \subseteq X^*$ and hence  $f^{*-1}(U)$ is compact in $X$. Since $U \subseteq Y$
+    we know that $f^{*-1}(U) = f^{-1}(U)$ is compact in $X$. 
+\end{proof}
+
+
+\begin{proof}$(\Leftarrow)$ Let $f: X \to Y$ be a continuous and proper map between locally compact Hausdorff spaces.
+    Consider an extension of $f$, $f^*: X^* \to Y^*$ which takes $\infty_x \to \infty_y$. We will proceed to show that this
+    map is continuous. Let $U\subseteq Y^*$ be open. By definition of the one-point compactification topology, $U$ is either open 
+    in $Y$, in which case it follows that $f^{*-1}(U)$ is open in $X^*$ since $f$ is continuous, and $f^*$ is an extension. 
+    Let $U^c$ be compact in $Y$, since $f$ is proper we know that $f^{-1}(U^c)$ is compact in $X$. Therefore it follows that $f^{-1}(U^c)^c$
+    is open in $X^*$. Note that since $f^*$ is an extension of $f$ and $U^c \subseteq Y$ it follows that $f^{-1}(U^c)^c = f^{*-1}(U^c)^c = f^{*-1}(U)$, 
+    hence $f^*$ is a continuous map.  
+\end{proof}
+
+
+\problem The Möbius band is the quotient of $[0, 1] \times \RR$ where $(0, y) \sim (1, -y)$.
+\begin{enumerate}
+    \item[\textbf{(a)}] Show that the Möbius band is a 2-manifold. 
+    % Split the band down the middle on the interior. Show that that split is homeomorphic to some open sub
+    % set of the plane. Use glueing lemma to show that the whole band is homemorphic to some open subset of the plan
+    % you get the whole 2-manifold argument here
+
+    % Show that the interior is locally euclidean using an imbedding
+    % translate the points on the boundary to the interior via a homemorphism and form the same open set
+    % I'm not certain you get the 2-manifold argument here. 
+    \begin{proof} Let $M$ be the quotient of $[0, 1] \times \RR$ where $(0, y) \sim (1, -y)$.
+        First we will shoe that $M$ is locally euclidean dimension-$2$.
+    \end{proof}
+
+    \item[\textbf{(b)}] Show that the Möbius band is homotopy equivalent to a circle. 
+    \item[\textbf{(c)}] No rigor please, just a picture or two: what familiar space is the 1-point compactification
+    of the Möbius band?  
+\end{enumerate}
+
+
+\problem Let $G$ be a group acting by homeomorphism on a topological space $X$, and let $O \subseteq X \times X$
+be the subset defined by, 
+\begin{equation*}
+    O = \{(x_1, x_2): x_1 = g \cdot x_2 \quad \text{for some}\quad g \in G\}
+\end{equation*}
+it is called the orbit relation since $(x_1, x_2) \in O$ if and only if $x_1$ and $x_2$ are in the same orbit. 
+
+\begin{enumerate}
+    \item{\textbf{(a)}} Conclude that $X/G$ is Hausdorff if and only if $O$ is closed in $X \times X$. 
+    \begin{proof}$(\Rightarrow)$ Suppose $X/G$ is Hausdorff. We will proceed to show that 
+        $O$ is closed by showing $O^c$ is open. Consider $(x_1, x_2) \not\in O$, so clearly $q(x_1) \neq q(x_2)$
+        and since $X/G$ is Hausdorff there exists disjoint $q(x_1) \in U$ and $q(x_2) \in V$. Since $q$ is a quotient
+        map, by definition $q^{-1}(U)$ and $q^{-1}(V)$ are open in $X$ with the property that $(x_1, x_2) \in q^{-1}(U) \times q^{-1}(V) \subseteq O^c$
+    \end{proof}
+
+    \begin{proof}$(\Leftarrow)$ Suppose $O$ is closed in $X \times X$ and let $y_1, y_2 \in X/G$ be distinct. Since 
+        $q$ is surjective there exists $q(x_1) = y_1$ and $q(x_2) = y_2$. Since $y_1$ and $y_2$ are distinct by definition 
+        $(x_1, x_2) \in O^c$. Since $O^c$ is open, there exists a basic open set such that  $(x_1, x_2) \in U \times V \subseteq O^c$. 
+        In a previous homework we showed that $q$ is an open map, and therefore there exists open sets $y_1 \in q(U)$ and $y_2 \in q(V)$
+        and since $U \times V \subseteq O^c$ these sets are disjoint in $X/G$
+    \end{proof}
+
+    % Show that it is closed using sequences or nets. 
+    \item{\textbf{(b)}} Show that $\mathbb{R}\mathbb{P}^n$ is Hausdorff. 
+    \begin{proof} Recall that by definition $\mathbb{R}\mathbb{P}^n$ is the set of all lines through 
+        the origin in $\RR^{n+1}$. Consider the equivalence relation on $R^{n+1, *}$ define by $x \sim y$
+        if $y = \lambda x$ for some $\lambda \in \RR^*$. Then it is clear that $\mathbb{R}\mathbb{P}^n$
+        is homeomorphic to $R^{n+1, *}/\sim$, this relation however can be described as $R^*$ under multiplication 
+        acting by homeomorphism on $R^{n+1, *}$ so we get the following, $\mathbb{R}\mathbb{P}^n \sim R^{n+1, *}/R^*$.
+        By the previous result it is now be sufficient to show that $O$, the orbit relation of $R^*$ acting on $R^{n+1, *}$ is closed in $R^{n+1, *} \times R^{n+1, *}$.
+        Let $\langle (x_1, x_2)_\alpha \rangle_{\alpha \in A}$ be a convergent net whose terms are contained in $O$, with limit $(a, b)$. 
+        For this net to converge in the product it must be the case that $\langle {x_1}_\alpha \rangle_{a \in A} \to a$ and $\langle {x_2}_\alpha \rangle_{a \in A} \to b$ in 
+       $R^{n+1, *}$. However clearly since $\langle (x_1, x_2)_\alpha \rangle_{\alpha \in A}$ is contained in O we know that $\langle {x_2}_\alpha \rangle_{a \in A} = \langle \lambda{x_1}_\alpha \rangle_{a \in A}$.
+       Therefore it follows that $\langle {x_2}_\alpha \rangle_{a \in A} = \lambda\langle {x_1}_\alpha \rangle_{a \in A}$ which converges to $\lambda a$. Since $R^{n+1, *}$
+       is Hausdorff we know convergent nets have unique limits and therefore $b = \lambda a$ and thus by definition $(a, b) \in O$. We conclude that $O$ is 
+       closed in $R^{n+1, *} \times R^{n+1, *}$.
+    \end{proof}
+\end{enumerate}
+
+
+%A ball in the new topology is open in teh product topology. 
+
+\problem Consider the metric on $\RR$ given by $\overline{d}(x, y) = min(|x - y|, 1)$. For $z, w \in \RR^\omega$,define
+\begin{equation*}
+    d(z, w) = \sum^{\infty}_{k = 1}2^{-k}\overline{d}(z_k, w_k). 
+\end{equation*} 
+it can be easily show that $d$ is a metric. Prove that the topology this metric induces on $\RR^{\omega}$
+is the product topology. 
+\begin{proof} Consider the following topological spaces $(\RR^\omega)_d$ with topology induced by the metric $d$ and $(\RR^{\omega})_p$, 
+    with the product topology. Consider an open ball $\mathcal{B}_r(x) \subseteq (\RR^\omega)_d$. We wish to show that this open ball is also 
+    open in $(\RR^{\omega})_p$. Let  $g \in \mathcal{B}_r(x)$ and note that $$d(g, x) = \sum_{k = 1}^{\infty}2^{-k} \min(|g_k - x_k|, 1) < r$$
+
+    
+\end{proof}
+
+
+
+
+
+
+
+\problem 
+\begin{enumerate}
+    \item[\textbf{a}] Show that the upper half sphere $S^{n, +}$ with antipodal points on $\delta S^{n, +}$
+    identified is homeomorphic to $\mathbb{R}\mathbb{P}^n$.
+    \begin{proof} Note that points on the open upper half sphere $S^{n, +}$ are uniquely identified by lines through the 
+        origin. By definition, antipodal points on $\delta S^{n, +}$ are identified by a single line. We call this map $f: S^{n, +} \to \mathbb{R}\mathbb{P}^n$
+        We wish to show is that this map $f$, descends to the quotient $S^{n, +}/\sim$ as a bijection where $x \sim y$ if they are antipodal points in $\delta S^{n, +}$
+        Let $x, y \in S^{n, +}$ such that $q(x) = q(y)$, so by definition $\sim$ we know that $x, y \in \delta S^{n, +}$
+        and $x$ and $y$ are antipodal. Therefore $x, y$ are colinear with the origin and by definition $f$, we know that $f(x) = f(y)$. So $f$ descends to the quotient as a continuous function $\hat{f}: S^{n, +}/\sim \to \mathbb{R}\mathbb{P}^n$. 
+
+        Now note that the upper half sphere is a closed and bounded subset of $\RR^3$, hence by Heine-Borel it is also compact. 
+        Since quotient maps are surjective it follows that $S^{n, +}/\sim$ is compact. By the previous problem we know that $\mathbb{R}\mathbb{P}^n$ is 
+        Hausdorff. Therefore by the Closed Map Theorem it is sufficient to show that $\hat{f}$ is a bijection to get a homeomorphism from $ S^{n, +}/\sim$ and $\mathbb{R}\mathbb{P}^n$.
+
+        This map is very clearly a bijection since $f$ is a bijection when restricted to points other than the boundary, and it makes 
+        the same identifications as $q$ when on the boundary. 
+    \end{proof}
+
+
+% Uniqueness of quotient spaces. 
+    \item[\textbf{b}] Consider $X = \{(xy, yz, zx, x^2, y^2, z^2) \in \RR^6: x^2 + y^2 + z^2 = 1\}$. 
+    Prove that this set is homeomorphic to $\mathbb{R}\mathbb{P}^n$. 
+    \begin{proof}
+        
+    \end{proof}
+\end{enumerate}
+
+
+
+
+\problem Show that for each continuous map $\varphi: \mathbb{T}^2 \to \mathbb{T}^2$, there is a $2 \times 2$ integer 
+matrix $D(\varphi)$, with the following properties:
+\begin{enumerate}
+    % maps from torus to torus descend to s_1 maps. the degree of these maps goes into a matrix. 
+    % Think of tori as circle times circle. s1 \imbedd into s1 times s1 \phi s1 times s1 \pi_i s_1 
+    \item[\textbf{(a)}] Two continuous maps $\varphi$ and $\psi$ are homotopic if and only if $D(\varphi) = D(\psi)$. 
+    \solution
+        Note that $\mathbb{T}^2 \cong S^1 \times S^1$. Therefore we will define the map $\iota_i$ as an embedding of the product of $S^1$ and 
+        $\{1\}$ which takes $S^1$ into $i^{th}$ factor of $S^1 \times S^1$. Note that the choice of factor $\{1\}$ is arbitrary as the result 
+        is still homeomorphic to $S^1$ so we consider $\iota_i$ as a map from $S^1$. By composing 
+        with the factor embeddings $\iota_i$ and projections $\pi_i$ we get maps through $\varphi$ and $\psi$ which map $S^1 \to S^1$. 
+        Define them as follows, 
+        \begin{align*}
+            \varphi_{i, j} &= \pi_j\circ\varphi\circ\iota_i\\ 
+            \psi_{i, j} &=  \pi_j\circ\psi\circ\iota_i
+        \end{align*}
+
+        These maps are continuous as they are compositions of continuous functions, and therefore
+        we can define the entries of $D(f)$ by the $D(f)_{i, j} = \deg(f_{i, j})$. 
+        
+        With this definition to show is that to prove $(\Rightarrow)$ all that is left to show is that $\varphi_{i, j}$ is 
+        homotopic to $\psi_{i, j}$, since that would imply $\deg(\varphi_{i, j}) = \deg(\psi_{i, j})$. 
+
+        \begin{proof}
+        $(\Rightarrow)$ Suppose $\varphi$ and $\psi$ are homotopic, then there exists a homotopy $H: I \times (S^1 \times S^1)  \to S^1 \times S^1$ with the property
+        that $H(0, (x, y)) = \psi(x, y)$ and $H(1, (x, y)) = \varphi(x, y)$. Consider the following $\tilde{H}_{i, j}: I \times S^1 \to S^1$
+        defined by $\tilde{H}(t, z) = \pi_j(H(t, \iota_i(z)))$. Note this map is continuous since it is again a composition of continuous functions
+        and it has the desired property that $\tilde{H}_{i, j}(0, z) = \pi_j(H(0, \iota_i(z))) = \pi_j(\psi(\iota_i(z))) = \psi_{i, j}$ and similarly $\tilde{H}_{i, j}(1, z) = \varphi_{i, j}$.
+        Therefore we conclude that $\varphi_{i, j}$ are homotopic $\psi_{i, j}$. 
+    \end{proof}
+
+
+    \begin{proof} $(\Leftarrow)$ Suppose $D(\varphi) = D(\psi)$, where $D$ is defined 
+        
+    \end{proof}
+
+
+    \item[\textbf{(b)}] $D(\psi \circ \varphi)$ is equal to the matrix product $D(\psi)D(\varphi)$. 
+    \begin{proof}
+        
+    \end{proof}
+\end{enumerate}
+
+
+
+
+\problem For each of the following spaces give a presentation of the fundamental group together with a specific loop 
+representing each generator. 
+\begin{enumerate}
+    \item[\textbf{(a)}] A closed disk with two interior points removed. 
+    \item[\textbf{(b)}] The projective plane with two points removed. 
+    \item[\textbf{(c)}] a connected sum of $n$ tori with one point removed. 
+    \item[\textbf{(d)}] a connected sum of $n$ tori with two points removed. 
+\end{enumerate}
+
+
+\problem Let $S$ be a set, let $R$ and $R'$ be subsets of the free group $F(S)$, and let 
+$\pi: F(S) \to \langle S|R \rangle$ be the projection onto the quotient group. Prove that 
+$\langle S | R \cup R'\rangle$ is a presentation of the quotient group $\langle S | R \rangle / \overline{\pi(R')}$. 
+\begin{proof}
+    
+\end{proof}
+
+
+
+
+
+
+\problem Let $\pi: X \to Y$ be a quotient map. Suppose $Y$ is connected and each fiber $\pi^{-1}(y)$ is connected. 
+Show that $X$ is connected. 
+\begin{proof} Let $\pi: X \to Y$ be a quotient map, and let $Y$ be connected with each fiber $\pi^{-1}(y)$ also connected. Suppose
+    to the contrary that $X$ is not connected. By definition there exists sets $U$ and $V$ such that that $U \cap V = \emptyset$
+    and $U \cup V = X$. Since quotient maps are surjective, if $\pi(U) \cap \pi(V) = \emptyset$ it follows that $Y$ is not connected.
+    Suppose $\pi(U) \cap \pi(V) \neq \emptyset$, then there exists some $y \in \pi(U) \cap \pi(V)$. Note that since 
+    $y \in \pi(U) \cap \pi(V)$, the fiber $\pi^{-1}(y)$ must have elements in both $U$ and $V$, we find that 
+    $(\pi^{-1}(y) \cap U) \cup (\pi^{-1}(y) \cap V) = \emptyset$ so $\pi^{-1}(y)$ is not connected. 
+    
+\end{proof}
+
+
+\problem Recall that a set $A \subset X$ is a retract of $X$ if there is a continuous $f: X \to A$ such that 
+$f(a) = a$ for all $a \in A$.
+\begin{enumerate}
+    \item[\textbf{(a)}] Show that if $X$ is Hausdorff and $A$ is a retract of $X$ then $A$ is closed. 
+    \begin{proof} Suppose $X$ is Hausdorff and $A$ is a retract of $X$. By definition there exists a continuous function $r: X \to A$ such that $r\circ \iota_A = Id_A$ where $\iota_A$ is the inclusion map. 
+
+        We will proceed to show that $A$ is closed by showing that for every convergent net $\langle x_\alpha \rangle \to x$ where $\langle x_\alpha \rangle \subseteq A$ then $x \in A$. Since $r$ is continuous we know that $\langle r(x_{\alpha}) \rangle \to r(x)$. Since $r\circ \iota_A = Id_A$ it follows that $\langle r(x_{\alpha}) \rangle = \langle x_\alpha \rangle$ and by definition we know that $r(x) \in A$. Recall that convergent nets in Hausdorff spaces converge to a single limit, and therefore $r(x) = x$, and therefore $x \in A$. Hence $A$ is closed.     
+    \end{proof}
+    \item[\textbf{(b)}] Let $A$ be a two point subset of $\RR^2$. Show that it is not a retract of $\RR^2$
+    \begin{proof} Let $A$ be a two point subset of $\RR^2$ and suppose to the contrary that $A$ is a retract of $\RR^2$. 
+        By definition there exists a continuous function $f: \RR^2 \to A$ such that 
+        $f(a) = a$ for all $a \in A$. However for $f$ to be a continuous function from $\RR^2$ into a discrete space like $A$
+        it must be a constant map, but clearly it isn't since $f(a_1) = a_1 \neq a_2 = f(a_2)$, a contradiction. 
+
+    \end{proof}
+    \item[\textbf{(c)}] Show that the closed ball $\mathbb{B}^2$ is a retract of $\RR^2$. 
+    \begin{proof} Consider the function $f:\RR^2 \to \mathbb{B}^2$ defined by, 
+        \begin{equation*}
+            f(x) = \begin{cases}
+                x & ||x|| \leq 1,\\
+                \dfrac{x}{|||x||} & ||x|| > 1.
+            \end{cases}
+        \end{equation*}
+        Clearly this function has the desired property that $f(\mathbb{B}^2) = \mathbb{B}^2$. We can quickly see that it's continuous 
+        as $f_1: \mathbb{B}^2 \to \mathbb{B}^2$ defined by $f_1(x) = x$ and $f_2 : \interior(\mathbb{B}^2)^2 \to \mathbb{B}^2$ defined by $f_2(x) = \frac{x}{||x||}$
+        are continuous function whose domains form a closed cover which partitions $\RR^2$ which agree on $\partial \mathbb{B}^2$. So by glueing lemma $f$
+        is continuous.  
+
+    \end{proof}
+
+
+    \item[\textbf{(d)}] Show that $S^1$ is not a retract of $\RR^2$. 
+    \begin{proof} Suppose to the contrary that $s^1$ is a retract of $\RR^2$. The there exists a 
+        continuous map $f: \RR^2 \to S^1$ such that $f(x)=x$ for all $x \in S^1$. Also consider 
+        $\iota: S^1 \to \RR^2$ the embedding map. Since $f$ is a retraction when we compose $ f \circ \iota = Id_{S^1}$. 
+        Let $p \in S^1$ and note that since these maps are continuous and the idenity on $S^1$, they descend to maps on 
+        the fundamental groups, $f^*: \pi_1(\RR^2, p) \to \pi_1(S^1, p)$ and $\iota^*: \pi_1(S^2, p) \to \pi_1(\RR^2, p)$. Note
+        that $f^* \circ \iota^* = Id_{S^1}^*$ Since $Id_{S^1}^*$ is a bijection we know that $f^*$ must be an surjection
+        and $\iota^*$ must be an injection. However since $\RR^2$ is contractable we know that $\pi_1(\RR^2, p)$ is trivial 
+        and since $\pi_1(S^1, p) \cong \ZZ$ we know that $f$ be a surjection must be a contradiction. 
+    \end{proof}
+\end{enumerate} 
+
+
+
+
+\end{problems}
+\end{document}

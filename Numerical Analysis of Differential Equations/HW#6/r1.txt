@@ -1,0 +1,25 @@
+f = @(t, u) ([0 1; -1 0]*u);
+eta = [1 0]';
+t0 = 0;
+tf = 2;
+
+uexact = @(x) cos(x);
+Nlist = [10 20 40 80 160 320 640 1280];
+err = [];
+klist = 2 ./ (Nlist - 1);
+
+
+
+for k = 1:length(Nlist)
+    [tt,zz] = rk4(f,eta,t0,tf,Nlist(k));
+    err = [err abs(zz(1,Nlist(k) + 1) - uexact(tf))];
+end
+
+p = polyfit(log(klist),log(err),1);
+fprintf('convergence at rate O(h^k) with k = %f\n',p(1))
+loglog(klist,err,'o',klist,exp(p(2) + p(1)*log(klist)),'r--')
+xlabel k,  ylabel('Truncation Error at tf')
+text(0.01,0.0002,sprintf('O(h^{%.3f})',p(1)),'Color','r','FontSize',14)
+title(sprintf('Convergence of fourth 
+    order Runga Kutta lte at tf, O(k^{%.3f})',p(1)))
+axis tight

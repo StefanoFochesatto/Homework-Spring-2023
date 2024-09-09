@@ -1,0 +1,33 @@
+function [tt,zz] = HEATbeulerED(m,eta,t0,tf,N)
+% HEATBACKWARDEULER  Solve
+%   u_t = u_xx ,  u(0, x) = eta
+% for u(t, x) on the interval [t0,tf] with N steps in time
+% and m+2 steps in space. Backward Euler in time via method of lines.
+% 
+% Usage: [tt,zz] = HEATbeulerED(m,eta,t0,tf,N)
+
+% Compute step size in space
+h = 1/(m + 1);
+
+% Generate matrix for system of IVPs in time
+A = (1/h^2).*(diag(((- 2)*ones(m, 1))) ...
+    + diag(ones(m - 1, 1), 1) ...
+    + diag(ones(m - 1, 1), -1));
+
+% Define step in time. 
+dt = (tf - t0) / N;
+% Sparse representation of 
+% backward euler system, 
+% U(n+1) = U(n) + kAU(n+1)
+% (1 - kA)U(n+1) = U(n)
+fU = sparse(diag((ones(m, 1))) - dt.*A);
+
+tt = t0:dt:tf;        % row vector of times
+eta = eta(:);         % force to be column vector
+s = length(eta);
+zz = zeros(s,N+1);    % jth column is U at t_{j-1}
+zz(:,1) = eta;
+
+for j = 1:N        % Backward Euler Solve
+    zz(:,j+1) = (fU)\zz(:,j);
+end

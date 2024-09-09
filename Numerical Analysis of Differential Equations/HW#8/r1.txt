@@ -1,0 +1,35 @@
+function [tt,zz, xx] = HEATbeulerD(m,feta,t0,tf,N, D)
+% HEATBACKWARDEULER  Solve
+%   u_t = Du_xx , u(0, x) = eta, u(t,0) = u(t,1) = 0
+% for u(t, x) on the interval [t0,tf] with N steps in time
+% and m+2 steps in space. Backward Euler in time via method of lines.
+% 
+% Usage: [tt,zz] = HEATbeulerED(m,feta,t0,tf,N,D)
+
+% Compute step size in space
+h = 1/(m + 1);
+
+% Generate matrix for system of IVPs in time
+A = (D/h^2) * spdiags([ones(m,1), ...
+        -2*ones(m,1), ones(m,1)], ...
+        [-1, 0, 1], m, m);
+
+% Define step in time. 
+dt = (tf - t0) / N;
+% Sparse representation of 
+% backward euler system, 
+% U^n+1 = U^n + kAU^n+1
+% (1 - kA)U^n+1 = U^n
+fU = speye(m,m) - dt*A;
+
+tt = t0:dt:tf;        % row vector of times
+xx = linspace(0, 1, m+2); % row vector of spatial location
+eta = feta(xx(2:end-1)');   % Solving for needed initial condition
+zz = zeros(m, N+1);    % jth column is U at t_{j-1}
+zz(:,1) = eta;
+for j = 1:N        % Backward Euler Solve
+    zz(:,j+1) = (fU)\zz(:,j);
+end
+
+% Putting together dirichlet conditions. 
+zz = [feta(0)*ones(N+1, 1)'; zz; feta(1)*ones(N+1, 1)'];

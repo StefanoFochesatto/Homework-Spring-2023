@@ -1,0 +1,22 @@
+feta = @(x) sin(5*pi*x);
+t0 = 0;
+tf = .1;
+D = 1/20;
+
+uexact = @(t,x) exp(-25*pi^2*(1/20)*t)*sin(5*pi.*x);
+Nlist = [.02, .01, .005, .002, .001, .0005];
+err = [];
+
+
+for k = 1:length(Nlist)
+    [tt,zz,xx] = HEATbeulerD((1/Nlist(k))-1,feta,0,.1,(.1/Nlist(k)),D);
+    err = [err max(abs(zz(:,end) - uexact(tf, xx)'))];
+end
+
+p = polyfit(log(Nlist),log(err),1);
+fprintf('convergence at rate O(h^k) with k = %f\n',p(1))
+loglog(Nlist,err,'o',Nlist,exp(p(2) + p(1)*log(Nlist)),'r--')
+xlabel k,  ylabel('Truncation Error at tf')
+text(0.01,0.0002,sprintf('O(h^{%.3f})',p(1)),'Color','r','FontSize',14)
+title(sprintf('Convergence in space of BTCS O(h^{%.3f})',p(1)))
+axis tight

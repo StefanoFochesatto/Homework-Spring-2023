@@ -1,0 +1,19 @@
+f = @(x) [2 x x; -1 0 1; -1 1 0];
+n = 50;
+x = linspace(-1, 5, n);
+Hist = [];
+for i = 1:n
+    Hist = [Hist sort(eig(f(x(i))))];
+end
+
+plot(x,Hist(1, :), 'x', x , Hist(2, :), 'O', x,Hist(3, :), '*')
+plot3(real(Hist(1, :)), imag(Hist(1, :)),x, 'x', ...
+    real(Hist(2, :)), imag(Hist(2, :)),x, ...
+    'O',real(Hist(3, :)), imag(Hist(3, :)), x,'*')
+
+xlabel('real axis')
+ylabel('imaginary axis')
+zlabel('x-value')
+title(['Plotted eigenvalues for ' ...
+    'matrix values function f(x)'])
+grid on

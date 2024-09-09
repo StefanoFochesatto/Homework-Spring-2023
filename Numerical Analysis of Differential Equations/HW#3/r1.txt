@@ -1,0 +1,11 @@
+function z = richardson(A, b, x0, N, omega)
+% This function takes in a system Ax = b
+% an initial iterate x0, a residual scaling factor omega and a number of
+% iterations N and performs richardson iteration
+% using x_{k + 1} = x_k + \omega(b - Ax_k).
+
+z = x0;
+for i = 1:N
+    z = z + (omega.*(b - A*z));
+end
+end

@@ -1,0 +1,176 @@
+\documentclass{homework651}
+\include{hwextras}
+\usepackage{graphicx}
+\usepackage[all,cmtip]{xy}
+\def\net<#1>{\left<#1\right>}
+
+\newcommand{\bbB}{\mathbb{B}}
+\doclabel{Math F651: Homework 9}
+\docdate{Due: April 7, 2023}
+\begin{document}
+\begin{problems}
+\problem Suppose $\left<x\right>_{\alpha\in A}$ is a net
+in $X$ that does not converge to $x\in X$.  Show that
+there is an open set $U$ containing $x$ and a subnet
+$\left<x_{\alpha_\beta}\right>_{\beta\in B}$ such that
+$x_{\alpha_{\beta}}\not\in U$ for all $\beta\in B$.
+Hint: For a particular `bad` $U$, 
+take $B$ to be the entire subset of $A$ such that
+$x_{\beta}\not\in U$ and show that $B$ is directed.
+Then show that there is a natural increasing cofinal map
+from $B$ to $A$.
+
+\begin{proof}Suppose $\left<x_\alpha\right>_{\alpha\in A}$ is a net
+    in $X$ that does not converge to $x\in X$. By definition there exists 
+    a $U \in \mathcal{V}(x)$ such that $\left<x_\alpha\right>_{\alpha\in T(\alpha')} \not\subseteq U$ for 
+    all $\alpha' \in A$. Let $B = \{\alpha \in A: x_\alpha \not\in U\}$. We will proceed by 
+    showing that $B$ is directed with $\leq$ relation inherited from $A$. Clearly it's reflective, 
+    and transitive, by $A$. Let $a, b \in B$, and note that $\left<x_\alpha\right>_{\alpha\in T(a)} \not\subseteq U$
+    and $\left<x_\alpha\right>_{\alpha\in T(b)} \not\subseteq U$, since $x_a, x_b \not\in U$. Since $A$ is directed, there exist a $c \in A$ 
+    such that $c \geq a, b$. Since $c \in A$ we know that $\langle x_c' \rangle_{c' \in T(c)} \not\subseteq U$, and therefore there 
+    exists a $x_c^* \not\in U$. Note that by definition $c^* \in B$ and since $c^* \in T(c)$ it follows $c^* \geq c \geq a, b$ and thus $B$ is directed.   
+    
+    
+    We will proceed to show that $f:B \to A$ defined by the identity is increasing and cofinal. Clearly this map is increasing, 
+    since our directness was inherited from $A$. Let $a \in A$, and note that  $\left<x_\alpha\right>_{\alpha\in T(a)} \not\subseteq U$
+    so there exists some $b \in T(a)$ such that $x_b \not\in U$. Note that $b \in B$ and $f(b) = b \geq a$. 
+
+    Therefore $B$ defines a subnet $\langle x_{\alpha_\beta}\rangle$ which by construction has the property that $x_{\alpha_\beta} \not\in U$
+    for all $\beta \in B$. 
+
+\end{proof}
+
+
+
+
+\problem Crossley 6.1
+Show that the spaces $[0,1]$ and $(0,1)$ are homotopy equivalent
+by finding an explicit homotopy equivalence and its inverse 
+between the two spaces.
+
+\begin{proof} 
+    Let $f: [0, 1] \to (0, 1)$ be defined by $f(x) = \frac{1 + 2(x)}{4}$. Let $g: (0, 1) \to [0, 1]$ be the 
+    identity map. 
+    Consider $g \circ f$ which is defined by $g(f(x)) = \frac{1 + 2(x)}{4}$. We will show this function is homotopy equivalent 
+    to the identity on $(0, 1)$ by exhibiting an explicit homotopy. Consider the function $H_1: I \times I \to I$ defined by, 
+    \begin{equation*}
+        H_1(x, t) = \frac{1 + 2(x)}{4}(1 - t) + x(t).
+    \end{equation*}
+    This function is continuous and note that $H_1(x, 0) =  \frac{1 + 2(x)}{4} = g(f(x))$ and $H_2(x, 1) = x$. 
+
+    Consider $f \circ g$ which is defined by $f(g(x)) = \frac{1 + 2(x)}{4}$. We will show this function is homotopy equivalent 
+    to the identity on $(0, 1)$ by exhibiting an explicit homotopy. Consider the function $H_2: (0, 1) \times I \to (0, 1)$ defined by,
+    \begin{equation*}
+        H_2(x, t) = \frac{1 + 2(x)}{4}(1 - t) + x(t).
+    \end{equation*}
+    This function is also continuous and note that $H_2(x, 0) =  \frac{1 + 2(x)}{4} = f(g(x))$ and $H_2(x, 1) = x$. 
+\end{proof}
+
+
+velcro
+
+
+
+\newpage
+\problem Crossley 6.4b
+
+Suppose $f:X\rightarrow S^n$ is continuous and not surjective.
+Show that it is homotopic to a constant map.
+\begin{proof} Suppose $f:X\rightarrow S^n$ is continuous and not surjective. Let $p \not\in f(X)$ and 
+    recall that $A = S^n\setminus \{p\}$ is homeomorphic to $\RR^n$ via the 
+    stereographic projection map $\sigma$. Note that $\sigma(f(x))$ is a map from $X \to \RR^n$, and recall that 
+    $\RR^n$ is contractible and therefore there exists a homotopy, namely $H(x, t) = \sigma(f(x))(1 - t) + q(t)$ with the property that 
+    $H(x, 0) = \sigma(f(x))$ and $H(x, 1) = q$ where $q = \sigma(i)$ for some $i \in A$. Note that $\sigma^{-1}(H(x, t))$ is a function 
+    defined from $X \times I \to A$ with the property that 
+    \begin{equation*}
+        \sigma^{-1}(H(x,t)) = \sigma^{-1}(\sigma(f(x))(1) + q(0)) = f(x)
+    \end{equation*}
+     and
+     \begin{equation*}
+        \sigma^{-1}(H(x,t)) = \sigma^{-1}(\sigma(f(x))(0) + q(1)) = \sigma^{-1}(q) = \sigma^{-1}(\sigma(i)) = i,
+     \end{equation*}
+    a constant map in $S^n$ since $i \in A \subseteq S^n$. 
+    Since $\sigma^{-1}(H(x, t))$ is a composition of continuous functions it is also continuous and thus we have constructed 
+    a homotopy from $f$ to a constant map. 
+\end{proof}
+
+
+
+
+
+
+
+\problem Crossley 6.5
+
+Show by means of an explicit homotopy
+that the map $f:S^1\rightarrow S^1$ given by $f(x,y)=(-x,-y)$
+is homotopic to the identity.
+\begin{proof} Suppose $f:S^1\rightarrow S^1$ given by $f(x,y)=(-x,-y)$. Note that $(x, y) = z$ for some $z \in \CC$ 
+    and then the function is equivalent to $f(z) = e^{i\pi}z$. Clearly our desired homotopy is given by $H(z, t) = e^{i\pi(t)}z$
+    since it is continuous and $H(z, 0) = e^0z = z$ and $H(z, 1) = e^{i\pi(1)}z = f(z)$.     
+\end{proof}
+
+
+
+
+
+
+
+%this is the set of homotopy classes from X to itself
+\problem Show that a space $X$ is contractible if and only if 
+$[X,X]$ consists of a single element.
+\begin{proof}$(\Rightarrow)$ Suppose $X$ is contractible. By definition $X$ is homotopy equivalent to a one point space, 
+    and therefore for $Y = \{p\}$ there exists function $c_p: X \to Y$ and $c_0: Y \to X$ such that $c_p \circ c_0$ is homotopic to $i_{Y}$
+    and $c_0 \circ c_p$ is homotopic to $i_X$. Since $Y$ is a one point space $[Y:X]$ has only one homotopy class and therefore, 
+\begin{align*}
+    [f]  &= [f \circ i_X]\\
+          &= [f] \circ [i_X]\\
+         &= [f] \circ [c_0 \circ c_p]\\
+         &= [f \circ c_0] \circ [c_p]\\
+         &= [c_0] \circ [c_p]\\
+         &= [g \circ c_0] \circ [c_p]\\
+         &= [g] \circ [c_0 \circ c_p]\\
+         &= [g] \circ [i_X]\\
+         &= [g \circ i_X]\\
+         &= [g]
+\end{align*}
+    
+\end{proof}
+
+
+\begin{proof}$(\Leftarrow)$ Suppose $[X,X]$ consists of a single element. Then the constant map for $p \in X$ is homotopic to the
+    identity map in $X$. Consider the one point space $A = \{p\}$ and note that $c_p: X \to A$ and $i_X|_p$, the identity map
+    restricted to $A$ when composed 
+    as $c_p \circ i_X|_p$ give the identity in $A$ and $i_X|_p \circ c_p$ give a constant map in $X$, which is homotopic to the identity in $X$
+    and therefore $X \sim A$. 
+\end{proof}
+
+
+\problem Suppose that $f, g: S^n \to S^n$ are continuous maps such that $f(x) \neq -g(x)$ for any $x \in S^n$. Prove that 
+$f$ and $g$ are homotopic. 
+\begin{proof} Consider the function $H:S^n \times I \to S^n$, 
+    \begin{equation*}
+        H(x, t) = \dfrac{f(x)(1 - t) + g(x)t}{|f(x)(1 - t) + g(x)t|}.
+    \end{equation*}
+    Note that since $f, g: S^n \to S^n$ we know that  $H(x, 0) = \frac{f(x)}{|f(x)|} = f(x)$ and $H(x, 1) = \frac{g(x)}{|g(x)|} = g(x)$.
+    What is left to show is that $H(x, t)$ is continuous from $S^n \times I \to S^n$. 
+    
+    Note that $n(x) = \frac{x}{|x|}$ is a continuous function 
+    from $R^n\setminus \{0\} \to S^n$. Let $c(x, t): S^1 \times I \to R^n$ be defined by $c(x, t) = f(x)(1 - t) + g(x)t$ and suppose to the contrary that $f(x)(1 - t) + g(x)t = 0$,
+    that would imply that $g(x) = \frac{t - 1}{t}f(x)$, and since $f$ and $g$ are maps into $S^n$, taking the absolute value of 
+    both sides gives, 
+    \begin{align*}
+        \left|g(x)\right| &= \left|\dfrac{t - 1}{t}\right|\left|f(x)\right|,\\
+        1 &= \left|\dfrac{t - 1}{t}\right|,\\
+        1 &= \dfrac{|t - 1|}{t},\\
+        t &= \left|t - 1\right|.
+    \end{align*}
+    so $t = 1/2$. Substituting back into our equation we get $f(x) = -g(x)$ a contradiction. Thus $f(x)(1 - t) + g(x)t \neq 0$
+    for all $(x, t) \in S^n \times I$. Clearly $c(x, t)$ is continuous, and since $c(x, t) \neq 0$ we know that $n(c(x, t)) = H(x, t)$ is continuous, as it is a composition of continuous functions. 
+\end{proof}
+                    
+
+\end{problems}
+
+\end{document}
+
